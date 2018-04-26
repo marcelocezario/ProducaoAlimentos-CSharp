@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{12DB0836-19A9-41F3-8357-8FB139A57343}</ProjectGuid>
+    <ProjectGuid>{78ABA9E8-84F2-4F4B-9971-60F618B7BE55}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>ProducaoAlimentos_Console</RootNamespace>
-    <AssemblyName>ProducaoAlimentos_Console</AssemblyName>
+    <RootNamespace>ProducaoAlimentos</RootNamespace>
+    <AssemblyName>ProducaoAlimentos</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
