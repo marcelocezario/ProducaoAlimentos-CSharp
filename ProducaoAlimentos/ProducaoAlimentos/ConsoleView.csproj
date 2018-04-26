@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{78ABA9E8-84F2-4F4B-9971-60F618B7BE55}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>ProducaoAlimentos</RootNamespace>
+    <RootNamespace>ConsoleView</RootNamespace>
     <AssemblyName>ConsoleView</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
