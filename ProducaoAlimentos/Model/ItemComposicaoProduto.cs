@@ -11,7 +11,7 @@ namespace Model
         public int ItemComposicaoProdutoID { get; set; }
         public int ProdutoID { get; set; }
         public int InsumoID { get; set; }
-        public virtual int _Insumo { get; set; }
+        public virtual Insumo _Insumo { get; set; }
         public double QuantidadeInsumo { get; set; }
     }
 }
