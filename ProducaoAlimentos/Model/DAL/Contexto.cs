@@ -7,7 +7,17 @@ using System.Threading.Tasks;
 
 namespace Model.DAL
 {
-    class Contexto : DbContext
+    public class Contexto : DbContext
     {
+        public Contexto() : base("strConn")
+        {
+            Database.SetInitializer(
+                new DropCreateDatabaseIfModelChanges<Contexto>()
+                );
+        }
+
+        public DbSet<Insumo> Insumos { get; set; }
+        public DbSet<Produto> Produtos { get; set; }
+        public DbSet<ItemComposicaoProduto> ItensComposicaoProduto { get; set; }
     }
 }

@@ -13,5 +13,18 @@ namespace Controller
         {
 
         }
+
+        public Insumo EditarInsumo (int insumoID)
+        {
+            
+        }
+
+        public void ExcluirInsumo (Insumo insumo)
+        {
+
+        }
+
+        public List
+
     }
 }
