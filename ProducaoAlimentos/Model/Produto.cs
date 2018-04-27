@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace Model
 {
-    class Produto
+    public class Produto
     {
+        public int ProdutoID { get; set; }
+        public string NomeProduto { get; set; }
+        public string UnidadeDeMedida { get; set; }
+
+        public virtual List<ItemComposicaoProduto> ItemComposicaoProduto { get; set; }
     }
 }
