@@ -9,7 +9,7 @@ namespace Model
     public class Insumo
     {
         public int InsumoID { get; set; }
-        public string NomeInsumo { get; set; }
+        public string Nome { get; set; }
         public string UnidadeDeMedida { get; set; }
     }
 }

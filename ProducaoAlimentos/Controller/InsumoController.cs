@@ -9,19 +9,41 @@ namespace Controller
 {
     public class InsumoController
     {
-        public void SalvarInsumo (Insumo insumo)
+        public bool SalvarInsumo (Insumo insumo)
         {
+            ContextoSingleton.Instancia.Insumos.Add(insumo);
+            ContextoSingleton.Instancia.SaveChanges();
 
+            return true;
         }
 
-        public Insumo EditarInsumo (int insumoID)
+        public Insumo PesquisarInsumoPorID (int insumoID)
         {
-            
+            return ContextoSingleton.Instancia.Insumos.Find(insumoID);
         }
 
-        public void ExcluirInsumo (Insumo insumo)
+        public bool ExcluirInsumo (Insumo insumo)
         {
+            ContextoSingleton.Instancia.Entry(insumo).State =
+                System.Data.Entity.EntityState.Deleted;
 
+            ContextoSingleton.Instancia.SaveChanges();
+
+            return true;
         }
+
+        public Insumo PesquisarInsumoPorNome (string nomeInsumo)
+        {
+            var i = from x in ContextoSingleton.Instancia.Insumos
+                    where x.Nome.ToLower().Contains(nomeInsumo.Trim().ToLower())
+                    select x;
+
+            if (i != null)
+                return i.FirstOrDefault();
+            else
+                return null;
+        }
+
+        
     }
 }
