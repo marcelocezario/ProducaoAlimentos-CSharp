@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ContextoSingleton.cs" />
     <Compile Include="InsumoController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
