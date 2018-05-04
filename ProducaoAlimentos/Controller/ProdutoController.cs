@@ -32,9 +32,27 @@ namespace Controller
             return true;
         }
 
-        public void PesquisarProdutoPorNome(string nomeProduto)
+        public Produto PesquisarProdutoPorNome(string nomeProduto)
         {
+            var p = from x in ContextoSingleton.Instancia.Produtos
+                    where x.Nome.ToLower().Contains(nomeProduto.Trim().ToLower())
+                    select x;
 
+            if (p != null)
+                return p.FirstOrDefault();
+            else
+                return null;
+        }
+
+        public List<Produto> ListarProdutos() => ContextoSingleton.Instancia.Produtos.ToList();
+
+        public List<Produto> ListarProdutosOrdemAlfabetica()
+        {
+            var p = from x in ListarProdutos()
+                    orderby x.Nome
+                    select x;
+
+            return p.ToList();
         }
     }
 }

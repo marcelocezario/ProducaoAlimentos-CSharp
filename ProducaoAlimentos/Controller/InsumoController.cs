@@ -44,10 +44,7 @@ namespace Controller
                 return null;
         }
 
-        public List<Insumo> ListarInsumos()
-        {
-            return ContextoSingleton.Instancia.Insumos.ToList();
-        }
+        public List<Insumo> ListarInsumos() => ContextoSingleton.Instancia.Insumos.ToList();
 
         public List<Insumo> ListarInsumosOrdemAlfabetica()
         {

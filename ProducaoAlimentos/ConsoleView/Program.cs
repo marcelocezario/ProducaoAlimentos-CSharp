@@ -15,27 +15,26 @@ namespace ConsoleView
             CadastrarInsumos = 1,
             CadastrarProdutos = 2,
 
-
             ListarInsumos = 5,
             ListarProdutos = 6,
-
 
             Sair = 9,
         }
 
         private static OpcoesMenuPrincipal Menu()
         {
-            Console.WriteLine("1 - " + OpcoesMenuPrincipal.CadastrarInsumos);
-            Console.WriteLine("2 - " + OpcoesMenuPrincipal.CadastrarProdutos);
+            Console.WriteLine("1 - CadastrarInsumos");
+            Console.WriteLine("2 - CadastrarProdutos");
             Console.WriteLine("");
-            Console.WriteLine("5 - " + OpcoesMenuPrincipal.ListarInsumos);
-            Console.WriteLine("6 - " + OpcoesMenuPrincipal.ListarProdutos);
+            Console.WriteLine("5 - ListarInsumos");
+            Console.WriteLine("6 - ListarProdutos");
             Console.WriteLine("");
-            Console.WriteLine("9 - " + OpcoesMenuPrincipal.Sair);
+            Console.WriteLine("9 - Sair");
             Console.WriteLine("");
 
-            Console.WriteLine("Escolha a sua opção e tecle enter: ");
+            Console.Write("Escolha a sua opção e tecle enter: ");
             string opcao = Console.ReadLine();
+            Console.WriteLine("");
             return (OpcoesMenuPrincipal)int.Parse(opcao);
         }
 
@@ -75,15 +74,57 @@ namespace ConsoleView
             InsumoController ic = new InsumoController();
             Insumo insumo = new Insumo();
 
-            insumo.Nome = "Farinha de Trigo";
-            insumo.UnidadeDeMedida = "Kg";
+            Console.Write("Digite o nome do Insumo: ");
+            insumo.Nome = Console.ReadLine();
+            Console.Write("Digite a unidade de medida do insumo: ");
+            insumo.UnidadeDeMedida = Console.ReadLine();
 
             ic.SalvarInsumo(insumo);
+
+            Console.WriteLine("Insumo adicionado com sucesso!");
+            Console.WriteLine("");
         }
 
         private static void CadastrarProduto()
         {
-            throw new NotImplementedException();
+            ProdutoController pc = new ProdutoController();
+            Produto produto = new Produto();
+            List<ItemComposicaoProduto> itens = new List<ItemComposicaoProduto>();
+            InsumoController ic = new InsumoController();
+
+            Console.Write("Digite o nome do Produto: ");
+            produto.Nome = Console.ReadLine();
+            Console.Write("Digite a unidade de medida do Produto: ");
+            produto.UnidadeDeMedida = Console.ReadLine();
+
+            Console.WriteLine("");
+            string opcao;
+            do
+            {
+                ItemComposicaoProduto item = new ItemComposicaoProduto();
+                Console.Write("Digite o nome do insumo que deseja utilizar na receita: ");
+                item._Insumo = ic.PesquisarInsumoPorNome(Console.ReadLine());
+                item.InsumoID = item._Insumo.InsumoID;
+
+                Console.Write("Digite a quantidade (em " + item._Insumo.UnidadeDeMedida
+                    + ") de " + item._Insumo.Nome + " necessária para produzir 1 " + produto.UnidadeDeMedida + " de " + produto.Nome + ": ");
+                item.QuantidadeInsumo = double.Parse(Console.ReadLine());
+
+                itens.Add(item);
+
+                Console.WriteLine("");
+                Console.Write("Deseja adicionar mais algum insumo a receita (s/n)? ");
+
+                opcao = Console.ReadLine();
+
+            } while (opcao.Equals("s") || opcao.Equals("S"));
+
+            produto.ComposicaoProduto = itens;
+
+            pc.SalvarProduto(produto);
+
+            Console.WriteLine("Produto adicionado com sucesso!");
+            Console.WriteLine("");
         }
 
         private static void ListarInsumos()
@@ -103,7 +144,27 @@ namespace ConsoleView
 
         private static void ListarProdutos()
         {
-            throw new NotImplementedException();
+            ProdutoController pc = new ProdutoController();
+
+            Console.WriteLine("Listagem de produtos");
+            foreach (Produto p in pc.ListarProdutosOrdemAlfabetica())
+            {
+                Console.WriteLine("");
+                Console.WriteLine("Id..................: " + p.ProdutoID);
+                Console.WriteLine("Nome................: " + p.Nome);
+                Console.WriteLine("Unidade de Medida...: " + p.UnidadeDeMedida);
+                Console.WriteLine("....Composição....");
+                foreach (ItemComposicaoProduto i in p.ComposicaoProduto)
+                {
+                    Console.WriteLine(i.QuantidadeInsumo + " " + i._Insumo.UnidadeDeMedida + " de " + i._Insumo.Nome);
+                }
+                Console.WriteLine("-----------------------------------------------------");
+            }
+        }
+
+        private void LimparTela()
+        {
+
         }
     }
 }
