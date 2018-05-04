@@ -23,14 +23,18 @@ namespace ConsoleView
 
         private static OpcoesMenuPrincipal Menu()
         {
-            Console.WriteLine("1 - CadastrarInsumos");
-            Console.WriteLine("2 - CadastrarProdutos");
-            Console.WriteLine("");
-            Console.WriteLine("5 - ListarInsumos");
-            Console.WriteLine("6 - ListarProdutos");
-            Console.WriteLine("");
-            Console.WriteLine("9 - Sair");
-            Console.WriteLine("");
+            LimparTela();
+            Console.WriteLine(" _______________________________________________________  ");
+            Console.WriteLine("|------------------ PRODUÇÃO ALIMENTOS -----------------| ");
+            Console.WriteLine("|                                                       | ");
+            Console.WriteLine("|                1 - CadastrarInsumos                   | ");
+            Console.WriteLine("|                2 - CadastrarProdutos                  | ");
+            Console.WriteLine("|                                                       | ");
+            Console.WriteLine("|                5 - ListarInsumos                      | ");
+            Console.WriteLine("|                6 - ListarProdutos                     | ");
+            Console.WriteLine("|                                                       | ");
+            Console.WriteLine("|                9 - Sair                               | ");
+            Console.WriteLine("|_______________________________________________________| ");
 
             Console.Write("Escolha a sua opção e tecle enter: ");
             string opcao = Console.ReadLine();
@@ -45,6 +49,8 @@ namespace ConsoleView
             do
             {
                 opcaoDigitada = Menu();
+
+                LimparTela();
 
                 switch (opcaoDigitada)
                 {
@@ -65,12 +71,21 @@ namespace ConsoleView
                     default:
                         break;
                 }
+
                 Console.WriteLine("");
+                Console.WriteLine("Pressione qualquer tecla para continuar...");
+                Console.ReadKey();
+
             } while (opcaoDigitada != OpcoesMenuPrincipal.Sair);
         }
 
         private static void CadastrarInsumo()
         {
+            Console.WriteLine(" _______________________________________________________ ");
+            Console.WriteLine("|------------------ CADASTRAR INSUMO -------------------|");
+            Console.WriteLine("|_______________________________________________________|");
+            Console.WriteLine("");
+
             InsumoController ic = new InsumoController();
             Insumo insumo = new Insumo();
 
@@ -87,6 +102,11 @@ namespace ConsoleView
 
         private static void CadastrarProduto()
         {
+            Console.WriteLine(" _______________________________________________________ ");
+            Console.WriteLine("|------------------ CADASTRAR PRODUTO ------------------|");
+            Console.WriteLine("|_______________________________________________________|");
+            Console.WriteLine("");
+
             ProdutoController pc = new ProdutoController();
             Produto produto = new Produto();
             List<ItemComposicaoProduto> itens = new List<ItemComposicaoProduto>();
@@ -129,42 +149,54 @@ namespace ConsoleView
 
         private static void ListarInsumos()
         {
+            Console.WriteLine(" _______________________________________________________ ");
+            Console.WriteLine("|------------------- LISTAR INSUMOS --------------------|");
+            Console.WriteLine("|_______________________________________________________|");
+            Console.WriteLine("");
+
             InsumoController ic = new InsumoController();
 
-            Console.WriteLine("Listagem de insumos");
             foreach (Insumo i in ic.ListarInsumosOrdemAlfabetica())
-            {
-                Console.WriteLine("");
-                Console.WriteLine("Id..................: " + i.InsumoID);
-                Console.WriteLine("Nome................: " + i.Nome);
-                Console.WriteLine("Unidade de Medida...: " + i.UnidadeDeMedida);
-                Console.WriteLine("-----------------------------------------------------");
-            }
+                ExibirInsumo(i);
         }
 
         private static void ListarProdutos()
         {
+            Console.WriteLine(" _______________________________________________________ ");
+            Console.WriteLine("|------------------- LISTAR PRODUTOS -------------------|");
+            Console.WriteLine("|_______________________________________________________|");
+            Console.WriteLine("");
+
             ProdutoController pc = new ProdutoController();
 
-            Console.WriteLine("Listagem de produtos");
             foreach (Produto p in pc.ListarProdutosOrdemAlfabetica())
-            {
-                Console.WriteLine("");
-                Console.WriteLine("Id..................: " + p.ProdutoID);
-                Console.WriteLine("Nome................: " + p.Nome);
-                Console.WriteLine("Unidade de Medida...: " + p.UnidadeDeMedida);
-                Console.WriteLine("....Composição....");
-                foreach (ItemComposicaoProduto i in p.ComposicaoProduto)
-                {
-                    Console.WriteLine(i.QuantidadeInsumo + " " + i._Insumo.UnidadeDeMedida + " de " + i._Insumo.Nome);
-                }
-                Console.WriteLine("-----------------------------------------------------");
-            }
+                ExibirProduto(p);
+
         }
 
-        private void LimparTela()
+        private static void ExibirInsumo(Insumo i)
         {
-
+            Console.WriteLine("");
+            Console.WriteLine("Id..................: " + i.InsumoID);
+            Console.WriteLine("Nome................: " + i.Nome);
+            Console.WriteLine("Unidade de Medida...: " + i.UnidadeDeMedida);
+            Console.WriteLine("-----------------------------------------------------");
         }
+
+        private static void ExibirProduto(Produto p)
+        {
+            Console.WriteLine("");
+            Console.WriteLine("Id..................: " + p.ProdutoID);
+            Console.WriteLine("Nome................: " + p.Nome);
+            Console.WriteLine("Unidade de Medida...: " + p.UnidadeDeMedida);
+            Console.WriteLine("....Composição....");
+            foreach (ItemComposicaoProduto i in p.ComposicaoProduto)
+            {
+                Console.WriteLine(i.QuantidadeInsumo + " " + i._Insumo.UnidadeDeMedida + " de " + i._Insumo.Nome);
+            }
+            Console.WriteLine("-----------------------------------------------------");
+        }
+
+        private static void LimparTela() => Console.Clear();
     }
 }
