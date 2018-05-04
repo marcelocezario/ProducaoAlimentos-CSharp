@@ -50,6 +50,7 @@
     <Compile Include="DAL\Contexto.cs" />
     <Compile Include="Insumo.cs" />
     <Compile Include="ItemComposicaoProduto.cs" />
+    <Compile Include="ItemEstoque.cs" />
     <Compile Include="Produto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
