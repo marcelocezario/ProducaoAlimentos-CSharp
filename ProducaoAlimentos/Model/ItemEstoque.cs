@@ -9,7 +9,6 @@ namespace Model
     public class ItemEstoque
     {
         public int ItemEstoqueID { get; set; }
-        public int
 
     }
 }
