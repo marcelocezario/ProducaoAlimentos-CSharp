@@ -17,8 +17,9 @@ namespace Model.DAL
         }
 
         public DbSet<Insumo> Insumos { get; set; }
-        public DbSet<Produto> Produtos { get; set; }
         public DbSet<ItemComposicaoProduto> ItensComposicaoProduto { get; set; }
+        public DbSet<ItemEstoque> ItensEstoque { get; set; }
+        public DbSet<Produto> Produtos { get; set; }
         public DbSet<UnidadeDeMedida> UnidadesDeMedida { get; set; }
     }
 }
