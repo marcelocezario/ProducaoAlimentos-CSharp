@@ -14,7 +14,5 @@ namespace Model
         public virtual Insumo _Insumo { get; set; }
         
         public double QuantidadeInsumo { get; set; }
-
-        //public string zerando { get; set; }
     }
 }

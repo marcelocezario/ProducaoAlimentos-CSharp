@@ -8,8 +8,6 @@ using System.Threading.Tasks;
 
 namespace ConsoleView
 {
-
-        //testando a 3 opcao de merge
     class Program
     {
         enum OpcoesMenuPrincipal
