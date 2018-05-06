@@ -9,8 +9,6 @@ using System.Threading.Tasks;
 namespace ConsoleView
 {
 
-    // testando outras opções de request
-
         //testando a 3 opcao de merge
     class Program
     {
