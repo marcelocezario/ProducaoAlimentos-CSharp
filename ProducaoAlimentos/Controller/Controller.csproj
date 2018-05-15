@@ -51,6 +51,7 @@
     <Compile Include="InsumoController.cs" />
     <Compile Include="ProdutoController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UnidadeDeMedidaController.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Model\Model.csproj">

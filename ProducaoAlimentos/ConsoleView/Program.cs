@@ -14,6 +14,7 @@ namespace ConsoleView
         {
             CadastrarInsumos = 1,
             CadastrarProdutos = 2,
+            CadastrarUnidadeDeMedida = 3,
 
             ListarInsumos = 5,
             ListarProdutos = 6,
@@ -27,11 +28,12 @@ namespace ConsoleView
             Console.WriteLine(" _______________________________________________________  ");
             Console.WriteLine("|------------------ PRODUÇÃO ALIMENTOS -----------------| ");
             Console.WriteLine("|                                                       | ");
-            Console.WriteLine("|                1 - CadastrarInsumos                   | ");
-            Console.WriteLine("|                2 - CadastrarProdutos                  | ");
+            Console.WriteLine("|                1 - Cadastrar Insumos                  | ");
+            Console.WriteLine("|                2 - Cadastrar Produtos                 | ");
+            Console.WriteLine("|                3 - Cadastrar Unidade de Medida        | ");
             Console.WriteLine("|                                                       | ");
-            Console.WriteLine("|                5 - ListarInsumos                      | ");
-            Console.WriteLine("|                6 - ListarProdutos                     | ");
+            Console.WriteLine("|                5 - Listar Insumos                     | ");
+            Console.WriteLine("|                6 - Listar Produtos                    | ");
             Console.WriteLine("|                                                       | ");
             Console.WriteLine("|                9 - Sair                               | ");
             Console.WriteLine("|_______________________________________________________| ");
@@ -59,6 +61,9 @@ namespace ConsoleView
                         break;
                     case OpcoesMenuPrincipal.CadastrarProdutos:
                         CadastrarProduto();
+                        break;
+                    case OpcoesMenuPrincipal.CadastrarUnidadeDeMedida:
+                        CadastrarUnidadeDeMedida();
                         break;
 
 
