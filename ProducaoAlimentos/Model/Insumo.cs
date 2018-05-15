@@ -11,5 +11,7 @@ namespace Model
         public int InsumoID { get; set; }
         public string Nome { get; set; }
         public string UnidadeDeMedida { get; set; }
+        public double ValorTotalEstoque { get; set; }
+        public double QuantidadeTotalEstoque { get; set; }
     }
 }
