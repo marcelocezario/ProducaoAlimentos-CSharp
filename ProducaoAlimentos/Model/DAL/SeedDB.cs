@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
-using Model;
-using System.Data.Entity;
-using Model.DAL;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Controller
+namespace Model.DAL
 {
-    public class InicializarDadosDB : DropCreateDatabaseIfModelChanges<Contexto>
+    public class SeedDB : System.Data.Entity.DropCreateDatabaseIfModelChanges<Contexto>
     {
         protected override void Seed(Contexto context)
         {
@@ -17,12 +18,8 @@ namespace Controller
                 new UnidadeDeMedida(){ Nome = "Unidade", Sigla = "un", Fracionavel = false}
             };
 
-            foreach (UnidadeDeMedida unidadeDeMedida in unidadesDeMedida)
-            {
-                UnidadeDeMedidaController uc = new UnidadeDeMedidaController();
-
-                uc.SalvarUnidadeDeMedida(unidadeDeMedida);
-            }
+            unidadesDeMedida.ForEach(u => context.UnidadesDeMedida.Add(u));
+            context.SaveChanges();
         }
     }
 }
