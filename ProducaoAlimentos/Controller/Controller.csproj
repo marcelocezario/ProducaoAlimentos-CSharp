@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ContextoSingleton.cs" />
+    <Compile Include="InicializarDadosDB.cs" />
     <Compile Include="InsumoController.cs" />
     <Compile Include="ProdutoController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

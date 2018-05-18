@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DAL\Contexto.cs" />
+    <Compile Include="DAL\InicializarDadosDB.cs" />
     <Compile Include="Insumo.cs" />
     <Compile Include="ItemComposicaoProduto.cs" />
     <Compile Include="ItemEstoque.cs" />

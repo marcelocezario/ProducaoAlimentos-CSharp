@@ -63,7 +63,7 @@ namespace ConsoleView
                         CadastrarProduto();
                         break;
                     case OpcoesMenuPrincipal.CadastrarUnidadeDeMedida:
-                        CadastrarUnidadeDeMedida();
+//                        CadastrarUnidadeDeMedida();
                         break;
 
 
