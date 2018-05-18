@@ -13,5 +13,7 @@ namespace Model
         public string UnidadeDeMedida { get; set; }
         public double ValorTotalEstoque { get; set; }
         public double QuantidadeTotalEstoque { get; set; }
+
+        public double ApenasTeste { get; set; }
     }
 }
