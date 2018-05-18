@@ -5,7 +5,7 @@ using Model.DAL;
 
 namespace Controller
 {
-    class InicializarDadosDB : DropCreateDatabaseIfModelChanges<Contexto>
+    public class InicializarDadosDB : DropCreateDatabaseIfModelChanges<Contexto>
     {
         protected override void Seed(Contexto context)
         {
@@ -19,8 +19,9 @@ namespace Controller
 
             foreach (UnidadeDeMedida unidadeDeMedida in unidadesDeMedida)
             {
-                ContextoSingleton.Instancia.UnidadesDeMedida.Add(unidadeDeMedida);
-                ContextoSingleton.Instancia.SaveChanges();
+                UnidadeDeMedidaController uc = new UnidadeDeMedidaController();
+
+                uc.SalvarUnidadeDeMedida(unidadeDeMedida);
             }
         }
     }
