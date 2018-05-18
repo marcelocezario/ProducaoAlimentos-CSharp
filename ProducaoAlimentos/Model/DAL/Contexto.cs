@@ -21,5 +21,7 @@ namespace Model.DAL
         public DbSet<ItemEstoque> ItensEstoque { get; set; }
         public DbSet<Produto> Produtos { get; set; }
         public DbSet<UnidadeDeMedida> UnidadesDeMedida { get; set; }
+
+        //apenas teste branch
     }
 }
