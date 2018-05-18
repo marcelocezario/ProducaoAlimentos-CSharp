@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Controller
 {
-    class UnidadeDeMedidaController
+    public class UnidadeDeMedidaController
     {
         public bool SalvarUnidadeDeMedida(UnidadeDeMedida unidadeDeMedida)
         {
@@ -16,5 +16,8 @@ namespace Controller
 
             return true;
         }
+
+        public List<UnidadeDeMedida> ListarUnidadesDeMedida() => ContextoSingleton.Instancia.UnidadesDeMedida.ToList();
+
     }
 }

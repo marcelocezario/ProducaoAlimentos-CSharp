@@ -18,6 +18,7 @@ namespace ConsoleView
 
             ListarInsumos = 5,
             ListarProdutos = 6,
+            ListarUnidadesDeMedida = 7,
 
             Sair = 9,
         }
@@ -34,6 +35,7 @@ namespace ConsoleView
             Console.WriteLine("|                                                       | ");
             Console.WriteLine("|                5 - Listar Insumos                     | ");
             Console.WriteLine("|                6 - Listar Produtos                    | ");
+            Console.WriteLine("|                7 - Listar Unidades de Medida          | ");
             Console.WriteLine("|                                                       | ");
             Console.WriteLine("|                9 - Sair                               | ");
             Console.WriteLine("|_______________________________________________________| ");
@@ -63,7 +65,7 @@ namespace ConsoleView
                         CadastrarProduto();
                         break;
                     case OpcoesMenuPrincipal.CadastrarUnidadeDeMedida:
-                        CadastrarUnidadeDeMedida();
+//                        CadastrarUnidadeDeMedida();
                         break;
 
 
@@ -72,6 +74,9 @@ namespace ConsoleView
                         break;
                     case OpcoesMenuPrincipal.ListarProdutos:
                         ListarProdutos();
+                        break;
+                    case OpcoesMenuPrincipal.ListarUnidadesDeMedida:
+                        ListarUnidadesDeMedida();
                         break;
                     default:
                         break;
@@ -179,6 +184,19 @@ namespace ConsoleView
 
         }
 
+        private static void ListarUnidadesDeMedida()
+        {
+            Console.WriteLine(" _______________________________________________________ ");
+            Console.WriteLine("|-------------- LISTAR UNIDADES DE MEDIDA --------------|");
+            Console.WriteLine("|_______________________________________________________|");
+            Console.WriteLine("");
+
+            UnidadeDeMedidaController uc = new UnidadeDeMedidaController();
+
+            foreach (UnidadeDeMedida u in uc.ListarUnidadesDeMedida())
+                ExibirUnidadeDeMedida(u);
+        }
+
         private static void ExibirInsumo(Insumo i)
         {
             Console.WriteLine("");
@@ -199,6 +217,16 @@ namespace ConsoleView
             {
                 Console.WriteLine(i.QuantidadeInsumo + " " + i._Insumo.UnidadeDeMedida + " de " + i._Insumo.Nome);
             }
+            Console.WriteLine("-----------------------------------------------------");
+        }
+
+        private static void ExibirUnidadeDeMedida(UnidadeDeMedida u)
+        {
+            Console.WriteLine("");
+            Console.WriteLine("Id..................: " + u.UnidadeDeMedidaID);
+            Console.WriteLine("Nome................: " + u.Nome);
+            Console.WriteLine("Sigla...............: " + u.Sigla);
+            Console.WriteLine("Fracionável.........: " + u.Fracionavel);
             Console.WriteLine("-----------------------------------------------------");
         }
 
