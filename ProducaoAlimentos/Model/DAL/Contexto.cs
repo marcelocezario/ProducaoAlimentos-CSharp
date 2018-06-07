@@ -11,9 +11,7 @@ namespace Model.DAL
     {
         public Contexto() : base("strConn")
         {
-            Database.SetInitializer(
-                new DropCreateDatabaseIfModelChanges<Contexto>()
-                );
+            Database.SetInitializer(new SeedDB());
         }
 
         public DbSet<Insumo> Insumos { get; set; }

@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Model.DAL
 {
-    public class SeedDB : System.Data.Entity.DropCreateDatabaseIfModelChanges<Contexto>
+    //public class SeedDB : DropCreateDatabaseIfModelChanges<Contexto>
+    public class SeedDB : DropCreateDatabaseAlways<Contexto>
     {
         protected override void Seed(Contexto context)
         {
@@ -18,8 +20,9 @@ namespace Model.DAL
                 new UnidadeDeMedida(){ Nome = "Unidade", Sigla = "un", Fracionavel = false}
             };
 
-            unidadesDeMedida.ForEach(u => context.UnidadesDeMedida.Add(u));
-            context.SaveChanges();
+            context.UnidadesDeMedida.AddRange(unidadesDeMedida);
+
+            base.Seed(context);
         }
     }
 }
