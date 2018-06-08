@@ -55,8 +55,8 @@
     <Compile Include="ItemComposicaoProduto.cs" />
     <Compile Include="ItemInsumo.cs" />
     <Compile Include="ItemProduto.cs" />
-    <Compile Include="LoteEstoque.cs" />
     <Compile Include="LoteInsumo.cs" />
+    <Compile Include="LoteProduto.cs" />
     <Compile Include="Produto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnidadeDeMedida.cs" />
