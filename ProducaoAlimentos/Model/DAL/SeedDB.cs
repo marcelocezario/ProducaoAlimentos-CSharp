@@ -24,7 +24,6 @@ namespace Model.DAL
             base.Seed(context);
             context.SaveChanges();
 
-
             List<Insumo> insumos = new List<Insumo>()
             {
                 new Insumo(){ Nome = "Farinha de Trigo", UnidadeDeMedidaID = 3},
@@ -37,6 +36,10 @@ namespace Model.DAL
             };
             context.Insumos.AddRange(insumos);
             base.Seed(context);
+            context.SaveChanges();
+
+
+
         }
     }
 }
