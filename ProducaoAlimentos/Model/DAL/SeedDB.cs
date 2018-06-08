@@ -22,6 +22,11 @@ namespace Model.DAL
 
             context.UnidadesDeMedida.AddRange(unidadesDeMedida);
 
+            List<Insumo> insumos = new List<Insumo>()
+            {
+                new Insumo(){ Nome = "Farinha de Trigo", UnidadeDeMedida = }
+            }
+
             base.Seed(context);
         }
     }
