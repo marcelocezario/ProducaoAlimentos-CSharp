@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Model
 {
@@ -10,6 +6,8 @@ namespace Model
     {
         public int InsumoID { get; set; }
         public string Nome { get; set; }
+
+        [ForeignKey("_UnidadeDeMedida")]
         public int UnidadeDeMedidaID { get; set; }
         public virtual UnidadeDeMedida _UnidadeDeMedida { get; set; }
     }

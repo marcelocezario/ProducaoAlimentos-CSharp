@@ -1,16 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Model
 {
     public class LoteInsumo
     {
         public int LoteInsumoID { get; set; }
+
+        [ForeignKey("_Insumo")]
         public int InsumoID { get; set; }
         public virtual Insumo _Insumo { get; set; }
+
         public double Qtde { get; set; }
         public double ValorCustoMedio { get; set; }
         public DateTime Validade { get; set; }
