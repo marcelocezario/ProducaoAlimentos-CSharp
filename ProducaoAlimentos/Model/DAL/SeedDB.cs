@@ -38,8 +38,20 @@ namespace Model.DAL
             base.Seed(context);
             context.SaveChanges();
 
-
-
+            List<Produto> produtos = new List<Produto>()
+            {
+                new Produto(){ Nome = "Nhoque", UnidadeDeMedidaID = 3, ComposicaoProduto = new List<ItemComposicaoProduto>()
+                {
+                    new ItemComposicaoProduto(){ InsumoID = 1, QuantidadeInsumo = 0.3},
+                    new ItemComposicaoProduto(){ InsumoID = 2, QuantidadeInsumo = 0.6},
+                    new ItemComposicaoProduto(){ InsumoID = 3, QuantidadeInsumo = 1},
+                    new ItemComposicaoProduto(){ InsumoID = 4, QuantidadeInsumo = 0.01}
+                }
+            }
+        };
+            context.Produtos.AddRange(produtos);
+            base.Seed(context);
+            context.SaveChanges();
         }
     }
 }
