@@ -101,8 +101,10 @@ namespace ConsoleView
 
             Console.Write("Digite o nome do Insumo: ");
             insumo.Nome = Console.ReadLine();
-            Console.Write("Digite a unidade de medida do insumo: ");
-            insumo.UnidadeDeMedida = Console.ReadLine();
+
+//VERIFICAR A SELEÇÃO DE UNIDADE DE MEDIDA
+//            Console.Write("Digite a unidade de medida do insumo: ");
+//            insumo.UnidadeDeMedida = Console.ReadLine();
 
             ic.SalvarInsumo(insumo);
 
@@ -124,8 +126,11 @@ namespace ConsoleView
 
             Console.Write("Digite o nome do Produto: ");
             produto.Nome = Console.ReadLine();
-            Console.Write("Digite a unidade de medida do Produto: ");
-            produto.UnidadeDeMedida = Console.ReadLine();
+
+
+//VERIFICAR A SELEÇÃO DE UNIDADE DE MEDIDA
+//            Console.Write("Digite a unidade de medida do Produto: ");
+//            produto.UnidadeDeMedida = Console.ReadLine();
 
             Console.WriteLine("");
             string opcao;
@@ -136,9 +141,11 @@ namespace ConsoleView
                 item._Insumo = ic.PesquisarInsumoPorNome(Console.ReadLine());
                 item.InsumoID = item._Insumo.InsumoID;
 
-                Console.Write("Digite a quantidade (em " + item._Insumo.UnidadeDeMedida
-                    + ") de " + item._Insumo.Nome + " necessária para produzir 1 " + produto.UnidadeDeMedida + " de " + produto.Nome + ": ");
-                item.QuantidadeInsumo = double.Parse(Console.ReadLine());
+
+                //VERIFICAR A SELEÇÃO DE UNIDADE DE MEDIDA
+//                Console.Write("Digite a quantidade (em " + item._Insumo.UnidadeDeMedida
+//                    + ") de " + item._Insumo.Nome + " necessária para produzir 1 " + produto.UnidadeDeMedida + " de " + produto.Nome + ": ");
+//                item.QuantidadeInsumo = double.Parse(Console.ReadLine());
 
                 itens.Add(item);
 
@@ -202,7 +209,7 @@ namespace ConsoleView
             Console.WriteLine("");
             Console.WriteLine("Id..................: " + i.InsumoID);
             Console.WriteLine("Nome................: " + i.Nome);
-            Console.WriteLine("Unidade de Medida...: " + i.UnidadeDeMedida);
+            Console.WriteLine("Unidade de Medida...: " + i._UnidadeDeMedida.Nome);
             Console.WriteLine("-----------------------------------------------------");
         }
 
@@ -211,11 +218,11 @@ namespace ConsoleView
             Console.WriteLine("");
             Console.WriteLine("Id..................: " + p.ProdutoID);
             Console.WriteLine("Nome................: " + p.Nome);
-            Console.WriteLine("Unidade de Medida...: " + p.UnidadeDeMedida);
+            Console.WriteLine("Unidade de Medida...: " + p._UnidadeDeMedida.Nome);
             Console.WriteLine("....Composição....");
             foreach (ItemComposicaoProduto i in p.ComposicaoProduto)
             {
-                Console.WriteLine(i.QuantidadeInsumo + " " + i._Insumo.UnidadeDeMedida + " de " + i._Insumo.Nome);
+                Console.WriteLine(i.QuantidadeInsumo + " " + i._Insumo._UnidadeDeMedida.Sigla + " de " + i._Insumo.Nome);
             }
             Console.WriteLine("-----------------------------------------------------");
         }
