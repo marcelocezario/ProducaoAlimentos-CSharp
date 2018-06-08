@@ -9,10 +9,8 @@ namespace Model
     public class ItemComposicaoProduto
     {
         public int ItemComposicaoProdutoID { get; set; }
-
         public int InsumoID { get; set; }
         public virtual Insumo _Insumo { get; set; }
-        
         public double QuantidadeInsumo { get; set; }
     }
 }
