@@ -54,5 +54,21 @@ namespace Controller
 
             return i.ToList();
         }
+
+
+        //Controle de entrada e saída de estoque
+        public ItemInsumo BuscarItemInsumo(Insumo insumo)
+        {
+            ItemInsumo itemInsumo;
+
+            var i = from x in ContextoSingleton.Instancia.Item
+
+            return null;
+        }
+
+        public void EntradaEstoque (Insumo insumo, double quantidadeTotal, double valorCusto)
+        {
+
+        }
     }
 }
