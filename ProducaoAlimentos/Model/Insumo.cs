@@ -10,6 +10,7 @@ namespace Model
     {
         public int InsumoID { get; set; }
         public string Nome { get; set; }
-        public string UnidadeDeMedida { get; set; }
+        public int UnidadeDeMedidaID { get; set; }
+        public virtual UnidadeDeMedida _UnidadeDeMedida { get; set; }
     }
 }
