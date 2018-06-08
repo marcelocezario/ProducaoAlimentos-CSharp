@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Model
 {
-    public class ItemEstoque
+    public class ItemProduto
     {
-        public int ItemEstoqueID { get; set; }
+        public int ItemProdutoID { get; set; }
         public int ProdutoID { get; set; }
         public virtual Produto _Produto { get; set; }
         public double QtdeTotalEstoque { get; set; }

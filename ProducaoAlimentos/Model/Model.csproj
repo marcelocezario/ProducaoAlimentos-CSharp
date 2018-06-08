@@ -53,8 +53,8 @@
     <Compile Include="DAL\SeedDB.cs" />
     <Compile Include="Insumo.cs" />
     <Compile Include="ItemComposicaoProduto.cs" />
-    <Compile Include="ItemEstoque.cs" />
     <Compile Include="ItemInsumo.cs" />
+    <Compile Include="ItemProduto.cs" />
     <Compile Include="LoteEstoque.cs" />
     <Compile Include="Produto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
