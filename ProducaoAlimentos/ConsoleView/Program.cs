@@ -209,7 +209,7 @@ namespace ConsoleView
             Console.WriteLine("");
             Console.WriteLine("Id..................: " + i.InsumoID);
             Console.WriteLine("Nome................: " + i.Nome);
-            Console.WriteLine("Unidade de Medida...: " + i._UnidadeDeMedida.Nome);
+//            Console.WriteLine("Unidade de Medida...: " + i._UnidadeDeMedida.Nome);
             Console.WriteLine("-----------------------------------------------------");
         }
 
@@ -222,7 +222,7 @@ namespace ConsoleView
             Console.WriteLine("....Composição....");
             foreach (ItemComposicaoProduto i in p.ComposicaoProduto)
             {
-                Console.WriteLine(i.QuantidadeInsumo + " " + i._Insumo._UnidadeDeMedida.Sigla + " de " + i._Insumo.Nome);
+//                Console.WriteLine(i.QuantidadeInsumo + " " + i._Insumo._UnidadeDeMedida.Sigla + " de " + i._Insumo.Nome);
             }
             Console.WriteLine("-----------------------------------------------------");
         }
