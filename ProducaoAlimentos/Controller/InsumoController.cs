@@ -17,9 +17,22 @@ namespace Controller
             return true;
         }
 
-        public Insumo PesquisarInsumoPorID(int insumoID)
+        public bool EditarInsumo (int idInsumo, Insumo insumoEditado)
         {
-            return ContextoSingleton.Instancia.Insumos.Find(insumoID);
+            Insumo insumoEditar = PesquisarInsumoPorID(idInsumo);
+
+            if (insumoEditar != null)
+            {
+                insumoEditado.InsumoID = insumoEditar.InsumoID;
+                insumoEditar = insumoEditado;
+
+                ContextoSingleton.Instancia.Entry(insumoEditar).State = System.Data.Entity.EntityState.Modified;
+                ContextoSingleton.Instancia.SaveChanges();
+
+                return true;
+            }
+            else
+                return false;
         }
 
         public bool ExcluirInsumo(Insumo insumo)
@@ -32,6 +45,11 @@ namespace Controller
             return true;
         }
 
+        public Insumo PesquisarInsumoPorID(int insumoID)
+        {
+            return ContextoSingleton.Instancia.Insumos.Find(insumoID);
+        }
+        
         public Insumo PesquisarInsumoPorNome(string nomeInsumo)
         {
             var i = from x in ContextoSingleton.Instancia.Insumos
@@ -65,7 +83,6 @@ namespace Controller
 
             return i.ToList();
         }
-
 
         //Controle de entrada e saída de estoque
         public List<ItemInsumo> ListarItensInsumo() => ContextoSingleton.Instancia.ItensInsumo.ToList();
@@ -103,5 +120,6 @@ namespace Controller
             ContextoSingleton.Instancia.LotesInsumo.Add(loteInsumo);
             ContextoSingleton.Instancia.SaveChanges();
         }
+
     }
 }
