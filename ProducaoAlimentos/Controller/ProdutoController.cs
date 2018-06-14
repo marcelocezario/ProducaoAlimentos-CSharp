@@ -9,6 +9,7 @@ namespace Controller
 {
     public class ProdutoController
     {
+        // Métodos para Criação, Edição e Exclusão de Produtos
         public bool SalvarProduto(Produto produto)
         {
             ContextoSingleton.Instancia.Produtos.Add(produto);
@@ -16,12 +17,23 @@ namespace Controller
 
             return true;
         }
-
-        public Produto PesquisarProdutoPorID(int produtoID)
+        public bool EditarProduto(int idProduto, Produto produtoEditado)
         {
-            return ContextoSingleton.Instancia.Produtos.Find(produtoID);
-        }
+            Produto produtoEditar = BuscarProdutoPorID(idProduto);
 
+            if (produtoEditar != null)
+            {
+                produtoEditado.ProdutoID = produtoEditar.ProdutoID;
+                produtoEditar = produtoEditado;
+
+                ContextoSingleton.Instancia.Entry(produtoEditar).State = System.Data.Entity.EntityState.Modified;
+                ContextoSingleton.Instancia.SaveChanges();
+
+                return true;
+            }
+            else
+                return false;
+        }
         public bool ExcluirProduto(Produto produto)
         {
             ContextoSingleton.Instancia.Entry(produto).State =
@@ -32,7 +44,48 @@ namespace Controller
             return true;
         }
 
-        public Produto PesquisarProdutoPorNome(string nomeProduto)
+        // Métodos para Criação, Edição e Exclusão de Produtos
+        public bool SalvarItemProduto(ItemProduto itemProduto)
+        {
+            ContextoSingleton.Instancia.Produtos.Add(itemProduto);
+            ContextoSingleton.Instancia.SaveChanges();
+
+            return true;
+        }
+        public bool EditarItemProduto(int idItemProduto, Produto itemProdutoEditado)
+        {
+            Produto produtoEditar = BuscarProdutoPorID(idItemProduto);
+
+            if (produtoEditar != null)
+            {
+                itemProdutoEditado.ProdutoID = produtoEditar.ProdutoID;
+                produtoEditar = itemProdutoEditado;
+
+                ContextoSingleton.Instancia.Entry(itemProdutoEditar).State = System.Data.Entity.EntityState.Modified;
+                ContextoSingleton.Instancia.SaveChanges();
+
+                return true;
+            }
+            else
+                return false;
+        }
+        public bool ExcluirProduto(Produto produto)
+        {
+            ContextoSingleton.Instancia.Entry(produto).State =
+                System.Data.Entity.EntityState.Deleted;
+
+            ContextoSingleton.Instancia.SaveChanges();
+
+            return true;
+        }
+
+        public Produto BuscarProdutoPorID(int produtoID)
+        {
+            return ContextoSingleton.Instancia.Produtos.Find(produtoID);
+        }
+
+
+        public Produto BuscarProdutoPorNome(string nomeProduto)
         {
             var p = from x in ContextoSingleton.Instancia.Produtos
                     where x.Nome.ToLower().Contains(nomeProduto.Trim().ToLower())

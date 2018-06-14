@@ -58,7 +58,7 @@ namespace ConsoleView
             return (OpcoesMenuPrincipal)int.Parse(opcao);
         }
 
-
+        // View
         static void Main(string[] args)
         {
             OpcoesMenuPrincipal opcaoDigitada = OpcoesMenuPrincipal.Sair;
@@ -120,6 +120,7 @@ namespace ConsoleView
             } while (opcaoDigitada != OpcoesMenuPrincipal.Sair);
         }
 
+        // Cadastros
         private static void CadastrarInsumo()
         {
             Console.WriteLine(" _______________________________________________________ ");
@@ -161,7 +162,6 @@ namespace ConsoleView
             Console.WriteLine("Insumo adicionado com sucesso!");
             Console.WriteLine("");
         }
-
         private static void CadastrarProduto()
         {
             Console.WriteLine(" _______________________________________________________ ");
@@ -235,7 +235,6 @@ namespace ConsoleView
             Console.WriteLine("Produto adicionado com sucesso!");
             Console.WriteLine("");
         }
-
         private static void CadastrarUnidadeDeMedida()
         {
             Console.WriteLine(" _______________________________________________________ ");
@@ -263,7 +262,6 @@ namespace ConsoleView
             Console.WriteLine("Unidade de Medida adicionada com sucesso!");
             Console.WriteLine("");
         }
-
         private static void CadastrarMarca()
         {
             Console.WriteLine(" _______________________________________________________ ");
@@ -369,6 +367,7 @@ namespace ConsoleView
             ic.RegistrarEntradaEstoqueInsumo(loteInsumo);
         }
 
+        // Listagens
         private static void ListarInsumos()
         {
             Console.WriteLine(" _______________________________________________________ ");
@@ -381,7 +380,6 @@ namespace ConsoleView
             foreach (Insumo i in ic.ListarInsumos())
                 ExibirInsumo(i);
         }
-
         private static void ListarProdutos()
         {
             Console.WriteLine(" _______________________________________________________ ");
@@ -395,7 +393,6 @@ namespace ConsoleView
                 ExibirProduto(p);
 
         }
-
         private static void ListarUnidadesDeMedida()
         {
             Console.WriteLine(" _______________________________________________________ ");
@@ -408,7 +405,6 @@ namespace ConsoleView
             foreach (UnidadeDeMedida u in uc.ListarUnidadesDeMedida())
                 ExibirUnidadeDeMedida(u);
         }
-
         private static void ListarMarcas()
         {
             Console.WriteLine(" _______________________________________________________ ");
@@ -421,7 +417,6 @@ namespace ConsoleView
             foreach (Marca m in mc.ListarMarcas())
                 ExibirMarca(m);
         }
-
         private static void ListarLotesInsumo()
         {
             Console.WriteLine(" _______________________________________________________ ");
@@ -434,7 +429,6 @@ namespace ConsoleView
             foreach (LoteInsumo li in ic.ListarLotesInsumo())
                 ExibirLoteInsumo(li);
         }
-
         private static void ListarItensInsumo()
         {
             Console.WriteLine(" _______________________________________________________ ");
@@ -448,6 +442,7 @@ namespace ConsoleView
                 ExibirItemInsumo(ii);
         }
 
+        // Exibições
         private static void ExibirInsumo(Insumo i)
         {
             Console.WriteLine("");
@@ -456,7 +451,6 @@ namespace ConsoleView
             Console.WriteLine("Unidade de Medida...: " + i._UnidadeDeMedida.Nome);
             Console.WriteLine("-----------------------------------------------------");
         }
-
         private static void ExibirProduto(Produto p)
         {
             Console.WriteLine("");
@@ -470,7 +464,6 @@ namespace ConsoleView
             }
             Console.WriteLine("-----------------------------------------------------");
         }
-
         private static void ExibirUnidadeDeMedida(UnidadeDeMedida u)
         {
             Console.WriteLine("");
@@ -480,7 +473,6 @@ namespace ConsoleView
             Console.WriteLine("Fracionável.........: " + u.Fracionavel);
             Console.WriteLine("-----------------------------------------------------");
         }
-
         private static void ExibirMarca(Marca m)
         {
             Console.WriteLine("");
@@ -488,7 +480,6 @@ namespace ConsoleView
             Console.WriteLine("Nome................: " + m.Nome);
             Console.WriteLine("-----------------------------------------------------");
         }
-
         private static void ExibirLoteInsumo(LoteInsumo li)
         {
             Console.WriteLine("");
@@ -502,7 +493,6 @@ namespace ConsoleView
             Console.WriteLine("Data validade.......: " + li.Validade);
             Console.WriteLine("-----------------------------------------------------");
         }
-
         private static void ExibirItemInsumo(ItemInsumo ii)
         {
             Console.WriteLine("");
