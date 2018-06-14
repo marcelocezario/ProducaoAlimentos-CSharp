@@ -165,6 +165,7 @@ namespace Controller
             return i.ToList();
         }
         public List<ItemInsumo> ListarItensInsumo() => ContextoSingleton.Instancia.ItensInsumo.ToList();
+        public List<LoteInsumo> ListarLotesInsumo() => ContextoSingleton.Instancia.LotesInsumo.ToList();
 
         // Métodos para controle de entrada e saída de estoque
         public void EntradaEstoqueInsumo(LoteInsumo loteInsumo)
@@ -188,9 +189,23 @@ namespace Controller
             }
             SalvarLoteInsumo(loteInsumo);
         }
-        public void SaidaEstoqueInsumo(LoteInsumo loteInsumo, double qtde)
+        public void SaidaEstoqueInsumo(int loteInsumoId, double qtdeSaida)
         {
+            LoteInsumo loteInsumo = BuscarLoteInsumoPorID(loteInsumoId);
 
+            if (loteInsumo != null)
+            {
+                double custoSaida = (loteInsumo.ValorCustoTotal / loteInsumo.Qtde) * qtdeSaida;
+                loteInsumo.Qtde -= qtdeSaida;
+                loteInsumo.ValorCustoTotal -= custoSaida;
+
+                ItemInsumo itemInsumo = BuscarItemInsumoPorInsumo(loteInsumo._Insumo);
+                itemInsumo.QtdeTotalEstoque -= qtdeSaida;
+                itemInsumo.CustoTotalEstoque -= custoSaida;
+
+
+
+            }
         }
 
 
