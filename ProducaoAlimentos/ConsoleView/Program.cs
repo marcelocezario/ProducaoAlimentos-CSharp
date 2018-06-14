@@ -366,7 +366,7 @@ namespace ConsoleView
             Console.Write("Digite o valor total do que está entrando em estoque: ");
             loteInsumo.ValorCustoTotal = double.Parse(Console.ReadLine());
 
-            ic.SalvarLoteInsumo(loteInsumo);
+            ic.RegistrarEntradaEstoqueInsumo(loteInsumo);
         }
 
         private static void ListarInsumos()

@@ -129,20 +129,10 @@ namespace Controller
         {
             return ContextoSingleton.Instancia.ItensInsumo.Find(idItemInsumo);
         }
-        public ItemInsumo BuscarItemInsumoPorInsumo(Insumo insumo)
-        {
-            var i = from x in ContextoSingleton.Instancia.ItensInsumo
-                    where x.Equals(insumo)
-                    select x;
-            if (i != null)
-                return i.FirstOrDefault();
-            else
-                return null;
-        }
-        public ItemInsumo BuscarItemInsumoPorNome(Insumo insumo)
+        public ItemInsumo BuscarItemInsumoPorNome(string nomeInsumo)
         {
             var i = from x in ListarItensInsumo()
-                    where x._Insumo.Nome.ToLower().Equals(insumo.Nome.Trim().ToLower())
+                    where x._Insumo.Nome.ToLower().Contains(nomeInsumo.Trim().ToLower())
                     select x;
             if (i != null)
                 return i.FirstOrDefault();
@@ -168,10 +158,10 @@ namespace Controller
         public List<LoteInsumo> ListarLotesInsumo() => ContextoSingleton.Instancia.LotesInsumo.ToList();
 
         // Métodos para controle de entrada e saída de estoque
-        public void EntradaEstoqueInsumo(LoteInsumo loteInsumo)
+        public void RegistrarEntradaEstoqueInsumo(LoteInsumo loteInsumo)
         {
             //Verificando se existe itemInsumo e adicionando quantidade e valor em estoque
-            ItemInsumo itemInsumo = BuscarItemInsumoPorInsumo(loteInsumo._Insumo);
+            ItemInsumo itemInsumo = BuscarItemInsumoPorNome(loteInsumo._Insumo.Nome);
             if (itemInsumo != null)
             {
                 itemInsumo.QtdeTotalEstoque += loteInsumo.Qtde;
@@ -181,6 +171,7 @@ namespace Controller
             }
             else
             {
+                itemInsumo = new ItemInsumo();
                 itemInsumo._Insumo = loteInsumo._Insumo;
                 itemInsumo.QtdeTotalEstoque = loteInsumo.Qtde;
                 itemInsumo.CustoTotalEstoque = loteInsumo.ValorCustoTotal;
@@ -199,7 +190,7 @@ namespace Controller
                 loteInsumo.Qtde -= qtdeSaida;
                 loteInsumo.ValorCustoTotal -= custoSaida;
 
-                ItemInsumo itemInsumo = BuscarItemInsumoPorInsumo(loteInsumo._Insumo);
+                ItemInsumo itemInsumo = BuscarItemInsumoPorNome(loteInsumo._Insumo.Nome);
                 itemInsumo.QtdeTotalEstoque -= qtdeSaida;
                 itemInsumo.CustoTotalEstoque -= custoSaida;
 
