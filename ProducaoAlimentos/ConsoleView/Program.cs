@@ -324,6 +324,7 @@ namespace ConsoleView
 
                     if (opcao.Trim().ToLower().Equals("s"))
                     {
+                        marca = new Marca();
                         marca.Nome = nomeMarca;
                         mc.SalvarMarca(marca);
                         Console.WriteLine("");
