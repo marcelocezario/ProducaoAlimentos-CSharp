@@ -250,7 +250,13 @@ namespace ConsoleView
 
         private static void CadastrarMarca()
         {
+            Console.WriteLine(" _______________________________________________________ ");
+            Console.WriteLine("|------------------- CADASTRAR MARCA -------------------|");
+            Console.WriteLine("|_______________________________________________________|");
+            Console.WriteLine("");
 
+            Console.Write("Digite o nome da marca: ");
+            
         }
 
         private static void RegistrarEntradaInsumo()
