@@ -110,9 +110,9 @@ namespace Controller
         }
 
         // Métodos de busca
-        public Insumo BuscarInsumoPorID(int insumoID)
+        public Insumo BuscarInsumoPorID(int idInsumo)
         {
-            return ContextoSingleton.Instancia.Insumos.Find(insumoID);
+            return ContextoSingleton.Instancia.Insumos.Find(idInsumo);
         }
         public Insumo BuscarInsumoPorNome(string nomeInsumo)
         {
@@ -125,9 +125,9 @@ namespace Controller
             else
                 return null;
         }
-        public ItemInsumo BuscarItemInsumoPorID(int itemInsumoID)
+        public ItemInsumo BuscarItemInsumoPorID(int idItemInsumo)
         {
-            return ContextoSingleton.Instancia.ItensInsumo.Find(itemInsumoID);
+            return ContextoSingleton.Instancia.ItensInsumo.Find(idItemInsumo);
         }
         public ItemInsumo BuscarItemInsumoPorInsumo(Insumo insumo)
         {
@@ -149,9 +149,9 @@ namespace Controller
             else
                 return null;
         }
-        public LoteInsumo BuscarLoteInsumoPorID(int loteInsumoID)
+        public LoteInsumo BuscarLoteInsumoPorID(int idLoteInsumo)
         {
-            return ContextoSingleton.Instancia.LotesInsumo.Find(loteInsumoID);
+            return ContextoSingleton.Instancia.LotesInsumo.Find(idLoteInsumo);
         }
 
         // Métodos para listagem de dados
@@ -189,9 +189,9 @@ namespace Controller
             }
             SalvarLoteInsumo(loteInsumo);
         }
-        public void SaidaEstoqueInsumo(int loteInsumoId, double qtdeSaida)
+        public void SaidaEstoqueInsumo(int idLoteInsumo, double qtdeSaida)
         {
-            LoteInsumo loteInsumo = BuscarLoteInsumoPorID(loteInsumoId);
+            LoteInsumo loteInsumo = BuscarLoteInsumoPorID(idLoteInsumo);
 
             if (loteInsumo != null)
             {

@@ -101,13 +101,33 @@ namespace ConsoleView
             Console.WriteLine("");
 
             InsumoController ic = new InsumoController();
+            UnidadeDeMedidaController umc = new UnidadeDeMedidaController();
             Insumo insumo = new Insumo();
 
             Console.Write("Digite o nome do Insumo: ");
             insumo.Nome = Console.ReadLine();
 
-            Console.Write("Digite a ID da unidade de medida do insumo: ");
-            insumo.UnidadeDeMedidaID = int.Parse(Console.ReadLine());
+            UnidadeDeMedida unidadeDeMedida;
+            String opcao = "n";
+            do
+            {
+                Console.Write("Digite o nome de uma unidade de medida do insumo: ");
+                
+                unidadeDeMedida = umc.BuscarUnidadeDeMedidaPorNome(Console.ReadLine());
+                try
+                {
+                    ExibirUnidadeDeMedida(unidadeDeMedida);
+                    Console.WriteLine("");
+                    Console.WriteLine("Cofirma Unidade De Medida (s/n)? ");
+                    opcao = Console.ReadLine().Trim().ToLower();
+                } catch(NullReferenceException e)
+                {
+                    Console.WriteLine("Unidade de medida não encontrada!");
+                    Console.WriteLine("");
+                }
+            } while (!opcao.Equals("s"));
+
+            insumo.UnidadeDeMedidaID = unidadeDeMedida.UnidadeDeMedidaID;
 
             ic.SalvarInsumo(insumo);
 
@@ -166,7 +186,30 @@ namespace ConsoleView
 
         private static void CadastrarUnidadeDeMedida()
         {
+            Console.WriteLine(" _______________________________________________________ ");
+            Console.WriteLine("|------------- CADASTRAR UNIDADE DE MEDIDA -------------|");
+            Console.WriteLine("|_______________________________________________________|");
+            Console.WriteLine("");
 
+            UnidadeDeMedidaController umc = new UnidadeDeMedidaController();
+            UnidadeDeMedida unidadeDeMedida = new UnidadeDeMedida();
+
+            Console.Write("Digite o nome da Unidade de Medida: ");
+            unidadeDeMedida.Nome = Console.ReadLine();
+
+            Console.Write("Digite a sigla da Unidade de Medida: ");
+            unidadeDeMedida.Sigla = Console.ReadLine();
+
+            Console.Write("A unidade de medida é fracionável (s/n)?");
+            if (Console.ReadLine().Trim().ToLower().Equals("s"))
+                unidadeDeMedida.Fracionavel = true;
+            else
+                unidadeDeMedida.Fracionavel = false;
+
+            umc.SalvarUnidadeDeMedida(unidadeDeMedida);
+
+            Console.WriteLine("Unidade de Medida adicionada com sucesso!");
+            Console.WriteLine("");
         }
 
         private static void ListarInsumos()
