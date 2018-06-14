@@ -119,15 +119,15 @@ namespace ConsoleView
                     ExibirUnidadeDeMedida(unidadeDeMedida);
                     Console.WriteLine("");
                     Console.WriteLine("Cofirma Unidade De Medida (s/n)? ");
-                    opcao = Console.ReadLine().Trim().ToLower();
+                    opcao = Console.ReadLine();
                 } catch(NullReferenceException e)
                 {
                     Console.WriteLine("Unidade de medida não encontrada!");
                     Console.WriteLine("");
                 }
-            } while (!opcao.Equals("s"));
+            } while (!opcao.Trim().ToLower().Equals("s"));
 
-            insumo.UnidadeDeMedidaID = unidadeDeMedida.UnidadeDeMedidaID;
+            insumo._UnidadeDeMedida = unidadeDeMedida;
 
             ic.SalvarInsumo(insumo);
 
@@ -143,6 +143,7 @@ namespace ConsoleView
             Console.WriteLine("");
 
             ProdutoController pc = new ProdutoController();
+            UnidadeDeMedidaController umc = new UnidadeDeMedidaController();
             Produto produto = new Produto();
             List<ItemComposicaoProduto> itens = new List<ItemComposicaoProduto>();
             InsumoController ic = new InsumoController();
@@ -151,30 +152,54 @@ namespace ConsoleView
             produto.Nome = Console.ReadLine();
 
 
-            Console.Write("Digite a ID da unidade de medida do Produto: ");
-            produto.UnidadeDeMedidaID = int.Parse(Console.ReadLine());
-
-            Console.WriteLine("");
-            string opcao;
+            UnidadeDeMedida unidadeDeMedida;
+            String opcao = "n";
             do
             {
+                Console.Write("Digite o nome de uma unidade de medida do insumo: ");
+
+                unidadeDeMedida = umc.BuscarUnidadeDeMedidaPorNome(Console.ReadLine());
+                try
+                {
+                    ExibirUnidadeDeMedida(unidadeDeMedida);
+                    Console.WriteLine("");
+                    Console.WriteLine("Cofirma Unidade De Medida (s/n)? ");
+                    opcao = Console.ReadLine();
+                }
+                catch (NullReferenceException e)
+                {
+                    Console.WriteLine("Unidade de medida não encontrada!");
+                    Console.WriteLine("");
+                }
+            } while (!opcao.Trim().ToLower().Equals("s"));
+
+            produto._UnidadeDeMedida = unidadeDeMedida;
+
+            Console.WriteLine("");
+            do
+            {
+                opcao = "n";
                 ItemComposicaoProduto item = new ItemComposicaoProduto();
                 Console.Write("Digite o nome do insumo que deseja utilizar na receita: ");
                 item._Insumo = ic.BuscarInsumoPorNome(Console.ReadLine());
-                item.InsumoID = item._Insumo.InsumoID;
 
-                Console.Write("Digite a quantidade (em " + item._Insumo._UnidadeDeMedida.Sigla
-                    + ") de " + item._Insumo.Nome + " necessária para produzir 1 " + produto._UnidadeDeMedida.Sigla + " de " + produto.Nome + ": ");
-                item.QuantidadeInsumo = double.Parse(Console.ReadLine());
+                try
+                {
+                    Console.Write("Digite a quantidade (em " + item._Insumo._UnidadeDeMedida.Sigla + ") de " + item._Insumo.Nome + " necessária para produzir 1 " + produto._UnidadeDeMedida.Sigla + " de " + produto.Nome + ": ");
+                    item.QuantidadeInsumo = double.Parse(Console.ReadLine());
 
-                itens.Add(item);
+                    itens.Add(item);
 
-                Console.WriteLine("");
-                Console.Write("Deseja adicionar mais algum insumo a receita (s/n)? ");
+                    Console.WriteLine("");
+                    Console.Write("Deseja adicionar mais algum insumo a receita (s/n)? ");
 
-                opcao = Console.ReadLine();
-
-            } while (opcao.Equals("s") || opcao.Equals("S"));
+                    opcao = Console.ReadLine();
+                } catch (NullReferenceException e)
+                {
+                    Console.WriteLine("Insumo não encontrado!");
+                    Console.WriteLine("");
+                }
+            } while (!opcao.Trim().ToLower().Equals("n"));
 
             produto.ComposicaoProduto = itens;
 
@@ -221,7 +246,7 @@ namespace ConsoleView
 
             InsumoController ic = new InsumoController();
 
-            foreach (Insumo i in ic.ListarInsumosOrdemAlfabetica())
+            foreach (Insumo i in ic.ListarInsumos())
                 ExibirInsumo(i);
         }
 
@@ -234,7 +259,7 @@ namespace ConsoleView
 
             ProdutoController pc = new ProdutoController();
 
-            foreach (Produto p in pc.ListarProdutosOrdemAlfabetica())
+            foreach (Produto p in pc.ListarProdutos())
                 ExibirProduto(p);
 
         }
