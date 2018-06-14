@@ -57,6 +57,7 @@
     <Compile Include="ItemProduto.cs" />
     <Compile Include="LoteInsumo.cs" />
     <Compile Include="LoteProduto.cs" />
+    <Compile Include="Marca.cs" />
     <Compile Include="Produto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnidadeDeMedida.cs" />

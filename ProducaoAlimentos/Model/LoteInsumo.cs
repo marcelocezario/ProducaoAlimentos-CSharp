@@ -11,6 +11,9 @@ namespace Model
         public int InsumoID { get; set; }
         public virtual Insumo _Insumo { get; set; }
 
+        public int MarcaId { get; set; }
+        public virtual Marca _Marca { get; set; }
+
         public double Qtde { get; set; }
         public double ValorCustoMedio { get; set; }
         public DateTime Validade { get; set; }
