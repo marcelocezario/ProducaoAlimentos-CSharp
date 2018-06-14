@@ -63,6 +63,44 @@ namespace Model.DAL
             context.ItensInsumo.AddRange(itensInsumo);
             base.Seed(context);
             context.SaveChanges();
+
+
+            List<Estado> estados = new List<Estado>()
+            {
+                new Estado(){ Nome = "Acre", Uf = "AC" },
+                new Estado(){ Nome = "Alagoas", Uf = "AL" },
+                new Estado(){ Nome = "Amapá", Uf = "AP" },
+                new Estado(){ Nome = "Amazonas", Uf = "AM" },
+                new Estado(){ Nome = "Bahia", Uf = "BA" },
+                new Estado(){ Nome = "Ceará", Uf = "CE" },
+                new Estado(){ Nome = "Distrito Federal", Uf = "DF" },
+                new Estado(){ Nome = "Espirito Santo", Uf = "ES" },
+                new Estado(){ Nome = "Goiás", Uf = "GO" },
+                new Estado(){ Nome = "Maranhão", Uf = "MA" },
+                new Estado(){ Nome = "Mato Grosso", Uf = "MT" },
+                new Estado(){ Nome = "Mato Grosso do Sul", Uf = "MS" },
+                new Estado(){ Nome = "Minas Gerais", Uf = "MG" },
+                new Estado(){ Nome = "Pará", Uf = "PA" },
+                new Estado(){ Nome = "Paraíba", Uf = "PB" },
+                new Estado(){ Nome = "Paraná", Uf = "PR" },
+                new Estado(){ Nome = "Pernambuco", Uf = "PE" },
+                new Estado(){ Nome = "Piauí", Uf = "PI" },
+                new Estado(){ Nome = "Rio de Janeiro", Uf = "RJ" },
+                new Estado(){ Nome = "Rio Grande do Norte", Uf = "RN" },
+                new Estado(){ Nome = "Rio Grande do Sul", Uf = "RS" },
+                new Estado(){ Nome = "Rondônia", Uf = "RO" },
+                new Estado(){ Nome = "Roraima", Uf = "RR" },
+                new Estado(){ Nome = "Santa Catarina", Uf = "SC" },
+                new Estado(){ Nome = "São Paulo", Uf = "SP" },
+                new Estado(){ Nome = "Sergipe", Uf = "SE" },
+                new Estado(){ Nome = "Tocantins", Uf = "TO" },
+            };
+            context.Estados.AddRange(estados);
+            base.Seed(context);
+            context.SaveChanges();
+
+
+
         }
     }
 }
