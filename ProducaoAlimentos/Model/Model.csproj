@@ -52,6 +52,7 @@
     <Compile Include="DAL\Contexto.cs" />
     <Compile Include="DAL\SeedDB.cs" />
     <Compile Include="Endereco.cs" />
+    <Compile Include="Estado.cs" />
     <Compile Include="Fornecedor.cs" />
     <Compile Include="Insumo.cs" />
     <Compile Include="ItemComposicaoProduto.cs" />
