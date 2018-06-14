@@ -47,16 +47,16 @@ namespace Controller
         // Métodos para Criação, Edição e Exclusão de Produtos
         public bool SalvarItemProduto(ItemProduto itemProduto)
         {
-            ContextoSingleton.Instancia.Produtos.Add(itemProduto);
+            ContextoSingleton.Instancia.ItensProduto.Add(itemProduto);
             ContextoSingleton.Instancia.SaveChanges();
 
             return true;
         }
-        public bool EditarItemProduto(int idItemProduto, Produto itemProdutoEditado)
+        public bool EditarItemProduto(int idItemProduto, ItemProduto itemProdutoEditado)
         {
-            Produto produtoEditar = BuscarProdutoPorID(idItemProduto);
+            ItemProduto itemProdutoEditar = BuscarItemProdutoPorID(idItemProduto);
 
-            if (produtoEditar != null)
+            if (itemProdutoEditar != null)
             {
                 itemProdutoEditado.ProdutoID = produtoEditar.ProdutoID;
                 produtoEditar = itemProdutoEditado;
@@ -79,12 +79,10 @@ namespace Controller
             return true;
         }
 
-        public Produto BuscarProdutoPorID(int produtoID)
+        public Produto BuscarProdutoPorID(int idProduto)
         {
-            return ContextoSingleton.Instancia.Produtos.Find(produtoID);
+            return ContextoSingleton.Instancia.Produtos.Find(idProduto);
         }
-
-
         public Produto BuscarProdutoPorNome(string nomeProduto)
         {
             var p = from x in ContextoSingleton.Instancia.Produtos
@@ -96,9 +94,13 @@ namespace Controller
             else
                 return null;
         }
+        public ItemProduto BuscarItemProdutoPorId(int idItemProduto)
+        {
+            return ContextoSingleton.Instancia.ItensInsumo.Find(idItemInsumo);
+        }
+
 
         public List<Produto> ListarProdutos() => ContextoSingleton.Instancia.Produtos.ToList();
-
         public List<Produto> ListarProdutosOrdemAlfabetica()
         {
             var p = from x in ListarProdutos()
