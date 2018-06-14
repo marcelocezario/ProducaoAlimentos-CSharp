@@ -1,4 +1,6 @@
 ﻿using Model;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Controller
 {
@@ -40,5 +42,7 @@ namespace Controller
         {
             return ContextoSingleton.Instancia.Marcas.Find(idMarca);
         }
+
+        public List<Marca> ListarMarcas() => ContextoSingleton.Instancia.Marcas.ToList();
     }
 }
