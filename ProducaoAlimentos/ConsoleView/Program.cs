@@ -18,11 +18,11 @@ namespace ConsoleView
 
             RegistrarEntradaInsumos = 4,
 
-            ListarInsumos = 5,
-            ListarProdutos = 6,
-            ListarUnidadesDeMedida = 7,
+            ListarInsumos = 20,
+            ListarProdutos = 21,
+            ListarUnidadesDeMedida = 22,
 
-            Sair = 9,
+            Sair = 99,
         }
 
         private static OpcoesMenuPrincipal Menu()
@@ -37,11 +37,11 @@ namespace ConsoleView
             Console.WriteLine("|                                                       | ");
             Console.WriteLine("|                4 - Registrar Entrada de Insumos       | ");
             Console.WriteLine("|                                                       | ");
-            Console.WriteLine("|                5 - Listar Insumos                     | ");
-            Console.WriteLine("|                6 - Listar Produtos                    | ");
-            Console.WriteLine("|                7 - Listar Unidades de Medida          | ");
+            Console.WriteLine("|                20 - Listar Insumos                    | ");
+            Console.WriteLine("|                21 - Listar Produtos                   | ");
+            Console.WriteLine("|                22 - Listar Unidades de Medida         | ");
             Console.WriteLine("|                                                       | ");
-            Console.WriteLine("|                9 - Sair                               | ");
+            Console.WriteLine("|                99 - Sair                              | ");
             Console.WriteLine("|_______________________________________________________| ");
 
             Console.Write("Escolha a sua opção e tecle enter: ");
@@ -70,6 +70,9 @@ namespace ConsoleView
                         break;
                     case OpcoesMenuPrincipal.CadastrarUnidadeDeMedida:
                         CadastrarUnidadeDeMedida();
+                        break;
+                    case OpcoesMenuPrincipal.RegistrarEntradaInsumos:
+                        RegistrarEntradaInsumo();
                         break;
 
 
@@ -118,7 +121,7 @@ namespace ConsoleView
                 {
                     ExibirUnidadeDeMedida(unidadeDeMedida);
                     Console.WriteLine("");
-                    Console.WriteLine("Cofirma Unidade De Medida (s/n)? ");
+                    Console.Write("Cofirma Unidade De Medida (s/n)? ");
                     opcao = Console.ReadLine();
                 } catch(NullReferenceException e)
                 {
@@ -163,7 +166,7 @@ namespace ConsoleView
                 {
                     ExibirUnidadeDeMedida(unidadeDeMedida);
                     Console.WriteLine("");
-                    Console.WriteLine("Cofirma Unidade De Medida (s/n)? ");
+                    Console.Write("Cofirma Unidade De Medida (s/n)? ");
                     opcao = Console.ReadLine();
                 }
                 catch (NullReferenceException e)
@@ -235,6 +238,38 @@ namespace ConsoleView
 
             Console.WriteLine("Unidade de Medida adicionada com sucesso!");
             Console.WriteLine("");
+        }
+
+        private static void RegistrarEntradaInsumo()
+        {
+            Console.WriteLine(" _______________________________________________________ ");
+            Console.WriteLine("|------------ REGISTRAR ENTRADA DE INSUMOS -------------|");
+            Console.WriteLine("|_______________________________________________________|");
+            Console.WriteLine("");
+
+
+            InsumoController ic = new InsumoController();
+            Insumo insumo;
+
+            string opcao = "n";
+            do
+            {
+                Console.Write("Digite o nome do insumo que deseja adicionar em estoque: ");
+                insumo = ic.BuscarInsumoPorNome(Console.ReadLine());
+
+                try
+                {
+                    ExibirInsumo(insumo);
+                    Console.Write("Confirma o insumo (s/n)? ");
+                    opcao = Console.ReadLine();
+                }
+                catch
+                {
+                    Console.WriteLine("Insumo não encontrado!");
+                    Console.WriteLine("");
+                }
+            } while (!opcao.Trim().ToLower().Equals("s"));
+
         }
 
         private static void ListarInsumos()
