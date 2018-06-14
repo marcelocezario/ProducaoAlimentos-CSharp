@@ -23,6 +23,7 @@ namespace ConsoleView
             ListarProdutos = 21,
             ListarUnidadesDeMedida = 22,
             ListarMarcas = 23,
+            ListarLotesInsumo = 24,
 
             Sair = 99,
         }
@@ -44,6 +45,7 @@ namespace ConsoleView
             Console.WriteLine("|                21 - Listar Produtos                   | ");
             Console.WriteLine("|                22 - Listar Unidades de Medida         | ");
             Console.WriteLine("|                23 - Listar Marcas                     | ");
+            Console.WriteLine("|                24 - Listar Lotes Insumo               | ");
             Console.WriteLine("|                                                       | ");
             Console.WriteLine("|                99 - Sair                              | ");
             Console.WriteLine("|_______________________________________________________| ");
@@ -97,6 +99,9 @@ namespace ConsoleView
                         break;
                     case OpcoesMenuPrincipal.ListarMarcas:
                         ListarMarcas();
+                        break;
+                    case OpcoesMenuPrincipal.ListarLotesInsumo:
+                        ListarLotesInsumo();
                         break;
 
                     default:
@@ -412,6 +417,19 @@ namespace ConsoleView
                 ExibirMarca(m);
         }
 
+        private static void ListarLotesInsumo()
+        {
+            Console.WriteLine(" _______________________________________________________ ");
+            Console.WriteLine("|-------------------- LOTES INSUMOS --------------------|");
+            Console.WriteLine("|_______________________________________________________|");
+            Console.WriteLine("");
+
+            InsumoController ic = new InsumoController();
+
+            foreach (LoteInsumo li in ic.ListarLotesInsumo())
+                ExibirLoteInsumo(li);
+        }
+
         private static void ExibirInsumo(Insumo i)
         {
             Console.WriteLine("");
@@ -450,6 +468,20 @@ namespace ConsoleView
             Console.WriteLine("");
             Console.WriteLine("Id..................: " + m.MarcaID);
             Console.WriteLine("Nome................: " + m.Nome);
+            Console.WriteLine("-----------------------------------------------------");
+        }
+
+        private static void ExibirLoteInsumo(LoteInsumo li)
+        {
+            Console.WriteLine("");
+            Console.WriteLine("Id..................: " + li.LoteInsumoID);
+            Console.WriteLine("Nome................: " + li._Insumo.Nome);
+            Console.WriteLine("Unidade de Medida...: " + li._Insumo._UnidadeDeMedida.Nome);
+            Console.WriteLine("Marca...............: " + li._Marca.Nome);
+            Console.WriteLine("Quantidade..........: " + li.Qtde);
+            Console.WriteLine("Custo total.........: " + li.ValorCustoTotal);
+            Console.WriteLine("Data compra.........: " + li.DataCompra);
+            Console.WriteLine("Data validade.......: " + li.Validade);
             Console.WriteLine("-----------------------------------------------------");
         }
 
