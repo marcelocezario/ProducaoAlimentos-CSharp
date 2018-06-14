@@ -7,6 +7,9 @@
         public int Numero { get; set; }
         public string Complemento { get; set; }
         public string Cidade { get; set; }
-        public string Estado { get; set; }
+
+        public int EstadoID { get; set; }
+        public virtual Estado _Estado { get; set; }
+
     }
 }
