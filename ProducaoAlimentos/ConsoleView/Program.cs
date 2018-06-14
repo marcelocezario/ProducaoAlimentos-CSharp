@@ -279,12 +279,14 @@ namespace ConsoleView
 
 
             InsumoController ic = new InsumoController();
-            Insumo insumo;
             MarcaController mc = new MarcaController();
+            Insumo insumo;
             Marca marca;
-
+            LoteInsumo loteInsumo = new LoteInsumo();
 
             string opcao = "n";
+
+            // Seleção insumo
             do
             {
                 Console.Write("Digite o nome do insumo que deseja adicionar em estoque: ");
@@ -302,11 +304,12 @@ namespace ConsoleView
                     Console.WriteLine("");
                 }
             } while (!opcao.Trim().ToLower().Equals("s"));
+            loteInsumo._Insumo = insumo;
 
-
-            opcao = "n";
+            // Seleção/Cadastro marca
             do
             {
+                opcao = "n";
                 Console.Write("Digite o nome da marca que deseja adicionar em estoque: ");
                 string nomeMarca = Console.ReadLine();
                 marca = mc.BuscarMarcaPorNome(nomeMarca);
@@ -336,10 +339,24 @@ namespace ConsoleView
                         opcao = "n";
                 }
             } while (!opcao.Trim().ToLower().Equals("s"));
+            loteInsumo._Marca = marca;
 
+            // Data compra e validade
+            Console.Write("Digite a data de vencimento do insumo: ");
+            loteInsumo.Validade = DateTime.Parse(Console.ReadLine());
+            loteInsumo.DataCompra = DateTime.Now;
 
+            // Quantidade
+            Console.WriteLine("");
+            Console.Write("Digite a quantidade total que está entrando em estoque: ");
+            loteInsumo.Qtde = double.Parse(Console.ReadLine());
 
+            // Valor total
+            Console.WriteLine("");
+            Console.Write("Digite o valor total do que está entrando em estoque: ");
+            loteInsumo.ValorCustoTotal = double.Parse(Console.ReadLine());
 
+            ic.SalvarLoteInsumo(loteInsumo);
         }
 
         private static void ListarInsumos()
