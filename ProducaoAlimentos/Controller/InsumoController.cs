@@ -181,7 +181,7 @@ namespace Controller
             }
             else
             {
-                itemInsumo.InsumoID = loteInsumo.InsumoID;
+                itemInsumo._Insumo = loteInsumo._Insumo;
                 itemInsumo.QtdeTotalEstoque = loteInsumo.Qtde;
                 itemInsumo.CustoTotalEstoque = loteInsumo.ValorCustoTotal;
 

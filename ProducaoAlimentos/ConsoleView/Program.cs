@@ -438,7 +438,7 @@ namespace ConsoleView
         private static void ListarItensInsumo()
         {
             Console.WriteLine(" _______________________________________________________ ");
-            Console.WriteLine("|-------------------- LOTES INSUMOS --------------------|");
+            Console.WriteLine("|-------------------- ITENS INSUMOS --------------------|");
             Console.WriteLine("|_______________________________________________________|");
             Console.WriteLine("");
 
@@ -447,8 +447,6 @@ namespace ConsoleView
             foreach (ItemInsumo ii in ic.ListarItensInsumo())
                 ExibirItemInsumo(ii);
         }
-
-
 
         private static void ExibirInsumo(Insumo i)
         {
