@@ -16,6 +16,8 @@ namespace ConsoleView
             CadastrarProdutos = 2,
             CadastrarUnidadeDeMedida = 3,
 
+            RegistrarEntradaInsumos = 4,
+
             ListarInsumos = 5,
             ListarProdutos = 6,
             ListarUnidadesDeMedida = 7,
@@ -32,6 +34,8 @@ namespace ConsoleView
             Console.WriteLine("|                1 - Cadastrar Insumos                  | ");
             Console.WriteLine("|                2 - Cadastrar Produtos                 | ");
             Console.WriteLine("|                3 - Cadastrar Unidade de Medida        | ");
+            Console.WriteLine("|                                                       | ");
+            Console.WriteLine("|                4 - Registrar Entrada de Insumos       | ");
             Console.WriteLine("|                                                       | ");
             Console.WriteLine("|                5 - Listar Insumos                     | ");
             Console.WriteLine("|                6 - Listar Produtos                    | ");
@@ -65,7 +69,7 @@ namespace ConsoleView
                         CadastrarProduto();
                         break;
                     case OpcoesMenuPrincipal.CadastrarUnidadeDeMedida:
-//                        CadastrarUnidadeDeMedida();
+                        CadastrarUnidadeDeMedida();
                         break;
 
 
@@ -136,7 +140,7 @@ namespace ConsoleView
             {
                 ItemComposicaoProduto item = new ItemComposicaoProduto();
                 Console.Write("Digite o nome do insumo que deseja utilizar na receita: ");
-                item._Insumo = ic.PesquisarInsumoPorNome(Console.ReadLine());
+                item._Insumo = ic.BuscarInsumoPorNome(Console.ReadLine());
                 item.InsumoID = item._Insumo.InsumoID;
 
                 Console.Write("Digite a quantidade (em " + item._Insumo._UnidadeDeMedida.Sigla
@@ -158,6 +162,11 @@ namespace ConsoleView
 
             Console.WriteLine("Produto adicionado com sucesso!");
             Console.WriteLine("");
+        }
+
+        private static void CadastrarUnidadeDeMedida()
+        {
+
         }
 
         private static void ListarInsumos()

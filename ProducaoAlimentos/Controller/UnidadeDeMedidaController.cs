@@ -16,8 +16,38 @@ namespace Controller
 
             return true;
         }
+        public bool EditarUnidadeDeMedida(int idUnidadeDeMedida, UnidadeDeMedida unidadeDeMedidaEditado)
+        {
+            UnidadeDeMedida unidadeDeMedidaEditar = BuscarUnidadeDeMedidaPorID(idUnidadeDeMedida);
+
+            if (unidadeDeMedidaEditar != null)
+            {
+                unidadeDeMedidaEditado.UnidadeDeMedidaID = unidadeDeMedidaEditar.UnidadeDeMedidaID;
+                unidadeDeMedidaEditar = unidadeDeMedidaEditado;
+
+                ContextoSingleton.Instancia.Entry(unidadeDeMedidaEditar).State = System.Data.Entity.EntityState.Modified;
+                ContextoSingleton.Instancia.SaveChanges();
+
+                return true;
+            }
+            else
+                return false;
+        }
+        public bool ExcluirUnidadeDeMedida(UnidadeDeMedida unidadeDeMedida)
+        {
+            ContextoSingleton.Instancia.Entry(unidadeDeMedida).State = System.Data.Entity.EntityState.Deleted;
+            ContextoSingleton.Instancia.SaveChanges();
+
+            return true;
+        }
+
+        public UnidadeDeMedida BuscarUnidadeDeMedidaPorID(int unidadeDeMedidaID)
+        {
+            return ContextoSingleton.Instancia.UnidadesDeMedida.Find(unidadeDeMedidaID);
+        }
 
         public List<UnidadeDeMedida> ListarUnidadesDeMedida() => ContextoSingleton.Instancia.UnidadesDeMedida.ToList();
+
 
     }
 }
