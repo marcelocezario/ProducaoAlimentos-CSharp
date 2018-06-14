@@ -42,7 +42,20 @@ namespace Controller
         {
             return ContextoSingleton.Instancia.Marcas.Find(idMarca);
         }
+        public Marca BuscarMarcaPorNome(string nomeMarca)
+        {
+            var i = from x in ContextoSingleton.Instancia.Marcas
+                    where x.Nome.ToLower().Contains(nomeMarca.Trim().ToLower())
+                    select x;
+
+            if (i != null)
+                return i.FirstOrDefault();
+            else
+                return null;
+        }
 
         public List<Marca> ListarMarcas() => ContextoSingleton.Instancia.Marcas.ToList();
+
+
     }
 }
