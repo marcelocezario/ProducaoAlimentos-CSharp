@@ -22,6 +22,7 @@ namespace ConsoleView
             ListarInsumos = 20,
             ListarProdutos = 21,
             ListarUnidadesDeMedida = 22,
+            ListarMarcas = 23,
 
             Sair = 99,
         }
@@ -42,6 +43,7 @@ namespace ConsoleView
             Console.WriteLine("|                20 - Listar Insumos                    | ");
             Console.WriteLine("|                21 - Listar Produtos                   | ");
             Console.WriteLine("|                22 - Listar Unidades de Medida         | ");
+            Console.WriteLine("|                23 - Listar Marcas                     | ");
             Console.WriteLine("|                                                       | ");
             Console.WriteLine("|                99 - Sair                              | ");
             Console.WriteLine("|_______________________________________________________| ");
@@ -93,6 +95,10 @@ namespace ConsoleView
                     case OpcoesMenuPrincipal.ListarUnidadesDeMedida:
                         ListarUnidadesDeMedida();
                         break;
+                    case OpcoesMenuPrincipal.ListarMarcas:
+                        ListarMarcas();
+                        break;
+
                     default:
                         break;
                 }
@@ -336,6 +342,19 @@ namespace ConsoleView
                 ExibirUnidadeDeMedida(u);
         }
 
+        private static void ListarMarcas()
+        {
+            Console.WriteLine(" _______________________________________________________ ");
+            Console.WriteLine("|-------------------- LISTAR MARCAS --------------------|");
+            Console.WriteLine("|_______________________________________________________|");
+            Console.WriteLine("");
+
+            MarcaController mc = new MarcaController();
+
+            foreach (Marca m in mc.ListarMarcas())
+                ExibirMarca(m);
+        }
+
         private static void ExibirInsumo(Insumo i)
         {
             Console.WriteLine("");
@@ -366,6 +385,14 @@ namespace ConsoleView
             Console.WriteLine("Nome................: " + u.Nome);
             Console.WriteLine("Sigla...............: " + u.Sigla);
             Console.WriteLine("Fracionável.........: " + u.Fracionavel);
+            Console.WriteLine("-----------------------------------------------------");
+        }
+
+        private static void ExibirMarca(Marca m)
+        {
+            Console.WriteLine("");
+            Console.WriteLine("Id..................: " + m.MarcaID);
+            Console.WriteLine("Nome................: " + m.Nome);
             Console.WriteLine("-----------------------------------------------------");
         }
 
