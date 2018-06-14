@@ -11,6 +11,7 @@ namespace Model
         public int InsumoID { get; set; }
         public virtual Insumo _Insumo { get; set; }
 
+        [ForeignKey("_Marca")]
         public int MarcaId { get; set; }
         public virtual Marca _Marca { get; set; }
 
