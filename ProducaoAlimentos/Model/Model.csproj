@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="DAL\Contexto.cs" />
     <Compile Include="DAL\SeedDB.cs" />
+    <Compile Include="Fornecedor.cs" />
     <Compile Include="Insumo.cs" />
     <Compile Include="ItemComposicaoProduto.cs" />
     <Compile Include="ItemInsumo.cs" />
