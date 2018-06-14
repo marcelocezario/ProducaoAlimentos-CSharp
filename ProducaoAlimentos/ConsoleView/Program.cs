@@ -15,8 +15,9 @@ namespace ConsoleView
             CadastrarInsumos = 1,
             CadastrarProdutos = 2,
             CadastrarUnidadeDeMedida = 3,
+            CadastrarMarca = 4,
 
-            RegistrarEntradaInsumos = 4,
+            RegistrarEntradaInsumos = 10,
 
             ListarInsumos = 20,
             ListarProdutos = 21,
@@ -34,8 +35,9 @@ namespace ConsoleView
             Console.WriteLine("|                1 - Cadastrar Insumos                  | ");
             Console.WriteLine("|                2 - Cadastrar Produtos                 | ");
             Console.WriteLine("|                3 - Cadastrar Unidade de Medida        | ");
+            Console.WriteLine("|                4 - Cadastrar Marca                    | ");
             Console.WriteLine("|                                                       | ");
-            Console.WriteLine("|                4 - Registrar Entrada de Insumos       | ");
+            Console.WriteLine("|                10 - Registrar Entrada de Insumos      | ");
             Console.WriteLine("|                                                       | ");
             Console.WriteLine("|                20 - Listar Insumos                    | ");
             Console.WriteLine("|                21 - Listar Produtos                   | ");
@@ -71,6 +73,12 @@ namespace ConsoleView
                     case OpcoesMenuPrincipal.CadastrarUnidadeDeMedida:
                         CadastrarUnidadeDeMedida();
                         break;
+                    case OpcoesMenuPrincipal.CadastrarMarca:
+                        CadastrarMarca();
+                        break;
+
+
+
                     case OpcoesMenuPrincipal.RegistrarEntradaInsumos:
                         RegistrarEntradaInsumo();
                         break;
@@ -238,6 +246,11 @@ namespace ConsoleView
 
             Console.WriteLine("Unidade de Medida adicionada com sucesso!");
             Console.WriteLine("");
+        }
+
+        private static void CadastrarMarca()
+        {
+
         }
 
         private static void RegistrarEntradaInsumo()
