@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="ContextoSingleton.cs" />
     <Compile Include="InsumoController.cs" />
+    <Compile Include="MarcaController.cs" />
     <Compile Include="ProdutoController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnidadeDeMedidaController.cs" />

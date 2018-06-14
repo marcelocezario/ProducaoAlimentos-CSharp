@@ -19,7 +19,7 @@ namespace Controller
         }
         public bool EditarInsumo(int idInsumo, Insumo insumoEditado)
         {
-            Insumo insumoEditar = BuscarInsumoPorID(idInsumo);
+            Insumo insumoEditar = BuscarInsumoPorId(idInsumo);
 
             if (insumoEditar != null)
             {
@@ -52,7 +52,7 @@ namespace Controller
         }
         public bool EditarItemInsumo(int idItemInsumo, ItemInsumo itemInsumoEditado)
         {
-            ItemInsumo itemInsumoEditar = BuscarItemInsumoPorID(idItemInsumo);
+            ItemInsumo itemInsumoEditar = BuscarItemInsumoPorId(idItemInsumo);
 
             if (itemInsumoEditar != null)
             {
@@ -86,7 +86,7 @@ namespace Controller
         public bool EditarLoteInsumo(int idLoteInsumo, LoteInsumo loteInsumoEditado)
         {
 
-            LoteInsumo loteInsumoEditar = BuscarLoteInsumoPorID(idLoteInsumo);
+            LoteInsumo loteInsumoEditar = BuscarLoteInsumoPorId(idLoteInsumo);
 
             if (loteInsumoEditar != null)
             {
@@ -110,7 +110,7 @@ namespace Controller
         }
 
         // Métodos de busca
-        public Insumo BuscarInsumoPorID(int idInsumo)
+        public Insumo BuscarInsumoPorId(int idInsumo)
         {
             return ContextoSingleton.Instancia.Insumos.Find(idInsumo);
         }
@@ -125,7 +125,7 @@ namespace Controller
             else
                 return null;
         }
-        public ItemInsumo BuscarItemInsumoPorID(int idItemInsumo)
+        public ItemInsumo BuscarItemInsumoPorId(int idItemInsumo)
         {
             return ContextoSingleton.Instancia.ItensInsumo.Find(idItemInsumo);
         }
@@ -149,7 +149,7 @@ namespace Controller
             else
                 return null;
         }
-        public LoteInsumo BuscarLoteInsumoPorID(int idLoteInsumo)
+        public LoteInsumo BuscarLoteInsumoPorId(int idLoteInsumo)
         {
             return ContextoSingleton.Instancia.LotesInsumo.Find(idLoteInsumo);
         }
@@ -191,7 +191,7 @@ namespace Controller
         }
         public void SaidaEstoqueInsumo(int idLoteInsumo, double qtdeSaida)
         {
-            LoteInsumo loteInsumo = BuscarLoteInsumoPorID(idLoteInsumo);
+            LoteInsumo loteInsumo = BuscarLoteInsumoPorId(idLoteInsumo);
 
             if (loteInsumo != null)
             {
