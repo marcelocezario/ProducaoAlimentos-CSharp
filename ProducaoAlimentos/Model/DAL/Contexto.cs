@@ -20,6 +20,7 @@ namespace Model.DAL
         public DbSet<ItemProduto> ItensProduto { get; set; }
         public DbSet<LoteInsumo> LotesInsumo { get; set; }
         public DbSet<LoteProduto> LotesProduto { get; set; }
+        public DbSet<Marca> Marcas { get; set; }
         public DbSet<Produto> Produtos { get; set; }
         public DbSet<UnidadeDeMedida> UnidadesDeMedida { get; set; }
     }
