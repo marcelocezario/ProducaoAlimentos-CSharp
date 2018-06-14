@@ -148,5 +148,17 @@ namespace Controller
 
             return p.ToList();
         }
+        public List<ItemProduto> ListarItensProduto() => ContextoSingleton.Instancia.ItensProduto.ToList();
+        public List<LoteProduto> ListarLotesProduto() => ContextoSingleton.Instancia.LotesProduto.ToList();
+
+        // Métodos para controle de entrada e saída de estoque
+        public void RegistrarEntradaEstoqueProduto(LoteProduto loteProduto)
+        {
+
+        }
+        public void RegistrarSaidaEstoqueProduto(int idLoteProduto, double qtdeSaida)
+        {
+
+        }
     }
 }
