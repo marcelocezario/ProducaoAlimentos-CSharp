@@ -18,9 +18,5 @@ namespace Model
         public double ValorCustoMedio { get; set; }
         public DateTime Validade { get; set; }
         public DateTime DataCompra { get; set; }
-
-
-
-        //VERIFICAR PARA COLOCAR OPÇÃO DE MARCA DO INSUMO
     }
 }
