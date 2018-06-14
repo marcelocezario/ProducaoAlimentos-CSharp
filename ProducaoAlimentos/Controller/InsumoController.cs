@@ -190,7 +190,7 @@ namespace Controller
             }
             SalvarLoteInsumo(loteInsumo);
         }
-        public void SaidaEstoqueInsumo(int idLoteInsumo, double qtdeSaida)
+        public void RegistrarSaidaEstoqueInsumo(int idLoteInsumo, double qtdeSaida)
         {
             LoteInsumo loteInsumo = BuscarLoteInsumoPorId(idLoteInsumo);
 
