@@ -9,6 +9,7 @@ namespace Controller
 {
     public class InsumoController
     {
+        // Métodos para Criação, Edição e Exclusão de Insumos 
         public bool SalvarInsumo(Insumo insumo)
         {
             ContextoSingleton.Instancia.Insumos.Add(insumo);
@@ -16,10 +17,9 @@ namespace Controller
 
             return true;
         }
-
-        public bool EditarInsumo (int idInsumo, Insumo insumoEditado)
+        public bool EditarInsumo(int idInsumo, Insumo insumoEditado)
         {
-            Insumo insumoEditar = PesquisarInsumoPorID(idInsumo);
+            Insumo insumoEditar = BuscarInsumoPorID(idInsumo);
 
             if (insumoEditar != null)
             {
@@ -34,7 +34,6 @@ namespace Controller
             else
                 return false;
         }
-
         public bool ExcluirInsumo(Insumo insumo)
         {
             ContextoSingleton.Instancia.Entry(insumo).State =
@@ -44,13 +43,37 @@ namespace Controller
 
             return true;
         }
+        public bool SalvarItemInsumo(ItemInsumo itemInsumo)
+        {
+            ContextoSingleton.Instancia.ItensInsumo.Add(itemInsumo);
+            ContextoSingleton.Instancia.SaveChanges();
 
-        public Insumo PesquisarInsumoPorID(int insumoID)
+            return true;
+        }
+        public bool EditarItemInsumo(int idItemInsumo, ItemInsumo itemInsumoEditado)
+        {
+            ItemInsumo itemInsumoEditar = BuscarItemInsumoPorID(idItemInsumo);
+
+            if (itemInsumoEditar != null)
+            {
+                itemInsumoEditado.ItemInsumoID = itemInsumoEditar.ItemInsumoID;
+                itemInsumoEditar = itemInsumoEditado;
+
+                ContextoSingleton.Instancia.Entry(itemInsumoEditar).State = System.Data.Entity.EntityState.Modified;
+                ContextoSingleton.Instancia.SaveChanges();
+
+                return true;
+            }
+            else
+                return false;
+        }
+
+        // Métodos de busca
+        public Insumo BuscarInsumoPorID(int insumoID)
         {
             return ContextoSingleton.Instancia.Insumos.Find(insumoID);
         }
-        
-        public Insumo PesquisarInsumoPorNome(string nomeInsumo)
+        public Insumo BuscarInsumoPorNome(string nomeInsumo)
         {
             var i = from x in ContextoSingleton.Instancia.Insumos
                     where x.Nome.ToLower().Contains(nomeInsumo.Trim().ToLower())
@@ -61,8 +84,11 @@ namespace Controller
             else
                 return null;
         }
-
-        public ItemInsumo PesquisarItemInsumoPorInsumo (Insumo insumo)
+        public ItemInsumo BuscarItemInsumoPorID(int itemInsumoID)
+        {
+            return ContextoSingleton.Instancia.ItensInsumo.Find(itemInsumoID);
+        }
+        public ItemInsumo BuscarItemInsumoPorInsumo(Insumo insumo)
         {
             var i = from x in ContextoSingleton.Instancia.ItensInsumo
                     where x.Equals(insumo)
@@ -72,22 +98,7 @@ namespace Controller
             else
                 return null;
         }
-
-        public List<Insumo> ListarInsumos() => ContextoSingleton.Instancia.Insumos.ToList();
-
-        public List<Insumo> ListarInsumosOrdemAlfabetica()
-        {
-            var i = from x in ListarInsumos()
-                    orderby x.Nome
-                    select x;
-
-            return i.ToList();
-        }
-
-        //Controle de entrada e saída de estoque
-        public List<ItemInsumo> ListarItensInsumo() => ContextoSingleton.Instancia.ItensInsumo.ToList();
-
-        public ItemInsumo BuscarItemInsumo(Insumo insumo)
+        public ItemInsumo BuscarItemInsumoPorNome(Insumo insumo)
         {
             var i = from x in ListarItensInsumo()
                     where x._Insumo.Nome.ToLower().Equals(insumo.Nome.Trim().ToLower())
@@ -98,28 +109,41 @@ namespace Controller
                 return null;
         }
 
-        public void EntradaEstoqueInsumo (LoteInsumo loteInsumo)
+        // Métodos para listagem de dados
+        public List<Insumo> ListarInsumos() => ContextoSingleton.Instancia.Insumos.ToList();
+        public List<Insumo> ListarInsumosOrdemAlfabetica()
+        {
+            var i = from x in ListarInsumos()
+                    orderby x.Nome
+                    select x;
+
+            return i.ToList();
+        }
+        public List<ItemInsumo> ListarItensInsumo() => ContextoSingleton.Instancia.ItensInsumo.ToList();
+
+        //Controle de entrada e saída de estoque
+        public void EntradaEstoqueInsumo(LoteInsumo loteInsumo)
         {
             //Verificando se existe itemInsumo e adicionando quantidade e valor em estoque
-            ItemInsumo itemInsumo = PesquisarItemInsumoPorInsumo(loteInsumo._Insumo);
+            ItemInsumo itemInsumo = BuscarItemInsumoPorInsumo(loteInsumo._Insumo);
             if (itemInsumo != null)
             {
                 itemInsumo.QtdeTotalEstoque += loteInsumo.Qtde;
                 itemInsumo.CustoTotalEstoque += loteInsumo.ValorCustoTotal;
 
-                ContextoSingleton.Instancia.Entry(itemInsumo).State = System.Data.Entity.EntityState.Modified;
-            } else
+                EditarItemInsumo(itemInsumo.InsumoID, itemInsumo);
+            }
+            else
             {
                 itemInsumo.InsumoID = loteInsumo.InsumoID;
                 itemInsumo.QtdeTotalEstoque = loteInsumo.Qtde;
                 itemInsumo.CustoTotalEstoque = loteInsumo.ValorCustoTotal;
 
-                ContextoSingleton.Instancia.ItensInsumo.Add(itemInsumo);
+                SalvarItemInsumo(itemInsumo);
             }
 
             ContextoSingleton.Instancia.LotesInsumo.Add(loteInsumo);
             ContextoSingleton.Instancia.SaveChanges();
         }
-
     }
 }
