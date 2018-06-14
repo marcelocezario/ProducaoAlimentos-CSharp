@@ -44,6 +44,17 @@ namespace Controller
                 return null;
         }
 
+        public ItemInsumo PesquisarItemInsumoPorInsumo (Insumo insumo)
+        {
+            var i = from x in ContextoSingleton.Instancia.ItensInsumo
+                    where x.Equals(insumo)
+                    select x;
+            if (i != null)
+                return i.FirstOrDefault();
+            else
+                return null;
+        }
+
         public List<Insumo> ListarInsumos() => ContextoSingleton.Instancia.Insumos.ToList();
 
         public List<Insumo> ListarInsumosOrdemAlfabetica()
@@ -70,9 +81,27 @@ namespace Controller
                 return null;
         }
 
-        public void EntradaEstoque (Insumo insumo, double quantidadeTotal, double valorCusto)
+        public void EntradaEstoqueInsumo (LoteInsumo loteInsumo)
         {
+            //Verificando se existe itemInsumo e adicionando quantidade e valor em estoque
+            ItemInsumo itemInsumo = PesquisarItemInsumoPorInsumo(loteInsumo._Insumo);
+            if (itemInsumo != null)
+            {
+                itemInsumo.QtdeTotalEstoque += loteInsumo.Qtde;
+                itemInsumo.CustoTotalEstoque += loteInsumo.ValorCustoTotal;
 
+                ContextoSingleton.Instancia.Entry(itemInsumo).State = System.Data.Entity.EntityState.Modified;
+            } else
+            {
+                itemInsumo.InsumoID = loteInsumo.InsumoID;
+                itemInsumo.QtdeTotalEstoque = loteInsumo.Qtde;
+                itemInsumo.CustoTotalEstoque = loteInsumo.ValorCustoTotal;
+
+                ContextoSingleton.Instancia.ItensInsumo.Add(itemInsumo);
+            }
+
+            ContextoSingleton.Instancia.LotesInsumo.Add(loteInsumo);
+            ContextoSingleton.Instancia.SaveChanges();
         }
     }
 }

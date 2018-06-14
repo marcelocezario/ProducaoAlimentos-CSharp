@@ -16,7 +16,7 @@ namespace Model
         public virtual Marca _Marca { get; set; }
 
         public double Qtde { get; set; }
-        public double ValorCustoMedio { get; set; }
+        public double ValorCustoTotal { get; set; }
         public DateTime Validade { get; set; }
         public DateTime DataCompra { get; set; }
     }
