@@ -75,6 +75,40 @@ namespace Controller
             return true;
         }
 
+        //Métodos para Criação, Edição e Exclusão de LotesInsumo
+        public bool SalvarLoteInsumo(LoteInsumo loteInsumo)
+        {
+            ContextoSingleton.Instancia.LotesInsumo.Add(loteInsumo);
+            ContextoSingleton.Instancia.SaveChanges();
+
+            return true;
+        }
+        public bool EditarLoteInsumo(int idLoteInsumo, LoteInsumo loteInsumoEditado)
+        {
+
+            LoteInsumo loteInsumoEditar = BuscarLoteInsumoPorID(idLoteInsumo);
+
+            if (loteInsumoEditar != null)
+            {
+                loteInsumoEditado.LoteInsumoID = loteInsumoEditar.LoteInsumoID;
+                loteInsumoEditar = loteInsumoEditado;
+
+                ContextoSingleton.Instancia.Entry(loteInsumoEditar).State = System.Data.Entity.EntityState.Modified;
+                ContextoSingleton.Instancia.SaveChanges();
+
+                return true;
+            }
+            else
+                return false;
+        }
+        public bool ExcluirLoteInsumo(LoteInsumo loteInsumo)
+        {
+            ContextoSingleton.Instancia.Entry(loteInsumo).State = System.Data.Entity.EntityState.Deleted;
+            ContextoSingleton.Instancia.SaveChanges();
+
+            return true;
+        }
+
         // Métodos de busca
         public Insumo BuscarInsumoPorID(int insumoID)
         {
@@ -115,6 +149,10 @@ namespace Controller
             else
                 return null;
         }
+        public LoteInsumo BuscarLoteInsumoPorID(int loteInsumoID)
+        {
+            return ContextoSingleton.Instancia.LotesInsumo.Find(loteInsumoID);
+        }
 
         // Métodos para listagem de dados
         public List<Insumo> ListarInsumos() => ContextoSingleton.Instancia.Insumos.ToList();
@@ -148,8 +186,7 @@ namespace Controller
 
                 SalvarItemInsumo(itemInsumo);
             }
-            ContextoSingleton.Instancia.LotesInsumo.Add(loteInsumo);
-            ContextoSingleton.Instancia.SaveChanges();
+            SalvarLoteInsumo(loteInsumo);
         }
         public void SaidaEstoqueInsumo(LoteInsumo loteInsumo, double qtde)
         {
