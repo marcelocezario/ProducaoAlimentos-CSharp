@@ -12,6 +12,6 @@ namespace Model
         public int UnidadeDeMedidaID { get; set; }
         public virtual UnidadeDeMedida _UnidadeDeMedida { get; set; }
 
-        public virtual List<ItemComposicaoProduto> ComposicaoProduto { get; set; }
+        public virtual List<ItemComposicaoProduto> _ComposicaoProduto { get; set; }
     }
 }
