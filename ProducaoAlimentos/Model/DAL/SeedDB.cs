@@ -31,7 +31,7 @@ namespace Model.DAL
                 new Insumo(){ Nome = "Creme de Leite", UnidadeDeMedidaID = 3},
                 new Insumo(){ Nome = "Farinha de Trigo", UnidadeDeMedidaID = 3},
                 new Insumo(){ Nome = "Feijão", UnidadeDeMedidaID = 3},
-                new Insumo(){ Nome = "Leite", UnidadeDeMedidaID = 2}
+                new Insumo(){ Nome = "Leite", UnidadeDeMedidaID = 2},
                 new Insumo(){ Nome = "Leite Condensado", UnidadeDeMedidaID = 3},
                 new Insumo(){ Nome = "Óleo", UnidadeDeMedidaID = 2},
                 new Insumo(){ Nome = "Ovo", UnidadeDeMedidaID = 4},
@@ -58,7 +58,7 @@ namespace Model.DAL
 
             List<ItemInsumo> itensInsumo = new List<ItemInsumo>()
             {
-                new ItemInsumo(){ InsumoID = 3, QtdeTotalEstoque = 12, CustoTotalEstoque = 4 }
+                new ItemInsumo(){ InsumoID = 3, QtdeTotalEstoque = 0, CustoTotalEstoque = 0 }
             };
             context.ItensInsumo.AddRange(itensInsumo);
             base.Seed(context);
