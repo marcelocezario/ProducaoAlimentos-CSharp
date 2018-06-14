@@ -44,7 +44,7 @@ namespace Controller
             return true;
         }
 
-        // Métodos para Criação, Edição e Exclusão de Produtos
+        // Métodos para Criação, Edição e Exclusão de ItensProdutos
         public bool SalvarItemProduto(ItemProduto itemProduto)
         {
             ContextoSingleton.Instancia.ItensProduto.Add(itemProduto);
@@ -58,8 +58,8 @@ namespace Controller
 
             if (itemProdutoEditar != null)
             {
-                itemProdutoEditado.ProdutoID = produtoEditar.ProdutoID;
-                produtoEditar = itemProdutoEditado;
+                itemProdutoEditado.ProdutoID = itemProdutoEditar.ProdutoID;
+                itemProdutoEditar = itemProdutoEditado;
 
                 ContextoSingleton.Instancia.Entry(itemProdutoEditar).State = System.Data.Entity.EntityState.Modified;
                 ContextoSingleton.Instancia.SaveChanges();
@@ -69,9 +69,9 @@ namespace Controller
             else
                 return false;
         }
-        public bool ExcluirProduto(Produto produto)
+        public bool ExcluirItemProduto(ItemProduto itemProduto)
         {
-            ContextoSingleton.Instancia.Entry(produto).State =
+            ContextoSingleton.Instancia.Entry(itemProduto).State =
                 System.Data.Entity.EntityState.Deleted;
 
             ContextoSingleton.Instancia.SaveChanges();
@@ -79,6 +79,41 @@ namespace Controller
             return true;
         }
 
+        // Métodos para Criação, Edição e Exclusão de LotesProdutos
+        public bool SalvarLoteProduto(LoteProduto loteProduto)
+        {
+            ContextoSingleton.Instancia.LotesProduto.Add(loteProduto);
+            ContextoSingleton.Instancia.SaveChanges();
+
+            return true;
+        }
+        public bool EditarLoteProduto(int idLoteProduto, LoteProduto loteProdutoEditado)
+        {
+
+            LoteProduto loteProdutoEditar = BuscarLoteProdutoPorId(idLoteProduto);
+
+            if (loteProdutoEditar != null)
+            {
+                loteProdutoEditado.LoteProdutoID = loteProdutoEditar.LoteProdutoID;
+                loteProdutoEditar = loteProdutoEditado;
+
+                ContextoSingleton.Instancia.Entry(loteProdutoEditar).State = System.Data.Entity.EntityState.Modified;
+                ContextoSingleton.Instancia.SaveChanges();
+
+                return true;
+            }
+            else
+                return false;
+        }
+        public bool ExcluirLoteProduto(LoteProduto loteProduto)
+        {
+            ContextoSingleton.Instancia.Entry(loteProduto).State = System.Data.Entity.EntityState.Deleted;
+            ContextoSingleton.Instancia.SaveChanges();
+
+            return true;
+        }
+
+        // Métodos de busca
         public Produto BuscarProdutoPorID(int idProduto)
         {
             return ContextoSingleton.Instancia.Produtos.Find(idProduto);
@@ -96,10 +131,14 @@ namespace Controller
         }
         public ItemProduto BuscarItemProdutoPorId(int idItemProduto)
         {
-            return ContextoSingleton.Instancia.ItensInsumo.Find(idItemInsumo);
+            return ContextoSingleton.Instancia.ItensProduto.Find(idItemProduto);
+        }
+        public LoteProduto BuscarLoteProdutoPorId(int idLoteProduto)
+        {
+            return ContextoSingleton.Instancia.LotesProduto.Find(idLoteProduto);
         }
 
-
+        // Métodos para listagem de dados
         public List<Produto> ListarProdutos() => ContextoSingleton.Instancia.Produtos.ToList();
         public List<Produto> ListarProdutosOrdemAlfabetica()
         {
