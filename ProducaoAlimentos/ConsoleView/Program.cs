@@ -255,8 +255,13 @@ namespace ConsoleView
             Console.WriteLine("|_______________________________________________________|");
             Console.WriteLine("");
 
+            Marca marca = new Marca();
+            MarcaController mc = new MarcaController();
+
             Console.Write("Digite o nome da marca: ");
-            
+            marca.Nome = Console.ReadLine();
+            mc.SalvarMarca(marca);
+            Console.WriteLine("Marca gravada com sucesso!");
         }
 
         private static void RegistrarEntradaInsumo()
