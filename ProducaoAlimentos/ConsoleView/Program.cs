@@ -280,6 +280,9 @@ namespace ConsoleView
 
             InsumoController ic = new InsumoController();
             Insumo insumo;
+            MarcaController mc = new MarcaController();
+            Marca marca;
+
 
             string opcao = "n";
             do
@@ -299,6 +302,42 @@ namespace ConsoleView
                     Console.WriteLine("");
                 }
             } while (!opcao.Trim().ToLower().Equals("s"));
+
+
+            opcao = "n";
+            do
+            {
+                Console.Write("Digite o nome da marca que deseja adicionar em estoque: ");
+                string nomeMarca = Console.ReadLine();
+                marca = mc.BuscarMarcaPorNome(nomeMarca);
+
+                try
+                {
+                    ExibirMarca(marca);
+                    Console.Write("Confirma a marca (s/n)? ");
+                    opcao = Console.ReadLine();
+                }
+                catch
+                {
+                    Console.Write("Marca não encontrada! Deseja cadastrar essa marca (s/n)? ");
+                    opcao = Console.ReadLine();
+
+                    if (opcao.Trim().ToLower().Equals("s"))
+                    {
+                        marca.Nome = nomeMarca;
+                        mc.SalvarMarca(marca);
+                        Console.WriteLine("");
+                        Console.WriteLine("Marca cadastrada com sucesso!");
+                        Console.WriteLine("");
+                        opcao = "s";
+                    }
+                    else
+                        opcao = "n";
+                }
+            } while (!opcao.Trim().ToLower().Equals("s"));
+
+
+
 
         }
 
