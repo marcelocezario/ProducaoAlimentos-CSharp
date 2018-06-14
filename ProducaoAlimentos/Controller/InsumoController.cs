@@ -169,7 +169,7 @@ namespace Controller
 
         // Métodos para controle de entrada e saída de estoque
         public void EntradaEstoqueInsumo(LoteInsumo loteInsumo)
-        {   
+        {
             //Verificando se existe itemInsumo e adicionando quantidade e valor em estoque
             ItemInsumo itemInsumo = BuscarItemInsumoPorInsumo(loteInsumo._Insumo);
             if (itemInsumo != null)
@@ -203,8 +203,8 @@ namespace Controller
                 itemInsumo.QtdeTotalEstoque -= qtdeSaida;
                 itemInsumo.CustoTotalEstoque -= custoSaida;
 
-
-
+                EditarItemInsumo(itemInsumo.ItemInsumoID, itemInsumo);
+                EditarLoteInsumo(loteInsumo.LoteInsumoID, loteInsumo);
             }
         }
 
