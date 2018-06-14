@@ -36,13 +36,13 @@ namespace Controller
         }
         public bool ExcluirInsumo(Insumo insumo)
         {
-            ContextoSingleton.Instancia.Entry(insumo).State =
-                System.Data.Entity.EntityState.Deleted;
-
+            ContextoSingleton.Instancia.Entry(insumo).State = System.Data.Entity.EntityState.Deleted;
             ContextoSingleton.Instancia.SaveChanges();
 
             return true;
         }
+
+        // Métodos para Criação, Edição e Exclusão de ItensInsumo
         public bool SalvarItemInsumo(ItemInsumo itemInsumo)
         {
             ContextoSingleton.Instancia.ItensInsumo.Add(itemInsumo);
@@ -66,6 +66,13 @@ namespace Controller
             }
             else
                 return false;
+        }
+        public bool ExcluirIteminsumo(ItemInsumo itemInsumo)
+        {
+            ContextoSingleton.Instancia.Entry(itemInsumo).State = System.Data.Entity.EntityState.Deleted;
+            ContextoSingleton.Instancia.SaveChanges();
+
+            return true;
         }
 
         // Métodos de busca
@@ -121,9 +128,9 @@ namespace Controller
         }
         public List<ItemInsumo> ListarItensInsumo() => ContextoSingleton.Instancia.ItensInsumo.ToList();
 
-        //Controle de entrada e saída de estoque
+        // Métodos para controle de entrada e saída de estoque
         public void EntradaEstoqueInsumo(LoteInsumo loteInsumo)
-        {
+        {   
             //Verificando se existe itemInsumo e adicionando quantidade e valor em estoque
             ItemInsumo itemInsumo = BuscarItemInsumoPorInsumo(loteInsumo._Insumo);
             if (itemInsumo != null)
@@ -131,7 +138,7 @@ namespace Controller
                 itemInsumo.QtdeTotalEstoque += loteInsumo.Qtde;
                 itemInsumo.CustoTotalEstoque += loteInsumo.ValorCustoTotal;
 
-                EditarItemInsumo(itemInsumo.InsumoID, itemInsumo);
+                EditarItemInsumo(itemInsumo.ItemInsumoID, itemInsumo);
             }
             else
             {
@@ -141,9 +148,14 @@ namespace Controller
 
                 SalvarItemInsumo(itemInsumo);
             }
-
             ContextoSingleton.Instancia.LotesInsumo.Add(loteInsumo);
             ContextoSingleton.Instancia.SaveChanges();
         }
+        public void SaidaEstoqueInsumo(LoteInsumo loteInsumo, double qtde)
+        {
+
+        }
+
+
     }
 }
