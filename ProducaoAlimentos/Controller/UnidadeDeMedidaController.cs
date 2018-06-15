@@ -9,6 +9,7 @@ namespace Controller
 {
     public class UnidadeDeMedidaController
     {
+        // Métodos para Criação, Edição e Exclusão de Unidades de Medida
         public bool SalvarUnidadeDeMedida(UnidadeDeMedida unidadeDeMedida)
         {
             ContextoSingleton.Instancia.UnidadesDeMedida.Add(unidadeDeMedida);
@@ -41,6 +42,7 @@ namespace Controller
             return true;
         }
 
+        // Métodos de busca
         public UnidadeDeMedida BuscarUnidadeDeMedidaPorID(int unidadeDeMedidaID)
         {
             return ContextoSingleton.Instancia.UnidadesDeMedida.Find(unidadeDeMedidaID);
@@ -57,6 +59,7 @@ namespace Controller
                 return null;
         }
 
+        // Métodos para listagem de dados
         public List<UnidadeDeMedida> ListarUnidadesDeMedida() => ContextoSingleton.Instancia.UnidadesDeMedida.ToList();
 
 

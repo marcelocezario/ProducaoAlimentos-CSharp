@@ -6,6 +6,7 @@ namespace Controller
 {
     public class MarcaController
     {
+        // Métodos para Criação, Edição e Exclusão de Marcas 
         public bool SalvarMarca(Marca marca)
         {
             ContextoSingleton.Instancia.Marcas.Add(marca);
@@ -38,6 +39,7 @@ namespace Controller
             return true;
         }
 
+        // Métodos de busca
         public Marca BuscarMarcaPorId(int idMarca)
         {
             return ContextoSingleton.Instancia.Marcas.Find(idMarca);
@@ -54,6 +56,7 @@ namespace Controller
                 return null;
         }
 
+        // Métodos para listagem de dados
         public List<Marca> ListarMarcas() => ContextoSingleton.Instancia.Marcas.ToList();
 
 
