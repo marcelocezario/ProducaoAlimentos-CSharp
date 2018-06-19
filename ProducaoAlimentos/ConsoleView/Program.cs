@@ -351,13 +351,13 @@ namespace ConsoleView
             endereco.Numero = int.Parse(Console.ReadLine());
             Console.Write("Digite o complemento: ");
             endereco.Complemento = Console.ReadLine();
+            Console.Write("Digite o nome do bairro: ");
+            endereco.Bairro = Console.ReadLine();
             Console.Write("Digite o Cep: ");
             endereco.Cep = Console.ReadLine();
             Console.Write("Digite a Cidade: ");
             endereco.Cidade = Console.ReadLine();
-            Console.Write("Digite o nome do bairro: ");
-            endereco.Bairro = Console.ReadLine();
-            
+                        
             String opcao = "n";
             do
             {
