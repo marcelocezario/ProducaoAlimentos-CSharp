@@ -13,9 +13,5 @@ namespace Model
         public int LoteInsumoID { get; set; }
         public virtual LoteInsumo _LoteInsumo { get; set; }
 
-        [ForeignKey("_LoteProduto")]
-        public int LoteProdutoID { get; set; }
-        public virtual LoteProduto _LoteProduto { get; set; }
-
     }
 }
