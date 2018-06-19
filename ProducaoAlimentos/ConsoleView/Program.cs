@@ -625,8 +625,9 @@ namespace ConsoleView
             Console.WriteLine("Nome................: " + li._Insumo.Nome);
             Console.WriteLine("Unidade de Medida...: " + li._Insumo._UnidadeDeMedida.Nome);
             Console.WriteLine("Marca...............: " + li._Marca.Nome);
-            Console.WriteLine("Quantidade..........: " + li.Qtde);
             Console.WriteLine("Custo total.........: " + li.ValorCustoTotal);
+            Console.WriteLine("Qtde inicial........: " + li.QtdeInicial);
+            Console.WriteLine("Qtde disponível.....: " + li.QtdeDisponivel);
             Console.WriteLine("Data compra.........: " + li.DataCompra);
             Console.WriteLine("Data validade.......: " + li.Validade);
             Console.WriteLine("-----------------------------------------------------");
