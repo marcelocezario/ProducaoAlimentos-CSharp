@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Model
@@ -11,9 +12,7 @@ namespace Model
         public int ProdutoID { get; set; }
         public virtual Produto _Produto { get; set; }
 
-        [ForeignKey("_ItemInsumoProducao")]
-        public int ItemInsumoProducaoID { get; set; }
-        public virtual ItemInsumoProducao _ItemInsumoProducao { get; set; }
+        public virtual List<ItemInsumoProducao> _ItemInsumoProducao { get; set; }
 
         public double QtdeInicial { get; set; }
         public double QtdeDisponivel { get; set; }
