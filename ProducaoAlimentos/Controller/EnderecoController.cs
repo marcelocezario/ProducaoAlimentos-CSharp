@@ -43,12 +43,12 @@ namespace Controller
         }
 
         // Métodos de busca
-        public Marca BuscarEnderecoPorId(int idEndereco)
+        public Endereco BuscarEnderecoPorId(int idEndereco)
         {
             return ContextoSingleton.Instancia.Enderecos.Find(idEndereco);
         }
 
         // Métodos para listagem de dados
-        public List<Marca> ListarEnderecos() => ContextoSingleton.Instancia.Enderecos.ToList();
+        public List<Endereco> ListarEnderecos() => ContextoSingleton.Instancia.Enderecos.ToList();
     }
 }
