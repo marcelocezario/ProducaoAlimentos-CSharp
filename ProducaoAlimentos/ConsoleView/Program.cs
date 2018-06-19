@@ -624,6 +624,13 @@ namespace ConsoleView
         }
         private static void ExibirFornecedor(Fornecedor f)
         {
+            Console.WriteLine("");
+            Console.WriteLine("Id..................: " + f.Nome);
+            Console.WriteLine("Cpf / Cnpj..........: " + f.Cpf_Cnpj);
+            Console.WriteLine("Telefone............: " + f.Telefone);
+            Console.WriteLine("E-mail..............: " + f.Email);
+            Console.WriteLine(" ---- Endereço ----");
+            ExibirEndereco(f._Endereco);
 
         }
         private static void ExibirEndereco(Endereco e)
