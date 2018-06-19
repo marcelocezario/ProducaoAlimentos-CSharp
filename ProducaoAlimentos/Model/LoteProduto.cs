@@ -11,6 +11,9 @@ namespace Model
         public int ProdutoID { get; set; }
         public virtual Produto _Produto { get; set; }
 
+        public int ItemInsumoProducaoID { get; set; }
+        public virtual ItemInsumoProducao _ItemInsumoProducao { get; set; }
+
         public double Qtde { get; set; }
         public double ValorCustoMedio { get; set; }
         public double ValorVendaMedio { get; set; }
