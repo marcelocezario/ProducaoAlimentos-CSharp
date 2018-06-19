@@ -14,6 +14,7 @@ namespace Model.DAL
             Database.SetInitializer(new SeedDB());
         }
 
+        public DbSet<Endereco> Enderecos { get; set; }
         public DbSet<Estado> Estados { get; set; }
         public DbSet<Insumo> Insumos { get; set; }
         public DbSet<ItemComposicaoProduto> ItensComposicaoProduto { get; set; }
