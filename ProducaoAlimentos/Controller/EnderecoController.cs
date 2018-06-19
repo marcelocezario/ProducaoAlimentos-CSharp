@@ -10,7 +10,7 @@ namespace Controller
     public class EnderecoController
     {
         // Métodos para Criação, Edição e Exclusão de Marcas 
-        public bool SalvarMarca(Endereco endereco)
+        public bool SalvarEndereco(Endereco endereco)
         {
             ContextoSingleton.Instancia.Enderecos.Add(endereco);
             ContextoSingleton.Instancia.SaveChanges();

@@ -308,8 +308,8 @@ namespace ConsoleView
             Console.Write("Digite o E-mail do fornecedor: ");
             fornecedor.Email = Console.ReadLine();
 
-            Endereco endereco = NovoEndereco();
             Console.WriteLine(" --- Cadastro Endereço --- ");
+            Endereco endereco = NovoEndereco();
             fornecedor.EnderecoID = endereco.EnderecoID;
             fornecedor._Endereco = endereco;
 
@@ -332,8 +332,8 @@ namespace ConsoleView
         private static Endereco NovoEndereco()
         {
             Endereco endereco = new Endereco();
-            EnderecoController ec = new EnderecoController();
-            EstadoController ufc = new EstadoController();
+            EnderecoController endc = new EnderecoController();
+            EstadoController estc = new EstadoController();
 
             Console.Write("Digite o logradouro do endereço: ");
             endereco.Logradouro = Console.ReadLine();
@@ -352,10 +352,10 @@ namespace ConsoleView
                 Console.Write("Digite um estado: ");
                 string buscaEstado = Console.ReadLine();
 
-                Estado estado = ufc.BuscarEstadoPorSigla(buscaEstado);
+                Estado estado = estc.BuscarEstadoPorSigla(buscaEstado);
                 if (estado == null)
                 {
-                    estado = ufc.BuscarEstadoPorNome(buscaEstado);
+                    estado = estc.BuscarEstadoPorNome(buscaEstado);
                 }
                 try
                 {
@@ -363,6 +363,8 @@ namespace ConsoleView
                     Console.WriteLine("");
                     Console.Write("Cofirma Estado (s/n)? ");
                     opcao = Console.ReadLine();
+                    endereco.EstadoID = estado.EstadoID;
+                    endereco._Estado = estado;
                 }
                 catch (NullReferenceException)
                 {
@@ -371,9 +373,9 @@ namespace ConsoleView
                 }
             } while (!opcao.Trim().ToLower().Equals("s"));
 
+            endc.SalvarEndereco(endereco);
 
-
-
+            Console.WriteLine("Endereço cadastrado com sucesso!");
             return endereco;
         }
 
