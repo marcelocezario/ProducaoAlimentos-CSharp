@@ -470,7 +470,8 @@ namespace ConsoleView
             // Quantidade
             Console.WriteLine("");
             Console.Write("Digite a quantidade total que está entrando em estoque: ");
-            loteInsumo.Qtde = double.Parse(Console.ReadLine());
+            loteInsumo.QtdeInicial = double.Parse(Console.ReadLine());
+            loteInsumo.QtdeDisponivel = loteInsumo.QtdeInicial;
 
             // Valor total
             Console.WriteLine("");

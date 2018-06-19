@@ -174,7 +174,7 @@ namespace Controller
             ItemInsumo itemInsumo = BuscarItemInsumoPorNomeExato(loteInsumo._Insumo.Nome);
             if (itemInsumo != null)
             {
-                itemInsumo.QtdeTotalEstoque += loteInsumo.Qtde;
+                itemInsumo.QtdeTotalEstoque += loteInsumo.QtdeInicial;
                 itemInsumo.CustoTotalEstoque += loteInsumo.ValorCustoTotal;
 
                 EditarItemInsumo(itemInsumo.ItemInsumoID, itemInsumo);
@@ -183,7 +183,7 @@ namespace Controller
             {
                 itemInsumo = new ItemInsumo();
                 itemInsumo._Insumo = loteInsumo._Insumo;
-                itemInsumo.QtdeTotalEstoque = loteInsumo.Qtde;
+                itemInsumo.QtdeTotalEstoque = loteInsumo.QtdeInicial;
                 itemInsumo.CustoTotalEstoque = loteInsumo.ValorCustoTotal;
 
                 SalvarItemInsumo(itemInsumo);
@@ -196,8 +196,8 @@ namespace Controller
 
             if (loteInsumo != null)
             {
-                double custoSaida = (loteInsumo.ValorCustoTotal / loteInsumo.Qtde) * qtdeSaida;
-                loteInsumo.Qtde -= qtdeSaida;
+                double custoSaida = (loteInsumo.ValorCustoTotal / loteInsumo.QtdeInicial) * qtdeSaida;
+                loteInsumo.QtdeDisponivel -= qtdeSaida;
                 loteInsumo.ValorCustoTotal -= custoSaida;
 
                 ItemInsumo itemInsumo = BuscarItemInsumoPorNomeExato(loteInsumo._Insumo.Nome);
