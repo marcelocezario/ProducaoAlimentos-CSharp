@@ -56,11 +56,11 @@ namespace Model.DAL
             context.SaveChanges();
 
 
-            List<ItemInsumo> itensInsumo = new List<ItemInsumo>()
+            List<EstoqueInsumo> itensInsumo = new List<EstoqueInsumo>()
             {
-                new ItemInsumo(){ InsumoID = 3, QtdeTotalEstoque = 0, CustoTotalEstoque = 0 }
+                new EstoqueInsumo(){ InsumoID = 3, QtdeTotalEstoque = 0, CustoTotalEstoque = 0 }
             };
-            context.ItensInsumo.AddRange(itensInsumo);
+            context.EstoqueInsumos.AddRange(itensInsumo);
             base.Seed(context);
             context.SaveChanges();
 

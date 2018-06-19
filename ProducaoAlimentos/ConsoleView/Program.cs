@@ -545,7 +545,7 @@ namespace ConsoleView
 
             InsumoController ic = new InsumoController();
 
-            foreach (ItemInsumo ii in ic.ListarItensInsumo())
+            foreach (EstoqueInsumo ii in ic.ListarEstoqueInsumo())
                 ExibirItemInsumo(ii);
         }
         private static void ListarFornecedores()
@@ -625,10 +625,10 @@ namespace ConsoleView
             Console.WriteLine("Data validade.......: " + li.Validade);
             Console.WriteLine("-----------------------------------------------------");
         }
-        private static void ExibirItemInsumo(ItemInsumo ii)
+        private static void ExibirItemInsumo(EstoqueInsumo ii)
         {
             Console.WriteLine("");
-            Console.WriteLine("Id..................: " + ii.ItemInsumoID);
+            Console.WriteLine("Id..................: " + ii.EstoqueInsumoID);
             Console.WriteLine("Nome................: " + ii._Insumo.Nome);
             Console.WriteLine("Unidade de Medida...: " + ii._Insumo._UnidadeDeMedida.Nome);
             Console.WriteLine("Quantidade..........: " + ii.QtdeTotalEstoque);

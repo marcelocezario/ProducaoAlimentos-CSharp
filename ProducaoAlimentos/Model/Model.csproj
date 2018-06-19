@@ -56,7 +56,7 @@
     <Compile Include="Fornecedor.cs" />
     <Compile Include="Insumo.cs" />
     <Compile Include="ItemComposicaoProduto.cs" />
-    <Compile Include="ItemInsumo.cs" />
+    <Compile Include="EstoqueInsumo.cs" />
     <Compile Include="ItemProduto.cs" />
     <Compile Include="LoteInsumo.cs" />
     <Compile Include="LoteProduto.cs" />

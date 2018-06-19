@@ -42,24 +42,24 @@ namespace Controller
             return true;
         }
 
-        // Métodos para Criação, Edição e Exclusão de ItensInsumo
-        public bool SalvarItemInsumo(ItemInsumo itemInsumo)
+        // Métodos para Criação, Edição e Exclusão de EstoqueInsumo
+        public bool SalvarItemInsumo(EstoqueInsumo estoqueInsumo)
         {
-            ContextoSingleton.Instancia.ItensInsumo.Add(itemInsumo);
+            ContextoSingleton.Instancia.EstoqueInsumos.Add(estoqueInsumo);
             ContextoSingleton.Instancia.SaveChanges();
 
             return true;
         }
-        public bool EditarItemInsumo(int idItemInsumo, ItemInsumo itemInsumoEditado)
+        public bool EditarEstoqueInsumo(int idEstoqueInsumo, EstoqueInsumo estoqueInsumoEditado)
         {
-            ItemInsumo itemInsumoEditar = BuscarItemInsumoPorId(idItemInsumo);
+            EstoqueInsumo estoqueInsumoEditar = BuscarEstoqueInsumoPorId(idEstoqueInsumo);
 
-            if (itemInsumoEditar != null)
+            if (estoqueInsumoEditar != null)
             {
-                itemInsumoEditado.ItemInsumoID = itemInsumoEditar.ItemInsumoID;
-                itemInsumoEditar = itemInsumoEditado;
+                estoqueInsumoEditado.EstoqueInsumoID = estoqueInsumoEditar.EstoqueInsumoID;
+                estoqueInsumoEditar = estoqueInsumoEditado;
 
-                ContextoSingleton.Instancia.Entry(itemInsumoEditar).State = System.Data.Entity.EntityState.Modified;
+                ContextoSingleton.Instancia.Entry(estoqueInsumoEditar).State = System.Data.Entity.EntityState.Modified;
                 ContextoSingleton.Instancia.SaveChanges();
 
                 return true;
@@ -67,9 +67,9 @@ namespace Controller
             else
                 return false;
         }
-        public bool ExcluirIteminsumo(ItemInsumo itemInsumo)
+        public bool ExcluirIteminsumo(EstoqueInsumo estoqueInsumo)
         {
-            ContextoSingleton.Instancia.Entry(itemInsumo).State = System.Data.Entity.EntityState.Deleted;
+            ContextoSingleton.Instancia.Entry(estoqueInsumo).State = System.Data.Entity.EntityState.Deleted;
             ContextoSingleton.Instancia.SaveChanges();
 
             return true;
@@ -125,13 +125,13 @@ namespace Controller
             else
                 return null;
         }
-        public ItemInsumo BuscarItemInsumoPorId(int idItemInsumo)
+        public EstoqueInsumo BuscarEstoqueInsumoPorId(int idEstoqueInsumo)
         {
-            return ContextoSingleton.Instancia.ItensInsumo.Find(idItemInsumo);
+            return ContextoSingleton.Instancia.EstoqueInsumos.Find(idEstoqueInsumo);
         }
-        public ItemInsumo BuscarItemInsumoPorNome(string nomeInsumo)
+        public EstoqueInsumo BuscarEstoqueInsumoPorNome(string nomeInsumo)
         {
-            var i = from x in ListarItensInsumo()
+            var i = from x in ListarEstoqueInsumo()
                     where x._Insumo.Nome.ToLower().Contains(nomeInsumo.Trim().ToLower())
                     select x;
             if (i != null)
@@ -139,9 +139,9 @@ namespace Controller
             else
                 return null;
         }
-        public ItemInsumo BuscarItemInsumoPorNomeExato(string nomeInsumo)
+        public EstoqueInsumo BuscarLoteInsumoPorNomeExato(string nomeInsumo)
         {
-            var i = from x in ListarItensInsumo()
+            var i = from x in ListarEstoqueInsumo()
                     where x._Insumo.Nome.ToLower().Equals(nomeInsumo.Trim().ToLower())
                     select x;
             if (i != null)
@@ -164,29 +164,29 @@ namespace Controller
 
             return i.ToList();
         }
-        public List<ItemInsumo> ListarItensInsumo() => ContextoSingleton.Instancia.ItensInsumo.ToList();
+        public List<EstoqueInsumo> ListarEstoqueInsumo() => ContextoSingleton.Instancia.EstoqueInsumos.ToList();
         public List<LoteInsumo> ListarLotesInsumo() => ContextoSingleton.Instancia.LotesInsumo.ToList();
 
         // Métodos para controle de entrada e saída de estoque
         public void RegistrarEntradaEstoqueInsumo(LoteInsumo loteInsumo)
         {
-            //Verificando se existe itemInsumo e adicionando quantidade e valor em estoque
-            ItemInsumo itemInsumo = BuscarItemInsumoPorNomeExato(loteInsumo._Insumo.Nome);
-            if (itemInsumo != null)
+            //Verificando se existe estoqueInsumo e adicionando quantidade e valor em estoque
+            EstoqueInsumo estoqueInsumo = BuscarLoteInsumoPorNomeExato(loteInsumo._Insumo.Nome);
+            if (estoqueInsumo != null)
             {
-                itemInsumo.QtdeTotalEstoque += loteInsumo.QtdeInicial;
-                itemInsumo.CustoTotalEstoque += loteInsumo.CustoMedio * loteInsumo.QtdeInicial;
+                estoqueInsumo.QtdeTotalEstoque += loteInsumo.QtdeInicial;
+                estoqueInsumo.CustoTotalEstoque += loteInsumo.CustoMedio * loteInsumo.QtdeInicial;
 
-                EditarItemInsumo(itemInsumo.ItemInsumoID, itemInsumo);
+                EditarEstoqueInsumo(estoqueInsumo.EstoqueInsumoID, estoqueInsumo);
             }
             else
             {
-                itemInsumo = new ItemInsumo();
-                itemInsumo._Insumo = loteInsumo._Insumo;
-                itemInsumo.QtdeTotalEstoque = loteInsumo.QtdeInicial;
-                itemInsumo.CustoTotalEstoque = loteInsumo.CustoMedio * loteInsumo.QtdeInicial;
+                estoqueInsumo = new EstoqueInsumo();
+                estoqueInsumo._Insumo = loteInsumo._Insumo;
+                estoqueInsumo.QtdeTotalEstoque = loteInsumo.QtdeInicial;
+                estoqueInsumo.CustoTotalEstoque = loteInsumo.CustoMedio * loteInsumo.QtdeInicial;
 
-                SalvarItemInsumo(itemInsumo);
+                SalvarItemInsumo(estoqueInsumo);
             }
             SalvarLoteInsumo(loteInsumo);
         }
@@ -199,11 +199,11 @@ namespace Controller
                 double custoSaida = loteInsumo.CustoMedio * qtdeSaida;
                 loteInsumo.QtdeDisponivel -= qtdeSaida;
 
-                ItemInsumo itemInsumo = BuscarItemInsumoPorNomeExato(loteInsumo._Insumo.Nome);
-                itemInsumo.QtdeTotalEstoque -= qtdeSaida;
-                itemInsumo.CustoTotalEstoque -= custoSaida;
+                EstoqueInsumo estoqueInsumo = BuscarLoteInsumoPorNomeExato(loteInsumo._Insumo.Nome);
+                estoqueInsumo.QtdeTotalEstoque -= qtdeSaida;
+                estoqueInsumo.CustoTotalEstoque -= custoSaida;
 
-                EditarItemInsumo(itemInsumo.ItemInsumoID, itemInsumo);
+                EditarEstoqueInsumo(estoqueInsumo.EstoqueInsumoID, estoqueInsumo);
                 EditarLoteInsumo(loteInsumo.LoteInsumoID, loteInsumo);
             }
         }
