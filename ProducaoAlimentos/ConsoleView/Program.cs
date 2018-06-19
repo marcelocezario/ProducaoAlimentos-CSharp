@@ -21,14 +21,14 @@ namespace ConsoleView
 
             RegistrarEntradaInsumos = 10,
 
-            ListarInsumos = 20,
-            ListarProdutos = 21,
-            ListarUnidadesDeMedida = 22,
-            ListarMarcas = 23,
-            ListarLotesInsumo = 24,
-            ListarItensInsumo = 25,
-            ListarFornecedores = 26,
-            ListarEnderecos = 27,
+            ListarInsumos = 21,
+            ListarProdutos = 22,
+            ListarUnidadesDeMedida = 23,
+            ListarMarcas = 24,
+            ListarFornecedores = 25,
+            ListarEnderecos = 26,
+            ListarLotesInsumo = 27,
+            ListarItensInsumo = 28,
 
             Sair = 99,
         }
@@ -36,29 +36,22 @@ namespace ConsoleView
         private static OpcoesMenuPrincipal Menu()
         {
             LimparTela();
-            Console.WriteLine(" _______________________________________________________  ");
-            Console.WriteLine("|------------------ PRODUÇÃO ALIMENTOS -----------------| ");
-            Console.WriteLine("|                                                       | ");
-            Console.WriteLine("|                1 - Cadastrar Insumos                  | ");
-            Console.WriteLine("|                2 - Cadastrar Produtos                 | ");
-            Console.WriteLine("|                3 - Cadastrar Unidade de Medida        | ");
-            Console.WriteLine("|                4 - Cadastrar Marca                    | ");
-            Console.WriteLine("|                5 - Cadastrar Fornecedor               | ");
-            Console.WriteLine("|                6 - Cadastrar Endereco                 | ");
-            Console.WriteLine("|                                                       | ");
-            Console.WriteLine("|                10 - Registrar Entrada de Insumos      | ");
-            Console.WriteLine("|                                                       | ");
-            Console.WriteLine("|                20 - Listar Insumos                    | ");
-            Console.WriteLine("|                21 - Listar Produtos                   | ");
-            Console.WriteLine("|                22 - Listar Unidades de Medida         | ");
-            Console.WriteLine("|                23 - Listar Marcas                     | ");
-            Console.WriteLine("|                24 - Listar Lotes Insumo               | ");
-            Console.WriteLine("|                25 - Listar Itens Insumo Estoque       | ");
-            Console.WriteLine("|                26 - Listar Fornecedores               | ");
-            Console.WriteLine("|                27 - Listar Endereços                  | ");
-            Console.WriteLine("|                                                       | ");
-            Console.WriteLine("|                99 - Sair                              | ");
-            Console.WriteLine("|_______________________________________________________| ");
+            Console.WriteLine(" _________________________________________________________________________  ");
+            Console.WriteLine("|-------------------------- PRODUÇÃO ALIMENTOS ---------------------------| ");
+            Console.WriteLine("|                                    |                                    | ");
+            Console.WriteLine("| CADASTRAR:  1 - Insumos            |   LISTAR:  21 - Insumos            | "); 
+            Console.WriteLine("|             2 - Produtos           |            22 - Produtos           | "); 
+            Console.WriteLine("|             3 - Unidades de Medida |            23 - Unidades de Medida | ");
+            Console.WriteLine("|             4 - Marcas             |            24 - Marcas             | ");
+            Console.WriteLine("|             5 - Fornecedores       |            25 - Fornecedores       | ");
+            Console.WriteLine("|             6 - Endereços          |            26 - Endereços          | ");
+            Console.WriteLine("|____________________________________|            27 - Lotes Insumo       | ");
+            Console.WriteLine("|                                    |            28 - Itens Insumo       | ");
+            Console.WriteLine("| REGISTRAR: 10 - Entrada Insumos    |                                    | ");
+            Console.WriteLine("|                                    |                                    | ");
+            Console.WriteLine("|                                    |            99 - Sair               | ");
+            Console.WriteLine("|____________________________________|____________________________________| ");
+            Console.WriteLine("");
 
             Console.Write("Escolha a sua opção e tecle enter: ");
             string opcao = Console.ReadLine();
@@ -116,17 +109,17 @@ namespace ConsoleView
                     case OpcoesMenuPrincipal.ListarMarcas:
                         ListarMarcas();
                         break;
-                    case OpcoesMenuPrincipal.ListarLotesInsumo:
-                        ListarLotesInsumo();
-                        break;
-                    case OpcoesMenuPrincipal.ListarItensInsumo:
-                        ListarItensInsumo();
-                        break;
                     case OpcoesMenuPrincipal.ListarFornecedores:
                         ListarFornecedores();
                         break;
                     case OpcoesMenuPrincipal.ListarEnderecos:
                         ListarEnderecos();
+                        break;
+                    case OpcoesMenuPrincipal.ListarLotesInsumo:
+                        ListarLotesInsumo();
+                        break;
+                    case OpcoesMenuPrincipal.ListarItensInsumo:
+                        ListarItensInsumo();
                         break;
 
                     default:
