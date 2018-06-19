@@ -54,7 +54,7 @@ namespace Controller
         }
         public bool EditarItemProduto(int idItemProduto, ItemProduto itemProdutoEditado)
         {
-            ItemProduto itemProdutoEditar = BuscarItemProdutoPorID(idItemProduto);
+            ItemProduto itemProdutoEditar = BuscarItemProdutoPorId(idItemProduto);
 
             if (itemProdutoEditar != null)
             {

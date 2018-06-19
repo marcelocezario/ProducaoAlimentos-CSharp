@@ -159,7 +159,7 @@ namespace ConsoleView
                     Console.Write("Cofirma Unidade De Medida (s/n)? ");
                     opcao = Console.ReadLine();
                 }
-                catch (NullReferenceException e)
+                catch (NullReferenceException)
                 {
                     Console.WriteLine("Unidade de medida não encontrada!");
                     Console.WriteLine("");
@@ -204,7 +204,7 @@ namespace ConsoleView
                     Console.Write("Cofirma Unidade De Medida (s/n)? ");
                     opcao = Console.ReadLine();
                 }
-                catch (NullReferenceException e)
+                catch (NullReferenceException)
                 {
                     Console.WriteLine("Unidade de medida não encontrada!");
                     Console.WriteLine("");
@@ -233,14 +233,14 @@ namespace ConsoleView
 
                     opcao = Console.ReadLine();
                 }
-                catch (NullReferenceException e)
+                catch (NullReferenceException)
                 {
                     Console.WriteLine("Insumo não encontrado!");
                     Console.WriteLine("");
                 }
             } while (!opcao.Trim().ToLower().Equals("n"));
 
-            produto.ComposicaoProduto = itens;
+            produto._ComposicaoProduto = itens;
 
             pc.SalvarProduto(produto);
 
@@ -333,6 +333,7 @@ namespace ConsoleView
         {
             Endereco endereco = new Endereco();
             EnderecoController ec = new EnderecoController();
+            EstadoController ufc = new EstadoController();
 
             Console.Write("Digite o logradouro do endereço: ");
             endereco.Logradouro = Console.ReadLine();
@@ -344,7 +345,31 @@ namespace ConsoleView
             endereco.Cep = Console.ReadLine();
             Console.Write("Digite a Cidade: ");
             endereco.Cidade = Console.ReadLine();
-            Console.Write("Digite um estado: ");
+            
+            String opcao = "n";
+            do
+            {
+                Console.Write("Digite um estado: ");
+                string buscaEstado = Console.ReadLine();
+
+                Estado estado = ufc.BuscarEstadoPorSigla(buscaEstado);
+                if (estado == null)
+                {
+                    estado = ufc.BuscarEstadoPorNome(buscaEstado);
+                }
+                try
+                {
+                    ExibirEstado(estado);
+                    Console.WriteLine("");
+                    Console.Write("Cofirma Estado (s/n)? ");
+                    opcao = Console.ReadLine();
+                }
+                catch (NullReferenceException)
+                {
+                    Console.WriteLine("Estado não encontrado!");
+                    Console.WriteLine("");
+                }
+            } while (!opcao.Trim().ToLower().Equals("s"));
 
 
 
@@ -532,7 +557,7 @@ namespace ConsoleView
             Console.WriteLine("Nome................: " + p.Nome);
             Console.WriteLine("Unidade de Medida...: " + p._UnidadeDeMedida.Nome);
             Console.WriteLine("....Composição....");
-            foreach (ItemComposicaoProduto i in p.ComposicaoProduto)
+            foreach (ItemComposicaoProduto i in p._ComposicaoProduto)
             {
                 Console.WriteLine(i.QuantidadeInsumo + " " + i._Insumo._UnidadeDeMedida.Sigla + " de " + i._Insumo.Nome);
             }
@@ -576,6 +601,12 @@ namespace ConsoleView
             Console.WriteLine("Quantidade..........: " + ii.QtdeTotalEstoque);
             Console.WriteLine("Custo total.........: " + ii.CustoTotalEstoque);
             Console.WriteLine("-----------------------------------------------------");
+        }
+        private static void ExibirEstado(Estado e)
+        {
+            Console.WriteLine("");
+            Console.WriteLine("Id..................: " + e.EstadoID);
+            Console.WriteLine("Nome................: " + e.Nome + " (" + e.Sigla + ")");
         }
 
         private static void LimparTela() => Console.Clear();
