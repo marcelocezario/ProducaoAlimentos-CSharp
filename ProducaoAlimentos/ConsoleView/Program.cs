@@ -16,6 +16,8 @@ namespace ConsoleView
             CadastrarProdutos = 2,
             CadastrarUnidadeDeMedida = 3,
             CadastrarMarca = 4,
+            CadastrarFornecedor = 5,
+            CadastrarEndereco = 6,
 
             RegistrarEntradaInsumos = 10,
 
@@ -39,6 +41,8 @@ namespace ConsoleView
             Console.WriteLine("|                2 - Cadastrar Produtos                 | ");
             Console.WriteLine("|                3 - Cadastrar Unidade de Medida        | ");
             Console.WriteLine("|                4 - Cadastrar Marca                    | ");
+            Console.WriteLine("|                5 - Cadastrar Fornecedor               | ");
+            Console.WriteLine("|                6 - Cadastrar Endereco                 | ");
             Console.WriteLine("|                                                       | ");
             Console.WriteLine("|                10 - Registrar Entrada de Insumos      | ");
             Console.WriteLine("|                                                       | ");
@@ -81,6 +85,12 @@ namespace ConsoleView
                         break;
                     case OpcoesMenuPrincipal.CadastrarMarca:
                         CadastrarMarca();
+                        break;
+                    case OpcoesMenuPrincipal.CadastrarFornecedor:
+                        CadastrarFornecedor();
+                        break;
+                    case OpcoesMenuPrincipal.CadastrarEndereco:
+                        CadastrarEndereco();
                         break;
 
 
@@ -140,7 +150,7 @@ namespace ConsoleView
             do
             {
                 Console.Write("Digite o nome de uma unidade de medida do insumo: ");
-                
+
                 unidadeDeMedida = umc.BuscarUnidadeDeMedidaPorNome(Console.ReadLine());
                 try
                 {
@@ -148,7 +158,8 @@ namespace ConsoleView
                     Console.WriteLine("");
                     Console.Write("Cofirma Unidade De Medida (s/n)? ");
                     opcao = Console.ReadLine();
-                } catch(NullReferenceException e)
+                }
+                catch (NullReferenceException e)
                 {
                     Console.WriteLine("Unidade de medida não encontrada!");
                     Console.WriteLine("");
@@ -221,7 +232,8 @@ namespace ConsoleView
                     Console.Write("Deseja adicionar mais algum insumo a receita (s/n)? ");
 
                     opcao = Console.ReadLine();
-                } catch (NullReferenceException e)
+                }
+                catch (NullReferenceException e)
                 {
                     Console.WriteLine("Insumo não encontrado!");
                     Console.WriteLine("");
@@ -276,6 +288,48 @@ namespace ConsoleView
             marca.Nome = Console.ReadLine();
             mc.SalvarMarca(marca);
             Console.WriteLine("Marca gravada com sucesso!");
+        }
+        private static void CadastrarFornecedor()
+        {
+            Console.WriteLine(" _______________________________________________________ ");
+            Console.WriteLine("|----------------- CADASTRAR FORNECEDOR ----------------|");
+            Console.WriteLine("|_______________________________________________________|");
+            Console.WriteLine("");
+
+            Fornecedor fornecedor = new Fornecedor();
+            EnderecoController ec = new EnderecoController();
+
+            Console.Write("Digite o nome do Fornecedor: ");
+            fornecedor.Nome = Console.ReadLine();
+            Console.Write("Digite o CPF ou CNPJ do fornecedor: ");
+            fornecedor.Cpf_Cnpj = Console.ReadLine();
+            Console.Write("Digite o telefone do fornecedor: ");
+            fornecedor.Telefone = Console.ReadLine();
+            Console.Write("Digite o E-mail do fornecedor: ");
+            fornecedor.Email = Console.ReadLine();
+
+            NovoEndereco();
+
+
+
+
+        }
+        private static void CadastrarEndereco()
+        {
+            Console.WriteLine(" _______________________________________________________ ");
+            Console.WriteLine("|----------------- CADASTRAR ENDERECO ------------------|");
+            Console.WriteLine("|_______________________________________________________|");
+            Console.WriteLine("");
+
+            NovoEndereco();
+        }
+
+        private static Endereco NovoEndereco()
+        {
+            Endereco endereco = new Endereco();
+
+
+            return endereco;
         }
 
         private static void RegistrarEntradaInsumo()
