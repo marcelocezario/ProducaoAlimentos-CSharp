@@ -476,7 +476,7 @@ namespace ConsoleView
             // Valor total
             Console.WriteLine("");
             Console.Write("Digite o valor total do que está entrando em estoque: ");
-            loteInsumo.ValorCustoTotal = double.Parse(Console.ReadLine());
+            loteInsumo.CustoMedio = double.Parse(Console.ReadLine()) / loteInsumo.QtdeInicial;
 
             ic.RegistrarEntradaEstoqueInsumo(loteInsumo);
         }
@@ -625,9 +625,9 @@ namespace ConsoleView
             Console.WriteLine("Nome................: " + li._Insumo.Nome);
             Console.WriteLine("Unidade de Medida...: " + li._Insumo._UnidadeDeMedida.Nome);
             Console.WriteLine("Marca...............: " + li._Marca.Nome);
-            Console.WriteLine("Custo total.........: " + li.ValorCustoTotal);
             Console.WriteLine("Qtde inicial........: " + li.QtdeInicial);
             Console.WriteLine("Qtde disponível.....: " + li.QtdeDisponivel);
+            Console.WriteLine("Custo médio.........: " + li.CustoMedio);
             Console.WriteLine("Data compra.........: " + li.DataCompra);
             Console.WriteLine("Data validade.......: " + li.Validade);
             Console.WriteLine("-----------------------------------------------------");
