@@ -27,6 +27,8 @@ namespace ConsoleView
             ListarMarcas = 23,
             ListarLotesInsumo = 24,
             ListarItensInsumo = 25,
+            ListarFornecedores = 26,
+            ListarEnderecos = 27,
 
             Sair = 99,
         }
@@ -52,6 +54,8 @@ namespace ConsoleView
             Console.WriteLine("|                23 - Listar Marcas                     | ");
             Console.WriteLine("|                24 - Listar Lotes Insumo               | ");
             Console.WriteLine("|                25 - Listar Itens Insumo Estoque       | ");
+            Console.WriteLine("|                26 - Listar Fornecedores               | ");
+            Console.WriteLine("|                27 - Listar Endereços                  | ");
             Console.WriteLine("|                                                       | ");
             Console.WriteLine("|                99 - Sair                              | ");
             Console.WriteLine("|_______________________________________________________| ");
@@ -117,6 +121,12 @@ namespace ConsoleView
                         break;
                     case OpcoesMenuPrincipal.ListarItensInsumo:
                         ListarItensInsumo();
+                        break;
+                    case OpcoesMenuPrincipal.ListarFornecedores:
+                        ListarFornecedores();
+                        break;
+                    case OpcoesMenuPrincipal.ListarEnderecos:
+                        ListarEnderecos();
                         break;
 
                     default:
@@ -610,7 +620,21 @@ namespace ConsoleView
             Console.WriteLine("Id..................: " + e.EstadoID);
             Console.WriteLine("Nome................: " + e.Nome + " (" + e.Sigla + ")");
         }
+        private static void ExibirFornecedor(Fornecedor f)
+        {
 
+        }
+        private static void ExibirEndereco(Endereco e)
+        {
+            Console.WriteLine("");
+            Console.WriteLine("Id..................: " + e.EnderecoID);
+            Console.WriteLine("Logradouro..........: " + e.Logradouro);
+            Console.WriteLine("Número..............: " + e.Numero);
+            Console.WriteLine("Complemento.........: " + e.Complemento);
+            Console.WriteLine("Bairro..............: " + e.Bairro);
+            Console.WriteLine("Cidade..............: " + e.Cidade);
+            Console.WriteLine("Estado..............: " + e._Estado.Nome + " (" + e._Estado.Sigla + ")");
+        }
         private static void LimparTela() => Console.Clear();
     }
 }
