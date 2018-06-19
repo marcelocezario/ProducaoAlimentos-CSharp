@@ -554,6 +554,30 @@ namespace ConsoleView
             foreach (ItemInsumo ii in ic.ListarItensInsumo())
                 ExibirItemInsumo(ii);
         }
+        private static void ListarFornecedores()
+        {
+            Console.WriteLine(" _______________________________________________________ ");
+            Console.WriteLine("|-------------------- FORNECEDORES ---------------------|");
+            Console.WriteLine("|_______________________________________________________|");
+            Console.WriteLine("");
+
+            FornecedorController fc = new FornecedorController();
+
+            foreach (Fornecedor f in fc.ListarFornecedors())
+                ExibirFornecedor(f);
+        }
+        private static void ListarEnderecos()
+        {
+            Console.WriteLine(" _______________________________________________________ ");
+            Console.WriteLine("|---------------------- ENDERECOS ----------------------|");
+            Console.WriteLine("|_______________________________________________________|");
+            Console.WriteLine("");
+
+            EnderecoController ec = new EnderecoController();
+
+            foreach (Endereco e in ec.ListarEnderecos())
+                ExibirEndereco(e);
+        }
 
         // Exibições
         private static void ExibirInsumo(Insumo i)
@@ -625,7 +649,8 @@ namespace ConsoleView
         private static void ExibirFornecedor(Fornecedor f)
         {
             Console.WriteLine("");
-            Console.WriteLine("Id..................: " + f.Nome);
+            Console.WriteLine("Id..................: " + f.FornecedorID);
+            Console.WriteLine("Nome................: " + f.Nome);
             Console.WriteLine("Cpf / Cnpj..........: " + f.Cpf_Cnpj);
             Console.WriteLine("Telefone............: " + f.Telefone);
             Console.WriteLine("E-mail..............: " + f.Email);
@@ -635,7 +660,6 @@ namespace ConsoleView
         }
         private static void ExibirEndereco(Endereco e)
         {
-            Console.WriteLine("");
             Console.WriteLine("Id..................: " + e.EnderecoID);
             Console.WriteLine("Logradouro..........: " + e.Logradouro);
             Console.WriteLine("Número..............: " + e.Numero);
@@ -643,7 +667,9 @@ namespace ConsoleView
             Console.WriteLine("Bairro..............: " + e.Bairro);
             Console.WriteLine("Cidade..............: " + e.Cidade);
             Console.WriteLine("Estado..............: " + e._Estado.Nome + " (" + e._Estado.Sigla + ")");
+            Console.WriteLine("");
         }
+
         private static void LimparTela() => Console.Clear();
     }
 }
