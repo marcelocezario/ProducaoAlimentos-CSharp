@@ -46,12 +46,12 @@ namespace Controller
         }
         public Fornecedor BuscarFornecedorPorNome(string nomeFornecedor)
         {
-            var i = from x in ContextoSingleton.Instancia.Fornecedores
+            var f = from x in ContextoSingleton.Instancia.Fornecedores
                     where x.Nome.ToLower().Contains(nomeFornecedor.Trim().ToLower())
                     select x;
 
-            if (i != null)
-                return i.FirstOrDefault();
+            if (f != null)
+                return f.FirstOrDefault();
             else
                 return null;
         }
