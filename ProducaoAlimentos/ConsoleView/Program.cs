@@ -345,7 +345,7 @@ namespace ConsoleView
             EnderecoController endc = new EnderecoController();
             EstadoController estc = new EstadoController();
 
-            Console.Write("Digite o logradouro do endereço: ");
+            Console.Write("Digite o logradouro do endereço (sem número): ");
             endereco.Logradouro = Console.ReadLine();
             Console.Write("Digite o número: ");
             endereco.Numero = int.Parse(Console.ReadLine());
@@ -355,6 +355,8 @@ namespace ConsoleView
             endereco.Cep = Console.ReadLine();
             Console.Write("Digite a Cidade: ");
             endereco.Cidade = Console.ReadLine();
+            Console.Write("Digite o nome do bairro: ");
+            endereco.Bairro = Console.ReadLine();
             
             String opcao = "n";
             do
