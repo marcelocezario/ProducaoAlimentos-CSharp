@@ -297,8 +297,8 @@ namespace ConsoleView
             Console.WriteLine("");
 
             Fornecedor fornecedor = new Fornecedor();
-            EnderecoController ec = new EnderecoController();
-
+            FornecedorController fc = new FornecedorController();
+            
             Console.Write("Digite o nome do Fornecedor: ");
             fornecedor.Nome = Console.ReadLine();
             Console.Write("Digite o CPF ou CNPJ do fornecedor: ");
@@ -308,10 +308,15 @@ namespace ConsoleView
             Console.Write("Digite o E-mail do fornecedor: ");
             fornecedor.Email = Console.ReadLine();
 
-            NovoEndereco();
+            Endereco endereco = NovoEndereco();
+            Console.WriteLine(" --- Cadastro Endereço --- ");
+            fornecedor.EnderecoID = endereco.EnderecoID;
+            fornecedor._Endereco = endereco;
 
+            fc.SalvarFornecedor(fornecedor);
 
-
+            Console.WriteLine("");
+            Console.WriteLine("Fornecedor gravado com sucesso!");
 
         }
         private static void CadastrarEndereco()
@@ -327,6 +332,21 @@ namespace ConsoleView
         private static Endereco NovoEndereco()
         {
             Endereco endereco = new Endereco();
+            EnderecoController ec = new EnderecoController();
+
+            Console.Write("Digite o logradouro do endereço: ");
+            endereco.Logradouro = Console.ReadLine();
+            Console.Write("Digite o número: ");
+            endereco.Numero = int.Parse(Console.ReadLine());
+            Console.Write("Digite o complemento: ");
+            endereco.Complemento = Console.ReadLine();
+            Console.Write("Digite o Cep: ");
+            endereco.Cep = Console.ReadLine();
+            Console.Write("Digite a Cidade: ");
+            endereco.Cidade = Console.ReadLine();
+            Console.Write("Digite um estado: ");
+
+
 
 
             return endereco;
