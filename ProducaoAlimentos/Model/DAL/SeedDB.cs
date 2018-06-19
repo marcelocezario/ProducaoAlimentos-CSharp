@@ -99,8 +99,6 @@ namespace Model.DAL
             base.Seed(context);
             context.SaveChanges();
 
-
-
         }
     }
 }
