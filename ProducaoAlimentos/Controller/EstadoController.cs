@@ -24,7 +24,12 @@ namespace Controller
         public Estado BuscarEstadoPorSigla(string siglaEstado)
         {
             var e = from x in ContextoSingleton.Instancia.Estados
-                    where x.Uf
+                    where x.Sigla.ToLower().Contains(siglaEstado.Trim().ToLower())
+                    select x;
+            if (e != null)
+                return e.FirstOrDefault();
+            else
+                return null;
         }
     }
 }
