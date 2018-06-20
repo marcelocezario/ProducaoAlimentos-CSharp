@@ -135,7 +135,7 @@ namespace Controller
         }
         public EstoqueProduto BuscarEstoqueProdutoPorNome(string nomeProduto)
         {
-            var e = from x in ListarEstoqueProduto()
+            var e = from x in ListarEstoqueProdutos()
                     where x._Produto.Nome.ToLower().Contains(nomeProduto.Trim().ToLower())
                     select x;
             if (e != null)
@@ -145,7 +145,7 @@ namespace Controller
         }
         public EstoqueProduto BuscarEstoqueProdutoPorNomeExato(string nomeProduto)
         {
-            var e = from x in ListarEstoqueProduto()
+            var e = from x in ListarEstoqueProdutos()
                     where x._Produto.Nome.ToLower().Equals(nomeProduto.Trim().ToLower())
                     select x;
             if (e != null)
@@ -156,6 +156,16 @@ namespace Controller
         public LoteProduto BuscarLoteProdutoPorId(int idLoteProduto)
         {
             return ContextoSingleton.Instancia.LotesProduto.Find(idLoteProduto);
+        }
+        public List<LoteProduto> BuscarLotesPorNome(string nomeProduto)
+        {
+            var e = (from x in ListarLotesProdutos()
+                    where x._Produto.Nome.ToLower().Contains(nomeProduto.Trim().ToLower())
+                    select x).ToList();
+            if (e != null)
+                return e;
+            else
+                return null;
         }
 
         // Métodos para listagem de dados
@@ -168,8 +178,8 @@ namespace Controller
 
             return p.ToList();
         }
-        public List<EstoqueProduto> ListarEstoqueProduto() => ContextoSingleton.Instancia.EstoqueProduto.ToList();
-        public List<LoteProduto> ListarLotesProduto() => ContextoSingleton.Instancia.LotesProduto.ToList();
+        public List<EstoqueProduto> ListarEstoqueProdutos() => ContextoSingleton.Instancia.EstoqueProduto.ToList();
+        public List<LoteProduto> ListarLotesProdutos() => ContextoSingleton.Instancia.LotesProduto.ToList();
 
         // Métodos para controle de entrada e saída de estoque (EstoqueProduto e LoteProduto)
         public void RegistrarEntradaEstoqueProduto(LoteProduto loteProduto)

@@ -20,6 +20,7 @@ namespace ConsoleView
             CadastrarEndereco = 6,
 
             RegistrarEntradaInsumos = 10,
+            RegistrarProducao = 11,
 
             ListarInsumos = 21,
             ListarProdutos = 22,
@@ -47,8 +48,8 @@ namespace ConsoleView
             Console.WriteLine("|             6 - Endereços          |            26 - Endereços          | ");
             Console.WriteLine("|____________________________________|            27 - Lotes Insumo       | ");
             Console.WriteLine("|                                    |            28 - Itens Insumo       | ");
-            Console.WriteLine("| REGISTRAR: 10 - Entrada Insumos    |                                    | ");
-            Console.WriteLine("|                                    |                                    | ");
+            Console.WriteLine("| ESTOQUE  : 10 - Entrada Insumos    |                                    | ");
+            Console.WriteLine("|            11 - Registrar Produção |                                    | ");
             Console.WriteLine("|                                    |            99 - Sair               | ");
             Console.WriteLine("|____________________________________|____________________________________| ");
             Console.WriteLine("");
@@ -94,6 +95,9 @@ namespace ConsoleView
 
                     case OpcoesMenuPrincipal.RegistrarEntradaInsumos:
                         RegistrarEntradaInsumo();
+                        break;
+                    case OpcoesMenuPrincipal.RegistrarProducao:
+                        RegistrarProducao();
                         break;
 
 
@@ -473,6 +477,47 @@ namespace ConsoleView
 
             ic.RegistrarEntradaEstoqueInsumo(loteInsumo);
         }
+        private static void RegistrarProducao()
+        {
+            Console.WriteLine(" _______________________________________________________ ");
+            Console.WriteLine("|------------------ REGISTRAR PRODUÇÃO -----------------|");
+            Console.WriteLine("|_______________________________________________________|");
+            Console.WriteLine("");
+
+            ProdutoController pc = new ProdutoController();
+            Produto produto;
+            LoteProduto loteProduto = new LoteProduto();
+            List<ItemInsumoProducao> itens = new List<ItemInsumoProducao>();
+
+            string opcao = "n";
+
+            //Seleção produto
+            do
+            {
+                Console.Write("Digite o nome do produto que deseja registrar a produção: ");
+                produto = pc.BuscarProdutoPorNome(Console.ReadLine());
+
+                try
+                {
+                    ExibirProduto(produto);
+                    Console.Write("Confirma o produto (s/n)? ");
+                    opcao = Console.ReadLine();
+                }
+                catch
+                {
+                    Console.WriteLine("Produto não encontrado!");
+                    Console.WriteLine("");
+                }
+            } while (!opcao.Trim().ToLower().Equals("s"));
+            loteProduto._Produto = produto;
+
+            // Seleção
+
+
+
+
+            pc.RegistrarEntradaEstoqueProduto(loteProduto);
+        }
 
         // Listagens
         private static void ListarInsumos()
@@ -615,6 +660,7 @@ namespace ConsoleView
         {
             Console.WriteLine("");
             Console.WriteLine("Id..................: " + li.LoteInsumoID);
+            Console.WriteLine("Id insumo...........: " + li.InsumoID);
             Console.WriteLine("Nome................: " + li._Insumo.Nome);
             Console.WriteLine("Unidade de Medida...: " + li._Insumo._UnidadeDeMedida.Nome);
             Console.WriteLine("Marca...............: " + li._Marca.Nome);
