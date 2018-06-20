@@ -157,7 +157,7 @@ namespace Controller
         {
             return ContextoSingleton.Instancia.LotesProduto.Find(idLoteProduto);
         }
-        public List<LoteProduto> BuscarLotesPorNome(string nomeProduto)
+        public List<LoteProduto> BuscarLotesProdutosPorNome(string nomeProduto)
         {
             var e = (from x in ListarLotesProdutos()
                     where x._Produto.Nome.ToLower().Contains(nomeProduto.Trim().ToLower())

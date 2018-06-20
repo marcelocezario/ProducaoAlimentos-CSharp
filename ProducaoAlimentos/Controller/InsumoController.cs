@@ -153,6 +153,16 @@ namespace Controller
         {
             return ContextoSingleton.Instancia.LotesInsumo.Find(idLoteInsumo);
         }
+        public List<LoteInsumo> BuscarLotesInsumosPorNome(string nomeInsumo)
+        {
+            var e = (from x in ListarLotesInsumos()
+                     where x._Insumo.Nome.ToLower().Contains(nomeInsumo.Trim().ToLower())
+                     select x).ToList();
+            if (e != null)
+                return e;
+            else
+                return null;
+        }
 
         // Métodos para listagem de dados
         public List<Insumo> ListarInsumos() => ContextoSingleton.Instancia.Insumos.ToList();
@@ -165,7 +175,7 @@ namespace Controller
             return i.ToList();
         }
         public List<EstoqueInsumo> ListarEstoqueInsumo() => ContextoSingleton.Instancia.EstoqueInsumos.ToList();
-        public List<LoteInsumo> ListarLotesInsumo() => ContextoSingleton.Instancia.LotesInsumo.ToList();
+        public List<LoteInsumo> ListarLotesInsumos() => ContextoSingleton.Instancia.LotesInsumo.ToList();
 
         // Métodos para controle de entrada e saída de estoque (EstoqueInsumo e LoteInsumo)
         public void RegistrarEntradaEstoqueInsumo(LoteInsumo loteInsumo)

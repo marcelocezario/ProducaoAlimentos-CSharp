@@ -29,7 +29,10 @@ namespace ConsoleView
             ListarFornecedores = 25,
             ListarEnderecos = 26,
             ListarLotesInsumo = 27,
-            ListarItensInsumo = 28,
+            ListarEstoqueInsumos = 28,
+            ListarLotesProdutos = 29,
+            ListarEstoqueProdutos = 30,
+
 
             Sair = 99,
         }
@@ -46,10 +49,15 @@ namespace ConsoleView
             Console.WriteLine("|             4 - Marcas             |            24 - Marcas             | ");
             Console.WriteLine("|             5 - Fornecedores       |            25 - Fornecedores       | ");
             Console.WriteLine("|             6 - Endereços          |            26 - Endereços          | ");
-            Console.WriteLine("|____________________________________|            27 - Lotes Insumo       | ");
-            Console.WriteLine("|                                    |            28 - Itens Insumo       | ");
-            Console.WriteLine("| ESTOQUE  : 10 - Entrada Insumos    |                                    | ");
-            Console.WriteLine("|            11 - Registrar Produção |                                    | ");
+            Console.WriteLine("|____________________________________|            27 - Lotes Insumos      | ");
+            Console.WriteLine("|                                    |            28 - Estoque Insumos    | ");
+            Console.WriteLine("| ESTOQUE  : 10 - Entrada Insumos    |            29 - Lotes Produtos     | ");
+            Console.WriteLine("|            11 - Registrar Produção |            30 - Estoque Produtos   | ");
+            Console.WriteLine("|                                    |                                    | ");
+            Console.WriteLine("|                                    |                                    | ");
+            Console.WriteLine("|                                    |                                    | ");
+            Console.WriteLine("|                                    |                                    | ");
+            Console.WriteLine("|                                    |                                    | ");
             Console.WriteLine("|                                    |            99 - Sair               | ");
             Console.WriteLine("|____________________________________|____________________________________| ");
             Console.WriteLine("");
@@ -122,8 +130,14 @@ namespace ConsoleView
                     case OpcoesMenuPrincipal.ListarLotesInsumo:
                         ListarLotesInsumo();
                         break;
-                    case OpcoesMenuPrincipal.ListarItensInsumo:
-                        ListarItensInsumo();
+                    case OpcoesMenuPrincipal.ListarEstoqueInsumos:
+                        ListarEstoqueInsumos();
+                        break;
+                    case OpcoesMenuPrincipal.ListarLotesProdutos:
+                        ListarLotesProduto();
+                        break;
+                    case OpcoesMenuPrincipal.ListarEstoqueProdutos:
+                        ListarEstoqueProdutos();
                         break;
 
                     default:
@@ -231,7 +245,7 @@ namespace ConsoleView
                 try
                 {
                     Console.Write("Digite a quantidade (em " + item._Insumo._UnidadeDeMedida.Sigla + ") de " + item._Insumo.Nome + " necessária para produzir 1 " + produto._UnidadeDeMedida.Sigla + " de " + produto.Nome + ": ");
-                    item.QuantidadeInsumo = double.Parse(Console.ReadLine());
+                    item.QtdeInsumo = double.Parse(Console.ReadLine());
 
                     itens.Add(item);
 
@@ -485,7 +499,9 @@ namespace ConsoleView
             Console.WriteLine("");
 
             ProdutoController pc = new ProdutoController();
+            InsumoController ic = new InsumoController();
             Produto produto;
+            Double custoTotal = 0;
             LoteProduto loteProduto = new LoteProduto();
             List<ItemInsumoProducao> itens = new List<ItemInsumoProducao>();
 
@@ -511,15 +527,92 @@ namespace ConsoleView
             } while (!opcao.Trim().ToLower().Equals("s"));
             loteProduto._Produto = produto;
 
-            // Seleção
+            Console.Write("Digite a quantidade que deseja produzir de " + loteProduto._Produto.Nome + ": ");
+            loteProduto.QtdeInicial = double.Parse(Console.ReadLine());
+            loteProduto.QtdeDisponivel = loteProduto.QtdeInicial;
 
+            foreach (ItemComposicaoProduto item in loteProduto._Produto._ComposicaoProduto)
+            {
+                foreach (LoteInsumo li in ic.BuscarLotesInsumosPorNome(item._Insumo.Nome))
+                {
+                    ExibirLoteInsumo(li);
+                }
+                ItemInsumoProducao itemInsumoProducao = new ItemInsumoProducao();
 
+                Console.WriteLine("");
+                Console.Write("Digite a Id do lote que deseja selecionar de " + item._Insumo.Nome + ": ");
+                itemInsumoProducao._LoteInsumo = ic.BuscarLoteInsumoPorId(int.Parse(Console.ReadLine()));
 
+                itemInsumoProducao.QtdeInsumo = loteProduto.QtdeInicial * item.QtdeInsumo;
+                itemInsumoProducao.CustoInsumo = itemInsumoProducao._LoteInsumo.CustoMedio * itemInsumoProducao.QtdeInsumo;
 
+                custoTotal += itemInsumoProducao.CustoInsumo;
+
+                itens.Add(itemInsumoProducao);
+            }
+            loteProduto._ItemInsumoProducao = itens;
+            loteProduto.CustoMedio = custoTotal / loteProduto.QtdeInicial;
+
+            Console.Write("Digite o valor unitário de venda: ");
+            loteProduto.ValorVendaMedio = double.Parse(Console.ReadLine());
+
+            Console.Write("Digite a data de validade do lote produzido: ");
+            loteProduto.Validade = DateTime.Parse(Console.ReadLine());
+            loteProduto.DataProducao = DateTime.Now;
+            
             pc.RegistrarEntradaEstoqueProduto(loteProduto);
         }
 
         // Listagens
+        private static void ListarEnderecos()
+        {
+            Console.WriteLine(" _______________________________________________________ ");
+            Console.WriteLine("|---------------------- ENDERECOS ----------------------|");
+            Console.WriteLine("|_______________________________________________________|");
+            Console.WriteLine("");
+
+            EnderecoController ec = new EnderecoController();
+
+            foreach (Endereco e in ec.ListarEnderecos())
+                ExibirEndereco(e);
+        }
+        private static void ListarEstoqueInsumos()
+        {
+            Console.WriteLine(" _______________________________________________________ ");
+            Console.WriteLine("|------------------- ESTOQUE INSUMOS -------------------|");
+            Console.WriteLine("|_______________________________________________________|");
+            Console.WriteLine("");
+
+            InsumoController ic = new InsumoController();
+
+            foreach (EstoqueInsumo ii in ic.ListarEstoqueInsumo())
+                ExibirEstoqueInsumos(ii);
+        }
+        private static void ListarEstoqueProdutos()
+        {
+
+            Console.WriteLine(" _______________________________________________________ ");
+            Console.WriteLine("|------------------- ESTOQUE PRODUTOS ------------------|");
+            Console.WriteLine("|_______________________________________________________|");
+            Console.WriteLine("");
+
+            ProdutoController pc = new ProdutoController();
+
+            foreach (EstoqueProduto ep in pc.ListarEstoqueProdutos())
+                ExibirEstoqueProdutos(ep);
+        }
+        private static void ListarFornecedores()
+        {
+            Console.WriteLine(" _______________________________________________________ ");
+            Console.WriteLine("|-------------------- FORNECEDORES ---------------------|");
+            Console.WriteLine("|_______________________________________________________|");
+            Console.WriteLine("");
+
+            FornecedorController fc = new FornecedorController();
+
+            foreach (Fornecedor f in fc.ListarFornecedors())
+                ExibirFornecedor(f);
+        }
         private static void ListarInsumos()
         {
             Console.WriteLine(" _______________________________________________________ ");
@@ -531,6 +624,42 @@ namespace ConsoleView
 
             foreach (Insumo i in ic.ListarInsumos())
                 ExibirInsumo(i);
+        }
+        private static void ListarLotesInsumo()
+        {
+            Console.WriteLine(" _______________________________________________________ ");
+            Console.WriteLine("|-------------------- LOTES INSUMOS --------------------|");
+            Console.WriteLine("|_______________________________________________________|");
+            Console.WriteLine("");
+
+            InsumoController ic = new InsumoController();
+
+            foreach (LoteInsumo li in ic.ListarLotesInsumos())
+                ExibirLoteInsumo(li);
+        }
+        private static void ListarLotesProduto()
+        {
+            Console.WriteLine(" _______________________________________________________ ");
+            Console.WriteLine("|-------------------- LOTES PRODUTOS -------------------|");
+            Console.WriteLine("|_______________________________________________________|");
+            Console.WriteLine("");
+
+            ProdutoController pc = new ProdutoController();
+
+            foreach (LoteProduto lp in pc.ListarLotesProdutos())
+                ExibirLoteProduto(lp);
+        }
+        private static void ListarMarcas()
+        {
+            Console.WriteLine(" _______________________________________________________ ");
+            Console.WriteLine("|-------------------- LISTAR MARCAS --------------------|");
+            Console.WriteLine("|_______________________________________________________|");
+            Console.WriteLine("");
+
+            MarcaController mc = new MarcaController();
+
+            foreach (Marca m in mc.ListarMarcas())
+                ExibirMarca(m);
         }
         private static void ListarProdutos()
         {
@@ -557,129 +686,18 @@ namespace ConsoleView
             foreach (UnidadeDeMedida u in uc.ListarUnidadesDeMedida())
                 ExibirUnidadeDeMedida(u);
         }
-        private static void ListarMarcas()
-        {
-            Console.WriteLine(" _______________________________________________________ ");
-            Console.WriteLine("|-------------------- LISTAR MARCAS --------------------|");
-            Console.WriteLine("|_______________________________________________________|");
-            Console.WriteLine("");
-
-            MarcaController mc = new MarcaController();
-
-            foreach (Marca m in mc.ListarMarcas())
-                ExibirMarca(m);
-        }
-        private static void ListarLotesInsumo()
-        {
-            Console.WriteLine(" _______________________________________________________ ");
-            Console.WriteLine("|-------------------- LOTES INSUMOS --------------------|");
-            Console.WriteLine("|_______________________________________________________|");
-            Console.WriteLine("");
-
-            InsumoController ic = new InsumoController();
-
-            foreach (LoteInsumo li in ic.ListarLotesInsumo())
-                ExibirLoteInsumo(li);
-        }
-        private static void ListarItensInsumo()
-        {
-            Console.WriteLine(" _______________________________________________________ ");
-            Console.WriteLine("|-------------------- ITENS INSUMOS --------------------|");
-            Console.WriteLine("|_______________________________________________________|");
-            Console.WriteLine("");
-
-            InsumoController ic = new InsumoController();
-
-            foreach (EstoqueInsumo ii in ic.ListarEstoqueInsumo())
-                ExibirItemInsumo(ii);
-        }
-        private static void ListarFornecedores()
-        {
-            Console.WriteLine(" _______________________________________________________ ");
-            Console.WriteLine("|-------------------- FORNECEDORES ---------------------|");
-            Console.WriteLine("|_______________________________________________________|");
-            Console.WriteLine("");
-
-            FornecedorController fc = new FornecedorController();
-
-            foreach (Fornecedor f in fc.ListarFornecedors())
-                ExibirFornecedor(f);
-        }
-        private static void ListarEnderecos()
-        {
-            Console.WriteLine(" _______________________________________________________ ");
-            Console.WriteLine("|---------------------- ENDERECOS ----------------------|");
-            Console.WriteLine("|_______________________________________________________|");
-            Console.WriteLine("");
-
-            EnderecoController ec = new EnderecoController();
-
-            foreach (Endereco e in ec.ListarEnderecos())
-                ExibirEndereco(e);
-        }
 
         // Exibições
-        private static void ExibirInsumo(Insumo i)
+        private static void ExibirEndereco(Endereco e)
         {
+            Console.WriteLine("Id..................: " + e.EnderecoID);
+            Console.WriteLine("Logradouro..........: " + e.Logradouro);
+            Console.WriteLine("Número..............: " + e.Numero);
+            Console.WriteLine("Complemento.........: " + e.Complemento);
+            Console.WriteLine("Bairro..............: " + e.Bairro);
+            Console.WriteLine("Cidade..............: " + e.Cidade);
+            Console.WriteLine("Estado..............: " + e._Estado.Nome + " (" + e._Estado.Sigla + ")");
             Console.WriteLine("");
-            Console.WriteLine("Id..................: " + i.InsumoID);
-            Console.WriteLine("Nome................: " + i.Nome);
-            Console.WriteLine("Unidade de Medida...: " + i._UnidadeDeMedida.Nome);
-            Console.WriteLine("-----------------------------------------------------");
-        }
-        private static void ExibirProduto(Produto p)
-        {
-            Console.WriteLine("");
-            Console.WriteLine("Id..................: " + p.ProdutoID);
-            Console.WriteLine("Nome................: " + p.Nome);
-            Console.WriteLine("Unidade de Medida...: " + p._UnidadeDeMedida.Nome);
-            Console.WriteLine("....Composição....");
-            foreach (ItemComposicaoProduto i in p._ComposicaoProduto)
-            {
-                Console.WriteLine(i.QuantidadeInsumo + " " + i._Insumo._UnidadeDeMedida.Sigla + " de " + i._Insumo.Nome);
-            }
-            Console.WriteLine("-----------------------------------------------------");
-        }
-        private static void ExibirUnidadeDeMedida(UnidadeDeMedida u)
-        {
-            Console.WriteLine("");
-            Console.WriteLine("Id..................: " + u.UnidadeDeMedidaID);
-            Console.WriteLine("Nome................: " + u.Nome);
-            Console.WriteLine("Sigla...............: " + u.Sigla);
-            Console.WriteLine("Fracionável.........: " + u.Fracionavel);
-            Console.WriteLine("-----------------------------------------------------");
-        }
-        private static void ExibirMarca(Marca m)
-        {
-            Console.WriteLine("");
-            Console.WriteLine("Id..................: " + m.MarcaID);
-            Console.WriteLine("Nome................: " + m.Nome);
-            Console.WriteLine("-----------------------------------------------------");
-        }
-        private static void ExibirLoteInsumo(LoteInsumo li)
-        {
-            Console.WriteLine("");
-            Console.WriteLine("Id..................: " + li.LoteInsumoID);
-            Console.WriteLine("Id insumo...........: " + li.InsumoID);
-            Console.WriteLine("Nome................: " + li._Insumo.Nome);
-            Console.WriteLine("Unidade de Medida...: " + li._Insumo._UnidadeDeMedida.Nome);
-            Console.WriteLine("Marca...............: " + li._Marca.Nome);
-            Console.WriteLine("Qtde inicial........: " + li.QtdeInicial);
-            Console.WriteLine("Qtde disponível.....: " + li.QtdeDisponivel);
-            Console.WriteLine("Custo médio.........: " + li.CustoMedio);
-            Console.WriteLine("Data compra.........: " + li.DataCompra);
-            Console.WriteLine("Data validade.......: " + li.Validade);
-            Console.WriteLine("-----------------------------------------------------");
-        }
-        private static void ExibirItemInsumo(EstoqueInsumo ii)
-        {
-            Console.WriteLine("");
-            Console.WriteLine("Id..................: " + ii.EstoqueInsumoID);
-            Console.WriteLine("Nome................: " + ii._Insumo.Nome);
-            Console.WriteLine("Unidade de Medida...: " + ii._Insumo._UnidadeDeMedida.Nome);
-            Console.WriteLine("Quantidade..........: " + ii.QtdeTotalEstoque);
-            Console.WriteLine("Custo total.........: " + ii.CustoTotalEstoque);
-            Console.WriteLine("-----------------------------------------------------");
         }
         private static void ExibirEstado(Estado e)
         {
@@ -699,16 +717,91 @@ namespace ConsoleView
             ExibirEndereco(f._Endereco);
 
         }
-        private static void ExibirEndereco(Endereco e)
+        private static void ExibirInsumo(Insumo i)
         {
-            Console.WriteLine("Id..................: " + e.EnderecoID);
-            Console.WriteLine("Logradouro..........: " + e.Logradouro);
-            Console.WriteLine("Número..............: " + e.Numero);
-            Console.WriteLine("Complemento.........: " + e.Complemento);
-            Console.WriteLine("Bairro..............: " + e.Bairro);
-            Console.WriteLine("Cidade..............: " + e.Cidade);
-            Console.WriteLine("Estado..............: " + e._Estado.Nome + " (" + e._Estado.Sigla + ")");
             Console.WriteLine("");
+            Console.WriteLine("Id..................: " + i.InsumoID);
+            Console.WriteLine("Nome................: " + i.Nome);
+            Console.WriteLine("Unidade de Medida...: " + i._UnidadeDeMedida.Nome);
+            Console.WriteLine("-----------------------------------------------------");
+        }
+        private static void ExibirEstoqueInsumos(EstoqueInsumo ei)
+        {
+            Console.WriteLine("");
+            Console.WriteLine("Id..................: " + ei.EstoqueInsumoID);
+            Console.WriteLine("Nome................: " + ei._Insumo.Nome);
+            Console.WriteLine("Unidade de Medida...: " + ei._Insumo._UnidadeDeMedida.Nome);
+            Console.WriteLine("Quantidade..........: " + ei.QtdeTotalEstoque);
+            Console.WriteLine("Custo total.........: " + ei.CustoTotalEstoque);
+            Console.WriteLine("-----------------------------------------------------");
+        }
+        private static void ExibirEstoqueProdutos(EstoqueProduto ep)
+        {
+            Console.WriteLine("");
+            Console.WriteLine("Id..................: " + ep.EstoqueProdutoID);
+            Console.WriteLine("Nome................: " + ep._Produto.Nome);
+            Console.WriteLine("Unidade de Medida...: " + ep._Produto._UnidadeDeMedida.Nome);
+            Console.WriteLine("Quantidade..........: " + ep.QtdeTotalEstoque);
+            Console.WriteLine("Custo total.........: " + ep.CustoTotalEstoque);
+            Console.WriteLine("-----------------------------------------------------");
+        }
+        private static void ExibirLoteInsumo(LoteInsumo li)
+        {
+            Console.WriteLine("");
+            Console.WriteLine("Id..................: " + li.LoteInsumoID);
+            Console.WriteLine("Id insumo...........: " + li.InsumoID);
+            Console.WriteLine("Nome................: " + li._Insumo.Nome);
+            Console.WriteLine("Unidade de Medida...: " + li._Insumo._UnidadeDeMedida.Nome);
+            Console.WriteLine("Marca...............: " + li._Marca.Nome);
+            Console.WriteLine("Qtde inicial........: " + li.QtdeInicial);
+            Console.WriteLine("Qtde disponível.....: " + li.QtdeDisponivel);
+            Console.WriteLine("Custo médio.........: " + li.CustoMedio);
+            Console.WriteLine("Data compra.........: " + li.DataCompra);
+            Console.WriteLine("Data validade.......: " + li.Validade);
+            Console.WriteLine("-----------------------------------------------------");
+        }
+        private static void ExibirLoteProduto(LoteProduto lp)
+        {
+            Console.WriteLine("");
+            Console.WriteLine("Id..................: " + lp.LoteProdutoID);
+            Console.WriteLine("Id produto..........: " + lp.ProdutoID);
+            Console.WriteLine("Nome................: " + lp._Produto.Nome);
+            Console.WriteLine("Qtde inicial........: " + lp.QtdeInicial);
+            Console.WriteLine("Qtde disponível.....: " + lp.QtdeDisponivel);
+            Console.WriteLine("Custo médio.........: " + lp.CustoMedio);
+            Console.WriteLine("Valor médio venda...: " + lp.ValorVendaMedio);
+            Console.WriteLine("Data da produção....: " + lp.DataProducao);
+            Console.WriteLine("Validade............: " + lp.Validade);
+            Console.WriteLine("-----------------------------------------------------");
+        }
+        private static void ExibirMarca(Marca m)
+        {
+            Console.WriteLine("");
+            Console.WriteLine("Id..................: " + m.MarcaID);
+            Console.WriteLine("Nome................: " + m.Nome);
+            Console.WriteLine("-----------------------------------------------------");
+        }
+        private static void ExibirProduto(Produto p)
+        {
+            Console.WriteLine("");
+            Console.WriteLine("Id..................: " + p.ProdutoID);
+            Console.WriteLine("Nome................: " + p.Nome);
+            Console.WriteLine("Unidade de Medida...: " + p._UnidadeDeMedida.Nome);
+            Console.WriteLine("....Composição....");
+            foreach (ItemComposicaoProduto i in p._ComposicaoProduto)
+            {
+                Console.WriteLine(i.QtdeInsumo + " " + i._Insumo._UnidadeDeMedida.Sigla + " de " + i._Insumo.Nome);
+            }
+            Console.WriteLine("-----------------------------------------------------");
+        }
+        private static void ExibirUnidadeDeMedida(UnidadeDeMedida u)
+        {
+            Console.WriteLine("");
+            Console.WriteLine("Id..................: " + u.UnidadeDeMedidaID);
+            Console.WriteLine("Nome................: " + u.Nome);
+            Console.WriteLine("Sigla...............: " + u.Sigla);
+            Console.WriteLine("Fracionável.........: " + u.Fracionavel);
+            Console.WriteLine("-----------------------------------------------------");
         }
 
         private static void LimparTela() => Console.Clear();

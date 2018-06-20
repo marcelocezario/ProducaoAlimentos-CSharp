@@ -44,10 +44,10 @@ namespace Model.DAL
             {
                 new Produto(){ Nome = "Nhoque", UnidadeDeMedidaID = 3, _ComposicaoProduto = new List<ItemComposicaoProduto>()
                 {
-                    new ItemComposicaoProduto(){ InsumoID = 2, QuantidadeInsumo = 0.6},
-                    new ItemComposicaoProduto(){ InsumoID = 4, QuantidadeInsumo = 0.3},
-                    new ItemComposicaoProduto(){ InsumoID = 9, QuantidadeInsumo = 1},
-                    new ItemComposicaoProduto(){ InsumoID = 8, QuantidadeInsumo = 0.01}
+                    new ItemComposicaoProduto(){ InsumoID = 2, QtdeInsumo = 0.6},
+                    new ItemComposicaoProduto(){ InsumoID = 4, QtdeInsumo = 0.3},
+                    new ItemComposicaoProduto(){ InsumoID = 9, QtdeInsumo = 1},
+                    new ItemComposicaoProduto(){ InsumoID = 8, QtdeInsumo = 0.01}
                 }
             }
         };

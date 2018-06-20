@@ -10,6 +10,6 @@ namespace Model
         public int InsumoID { get; set; }
         public virtual Insumo _Insumo { get; set; }
 
-        public double QuantidadeInsumo { get; set; }
+        public double QtdeInsumo { get; set; }
     }
 }
