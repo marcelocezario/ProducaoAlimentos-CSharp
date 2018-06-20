@@ -43,7 +43,7 @@ namespace Controller
         }
 
         // Métodos para Criação, Edição e Exclusão de EstoqueInsumo
-        public bool SalvarItemInsumo(EstoqueInsumo estoqueInsumo)
+        public bool SalvarEstoqueInsumo(EstoqueInsumo estoqueInsumo)
         {
             ContextoSingleton.Instancia.EstoqueInsumos.Add(estoqueInsumo);
             ContextoSingleton.Instancia.SaveChanges();
@@ -67,7 +67,7 @@ namespace Controller
             else
                 return false;
         }
-        public bool ExcluirIteminsumo(EstoqueInsumo estoqueInsumo)
+        public bool ExcluirEstoqueInsumo(EstoqueInsumo estoqueInsumo)
         {
             ContextoSingleton.Instancia.Entry(estoqueInsumo).State = System.Data.Entity.EntityState.Deleted;
             ContextoSingleton.Instancia.SaveChanges();
@@ -139,7 +139,7 @@ namespace Controller
             else
                 return null;
         }
-        public EstoqueInsumo BuscarLoteInsumoPorNomeExato(string nomeInsumo)
+        public EstoqueInsumo BuscarEstoqueInsumoPorNomeExato(string nomeInsumo)
         {
             var i = from x in ListarEstoqueInsumo()
                     where x._Insumo.Nome.ToLower().Equals(nomeInsumo.Trim().ToLower())
@@ -167,11 +167,11 @@ namespace Controller
         public List<EstoqueInsumo> ListarEstoqueInsumo() => ContextoSingleton.Instancia.EstoqueInsumos.ToList();
         public List<LoteInsumo> ListarLotesInsumo() => ContextoSingleton.Instancia.LotesInsumo.ToList();
 
-        // Métodos para controle de entrada e saída de estoque
+        // Métodos para controle de entrada e saída de estoque (EstoqueInsumo e LoteInsumo)
         public void RegistrarEntradaEstoqueInsumo(LoteInsumo loteInsumo)
         {
             //Verificando se existe estoqueInsumo e adicionando quantidade e valor em estoque
-            EstoqueInsumo estoqueInsumo = BuscarLoteInsumoPorNomeExato(loteInsumo._Insumo.Nome);
+            EstoqueInsumo estoqueInsumo = BuscarEstoqueInsumoPorNomeExato(loteInsumo._Insumo.Nome);
             if (estoqueInsumo != null)
             {
                 estoqueInsumo.QtdeTotalEstoque += loteInsumo.QtdeInicial;
@@ -186,7 +186,7 @@ namespace Controller
                 estoqueInsumo.QtdeTotalEstoque = loteInsumo.QtdeInicial;
                 estoqueInsumo.CustoTotalEstoque = loteInsumo.CustoMedio * loteInsumo.QtdeInicial;
 
-                SalvarItemInsumo(estoqueInsumo);
+                SalvarEstoqueInsumo(estoqueInsumo);
             }
             SalvarLoteInsumo(loteInsumo);
         }
@@ -199,7 +199,7 @@ namespace Controller
                 double custoSaida = loteInsumo.CustoMedio * qtdeSaida;
                 loteInsumo.QtdeDisponivel -= qtdeSaida;
 
-                EstoqueInsumo estoqueInsumo = BuscarLoteInsumoPorNomeExato(loteInsumo._Insumo.Nome);
+                EstoqueInsumo estoqueInsumo = BuscarEstoqueInsumoPorNomeExato(loteInsumo._Insumo.Nome);
                 estoqueInsumo.QtdeTotalEstoque -= qtdeSaida;
                 estoqueInsumo.CustoTotalEstoque -= custoSaida;
 

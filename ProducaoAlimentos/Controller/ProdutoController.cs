@@ -45,16 +45,16 @@ namespace Controller
         }
 
         // Métodos para Criação, Edição e Exclusão de EstoqueProdutos
-        public bool SalvarItemProduto(EstoqueProduto estoqueProduto)
+        public bool SalvarEstoqueProduto(EstoqueProduto estoqueProduto)
         {
             ContextoSingleton.Instancia.EstoqueProduto.Add(estoqueProduto);
             ContextoSingleton.Instancia.SaveChanges();
 
             return true;
         }
-        public bool EditarItemProduto(int idEstoqueProduto, EstoqueProduto estoqueProdutoEditado)
+        public bool EditarEstoqueProduto(int idEstoqueProduto, EstoqueProduto estoqueProdutoEditado)
         {
-            EstoqueProduto estoqueProdutoEditar = BuscarItemProdutoPorId(idEstoqueProduto);
+            EstoqueProduto estoqueProdutoEditar = BuscarEstoqueProdutoPorId(idEstoqueProduto);
 
             if (estoqueProdutoEditar != null)
             {
@@ -69,7 +69,7 @@ namespace Controller
             else
                 return false;
         }
-        public bool ExcluirItemProduto(EstoqueProduto estoqueProduto)
+        public bool ExcluirEstoqueProduto(EstoqueProduto estoqueProduto)
         {
             ContextoSingleton.Instancia.Entry(estoqueProduto).State =
                 System.Data.Entity.EntityState.Deleted;
@@ -129,9 +129,29 @@ namespace Controller
             else
                 return null;
         }
-        public EstoqueProduto BuscarItemProdutoPorId(int idItemProduto)
+        public EstoqueProduto BuscarEstoqueProdutoPorId(int idItemProduto)
         {
             return ContextoSingleton.Instancia.EstoqueProduto.Find(idItemProduto);
+        }
+        public EstoqueProduto BuscarEstoqueProdutoPorNome(string nomeProduto)
+        {
+            var e = from x in ListarEstoqueProduto()
+                    where x._Produto.Nome.ToLower().Contains(nomeProduto.Trim().ToLower())
+                    select x;
+            if (e != null)
+                return e.FirstOrDefault();
+            else
+                return null;
+        }
+        public EstoqueProduto BuscarEstoqueProdutoPorNomeExato(string nomeProduto)
+        {
+            var e = from x in ListarEstoqueProduto()
+                    where x._Produto.Nome.ToLower().Equals(nomeProduto.Trim().ToLower())
+                    select x;
+            if (e != null)
+                return e.FirstOrDefault();
+            else
+                return null;
         }
         public LoteProduto BuscarLoteProdutoPorId(int idLoteProduto)
         {
@@ -151,13 +171,45 @@ namespace Controller
         public List<EstoqueProduto> ListarEstoqueProduto() => ContextoSingleton.Instancia.EstoqueProduto.ToList();
         public List<LoteProduto> ListarLotesProduto() => ContextoSingleton.Instancia.LotesProduto.ToList();
 
-        // Métodos para controle de entrada e saída de estoque
+        // Métodos para controle de entrada e saída de estoque (EstoqueProduto e LoteProduto)
         public void RegistrarEntradaEstoqueProduto(LoteProduto loteProduto)
         {
+            // Verificando se existe estoqueProduto e adicionando quantidade e valor em estoque
+            EstoqueProduto estoqueProduto = BuscarEstoqueProdutoPorNomeExato(loteProduto._Produto.Nome);
+            if (estoqueProduto != null)
+            {
+                estoqueProduto.QtdeTotalEstoque += loteProduto.QtdeInicial;
+                estoqueProduto.CustoTotalEstoque += loteProduto.CustoMedio * loteProduto.QtdeInicial;
 
+                EditarEstoqueProduto(estoqueProduto.EstoqueProdutoID, estoqueProduto);
+            }
+            else
+            {
+                estoqueProduto = new EstoqueProduto();
+                estoqueProduto._Produto = loteProduto._Produto;
+                estoqueProduto.QtdeTotalEstoque = loteProduto.QtdeInicial;
+                estoqueProduto.CustoTotalEstoque = loteProduto.CustoMedio * loteProduto.QtdeInicial;
+
+                SalvarEstoqueProduto(estoqueProduto);
+            }
+            SalvarLoteProduto(loteProduto);
         }
         public void RegistrarSaidaEstoqueProduto(int idLoteProduto, double qtdeSaida)
         {
+            LoteProduto loteProduto = BuscarLoteProdutoPorId(idLoteProduto);
+
+            if(loteProduto != null)
+            {
+                double custoSaida = loteProduto.CustoMedio * qtdeSaida;
+                loteProduto.QtdeDisponivel -= qtdeSaida;
+
+                EstoqueProduto estoqueProduto = BuscarEstoqueProdutoPorNomeExato(loteProduto._Produto.Nome);
+                estoqueProduto.QtdeTotalEstoque -= qtdeSaida;
+                estoqueProduto.CustoTotalEstoque -= custoSaida;
+
+                EditarEstoqueProduto(estoqueProduto.EstoqueProdutoID, estoqueProduto);
+                EditarLoteProduto(loteProduto.LoteProdutoID, loteProduto);
+            }
 
         }
     }
