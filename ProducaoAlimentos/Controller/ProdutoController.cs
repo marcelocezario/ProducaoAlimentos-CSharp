@@ -44,7 +44,7 @@ namespace Controller
             return true;
         }
 
-        // Métodos para Criação, Edição e Exclusão de ItensProdutos
+        // Métodos para Criação, Edição e Exclusão de EstoqueProdutos
         public bool SalvarItemProduto(EstoqueProduto estoqueProduto)
         {
             ContextoSingleton.Instancia.EstoqueProduto.Add(estoqueProduto);
