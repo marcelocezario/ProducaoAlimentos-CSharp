@@ -45,23 +45,23 @@ namespace Controller
         }
 
         // Métodos para Criação, Edição e Exclusão de ItensProdutos
-        public bool SalvarItemProduto(ItemProduto itemProduto)
+        public bool SalvarItemProduto(EstoqueProduto estoqueProduto)
         {
-            ContextoSingleton.Instancia.ItensProduto.Add(itemProduto);
+            ContextoSingleton.Instancia.EstoqueProduto.Add(estoqueProduto);
             ContextoSingleton.Instancia.SaveChanges();
 
             return true;
         }
-        public bool EditarItemProduto(int idItemProduto, ItemProduto itemProdutoEditado)
+        public bool EditarItemProduto(int idEstoqueProduto, EstoqueProduto estoqueProdutoEditado)
         {
-            ItemProduto itemProdutoEditar = BuscarItemProdutoPorId(idItemProduto);
+            EstoqueProduto estoqueProdutoEditar = BuscarItemProdutoPorId(idEstoqueProduto);
 
-            if (itemProdutoEditar != null)
+            if (estoqueProdutoEditar != null)
             {
-                itemProdutoEditado.ProdutoID = itemProdutoEditar.ProdutoID;
-                itemProdutoEditar = itemProdutoEditado;
+                estoqueProdutoEditado.ProdutoID = estoqueProdutoEditar.ProdutoID;
+                estoqueProdutoEditar = estoqueProdutoEditado;
 
-                ContextoSingleton.Instancia.Entry(itemProdutoEditar).State = System.Data.Entity.EntityState.Modified;
+                ContextoSingleton.Instancia.Entry(estoqueProdutoEditar).State = System.Data.Entity.EntityState.Modified;
                 ContextoSingleton.Instancia.SaveChanges();
 
                 return true;
@@ -69,9 +69,9 @@ namespace Controller
             else
                 return false;
         }
-        public bool ExcluirItemProduto(ItemProduto itemProduto)
+        public bool ExcluirItemProduto(EstoqueProduto estoqueProduto)
         {
-            ContextoSingleton.Instancia.Entry(itemProduto).State =
+            ContextoSingleton.Instancia.Entry(estoqueProduto).State =
                 System.Data.Entity.EntityState.Deleted;
 
             ContextoSingleton.Instancia.SaveChanges();
@@ -129,9 +129,9 @@ namespace Controller
             else
                 return null;
         }
-        public ItemProduto BuscarItemProdutoPorId(int idItemProduto)
+        public EstoqueProduto BuscarItemProdutoPorId(int idItemProduto)
         {
-            return ContextoSingleton.Instancia.ItensProduto.Find(idItemProduto);
+            return ContextoSingleton.Instancia.EstoqueProduto.Find(idItemProduto);
         }
         public LoteProduto BuscarLoteProdutoPorId(int idLoteProduto)
         {
@@ -148,7 +148,7 @@ namespace Controller
 
             return p.ToList();
         }
-        public List<ItemProduto> ListarItensProduto() => ContextoSingleton.Instancia.ItensProduto.ToList();
+        public List<EstoqueProduto> ListarEstoqueProduto() => ContextoSingleton.Instancia.EstoqueProduto.ToList();
         public List<LoteProduto> ListarLotesProduto() => ContextoSingleton.Instancia.LotesProduto.ToList();
 
         // Métodos para controle de entrada e saída de estoque

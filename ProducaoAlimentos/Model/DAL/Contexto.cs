@@ -12,11 +12,11 @@ namespace Model.DAL
         public DbSet<Endereco> Enderecos { get; set; }
         public DbSet<Estado> Estados { get; set; }
         public DbSet<EstoqueInsumo> EstoqueInsumos { get; set; }
+        public DbSet<EstoqueProduto> EstoqueProduto { get; set; }
         public DbSet<Fornecedor> Fornecedores { get; set; }
         public DbSet<Insumo> Insumos { get; set; }
         public DbSet<ItemComposicaoProduto> ItensComposicaoProduto { get; set; }
         public DbSet<ItemInsumoProducao> ItemInsumoProducao { get; set; }
-        public DbSet<ItemProduto> ItensProduto { get; set; }
         public DbSet<LoteInsumo> LotesInsumo { get; set; }
         public DbSet<LoteProduto> LotesProduto { get; set; }
         public DbSet<Marca> Marcas { get; set; }
