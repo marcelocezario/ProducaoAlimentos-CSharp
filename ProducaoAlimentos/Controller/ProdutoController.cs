@@ -113,6 +113,15 @@ namespace Controller
             return true;
         }
 
+        // Métodos para Criação de MovimentacaoEstoqueProduto
+        public bool SalvarMovimentacaoEstoqueProduto(MovimentacaoEstoqueProduto movimentacaoEstoque)
+        {
+            ContextoSingleton.Instancia.MovimentacaoEstoqueProdutos.Add(movimentacaoEstoque);
+            ContextoSingleton.Instancia.SaveChanges();
+
+            return true;
+        }
+
         // Métodos de busca
         public Produto BuscarProdutoPorID(int idProduto)
         {
@@ -135,21 +144,21 @@ namespace Controller
         }
         public EstoqueProduto BuscarEstoqueProdutoPorNome(string nomeProduto)
         {
-            var e = from x in ListarEstoqueProdutos()
+            var ep = from x in ListarEstoqueProdutos()
                     where x._Produto.Nome.ToLower().Contains(nomeProduto.Trim().ToLower())
                     select x;
-            if (e != null)
-                return e.FirstOrDefault();
+            if (ep != null)
+                return ep.FirstOrDefault();
             else
                 return null;
         }
-        public EstoqueProduto BuscarEstoqueProdutoPorNomeExato(string nomeProduto)
+        public EstoqueProduto BuscarEstoqueProdutoPorProduto(Produto produto)
         {
-            var e = from x in ListarEstoqueProdutos()
-                    where x._Produto.Nome.ToLower().Equals(nomeProduto.Trim().ToLower())
+            var ep = from x in ListarEstoqueProdutos()
+                    where x._Produto.Equals(produto)
                     select x;
-            if (e != null)
-                return e.FirstOrDefault();
+            if (ep != null)
+                return ep.FirstOrDefault();
             else
                 return null;
         }
@@ -159,11 +168,11 @@ namespace Controller
         }
         public List<LoteProduto> BuscarLotesProdutosPorNome(string nomeProduto)
         {
-            var e = (from x in ListarLotesProdutos()
+            var lp = (from x in ListarLotesProdutos()
                     where x._Produto.Nome.ToLower().Contains(nomeProduto.Trim().ToLower())
                     select x).ToList();
-            if (e != null)
-                return e;
+            if (lp != null)
+                return lp;
             else
                 return null;
         }
@@ -181,15 +190,15 @@ namespace Controller
         public List<EstoqueProduto> ListarEstoqueProdutos() => ContextoSingleton.Instancia.EstoqueProduto.ToList();
         public List<LoteProduto> ListarLotesProdutos() => ContextoSingleton.Instancia.LotesProdutos.ToList();
 
-        // Métodos para controle de entrada e saída de estoque (EstoqueProduto e LoteProduto)
-        public void RegistrarEntradaEstoqueProduto(LoteProduto loteProduto)
+        // Métodos para controle de entrada e saída de estoque (MovimentãcaoEstoque, EstoqueProduto e LoteProduto)
+        public bool RegistrarProducao(LoteProduto loteProduto)
         {
-            // Verificando se existe estoqueProduto e adicionando quantidade e valor em estoque
-            EstoqueProduto estoqueProduto = BuscarEstoqueProdutoPorNomeExato(loteProduto._Produto.Nome);
+            EstoqueProduto estoqueProduto = BuscarEstoqueProdutoPorProduto(loteProduto._Produto);
+            MovimentacaoEstoqueProduto movimentacaoEstoque = new MovimentacaoEstoqueProduto();
             if (estoqueProduto != null)
             {
                 estoqueProduto.QtdeTotalEstoque += loteProduto.QtdeInicial;
-                estoqueProduto.CustoTotalEstoque += loteProduto.CustoMedio * loteProduto.QtdeInicial;
+                estoqueProduto.CustoTotalEstoque += loteProduto.CustoTotalInicial;
 
                 EditarEstoqueProduto(estoqueProduto.EstoqueProdutoID, estoqueProduto);
             }
@@ -198,11 +207,23 @@ namespace Controller
                 estoqueProduto = new EstoqueProduto();
                 estoqueProduto._Produto = loteProduto._Produto;
                 estoqueProduto.QtdeTotalEstoque = loteProduto.QtdeInicial;
-                estoqueProduto.CustoTotalEstoque = loteProduto.CustoMedio * loteProduto.QtdeInicial;
+                estoqueProduto.CustoTotalEstoque = loteProduto.CustoTotalInicial;
 
                 SalvarEstoqueProduto(estoqueProduto);
             }
+            movimentacaoEstoque.DataMovimentacao = loteProduto.DataProducao;
+            movimentacaoEstoque.Qtde = loteProduto.QtdeInicial;
+            movimentacaoEstoque._LoteProduto = loteProduto;
+
+            InsumoController ic = new InsumoController();
+            foreach (LoteInsumoProducao i in loteProduto._ItemInsumoProducao)
+            {
+                ic.RegistrarSaidaEstoqueInsumo(i.LoteInsumoID, i.QtdeInsumo, loteProduto.DataProducao);
+            }
+
+            SalvarMovimentacaoEstoqueProduto(movimentacaoEstoque);
             SalvarLoteProduto(loteProduto);
+            return true;
         }
         public void RegistrarSaidaEstoqueProduto(int idLoteProduto, double qtdeSaida)
         {

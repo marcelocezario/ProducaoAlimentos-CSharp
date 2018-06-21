@@ -560,7 +560,7 @@ namespace ConsoleView
             loteProduto.Validade = DateTime.Parse(Console.ReadLine());
             loteProduto.DataProducao = DateTime.Now;
             
-            pc.RegistrarEntradaEstoqueProduto(loteProduto);
+            pc.RegistrarProducao(loteProduto);
         }
 
         // Listagens
@@ -585,7 +585,7 @@ namespace ConsoleView
 
             InsumoController ic = new InsumoController();
 
-            foreach (EstoqueInsumo ii in ic.ListarEstoqueInsumo())
+            foreach (EstoqueInsumo ii in ic.ListarEstoqueInsumos())
                 ExibirEstoqueInsumos(ii);
         }
         private static void ListarEstoqueProdutos()
@@ -610,7 +610,7 @@ namespace ConsoleView
 
             FornecedorController fc = new FornecedorController();
 
-            foreach (Fornecedor f in fc.ListarFornecedors())
+            foreach (Fornecedor f in fc.ListarFornecedores())
                 ExibirFornecedor(f);
         }
         private static void ListarInsumos()

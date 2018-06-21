@@ -6,7 +6,7 @@ namespace Controller
 {
     public class FornecedorController
     {
-        // Métodos para Criação, Edição e Exclusão de Fornecedors 
+        // Métodos para Criação, Edição e Exclusão de Fornecedores 
         public bool SalvarFornecedor(Fornecedor fornecedor)
         {
             ContextoSingleton.Instancia.Fornecedores.Add(fornecedor);
@@ -55,8 +55,19 @@ namespace Controller
             else
                 return null;
         }
+        public List<Fornecedor> BuscarFornecedoresPorNome(string nomeFornecedor)
+        {
+            var f = (from x in ContextoSingleton.Instancia.Fornecedores
+                    where x.Nome.ToLower().Contains(nomeFornecedor.Trim().ToLower())
+                    select x).ToList();
+
+            if (f != null)
+                return f;
+            else
+                return null;
+        }
 
         // Métodos para listagem de dados
-        public List<Fornecedor> ListarFornecedors() => ContextoSingleton.Instancia.Fornecedores.ToList();
+        public List<Fornecedor> ListarFornecedores() => ContextoSingleton.Instancia.Fornecedores.ToList();
     }
 }

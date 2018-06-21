@@ -14,7 +14,7 @@ namespace Controller
 
             return true;
         }
-        public bool EditarEnderedco(int idEndereco, Endereco enderecoEditado)
+        public bool EditarEndereco(int idEndereco, Endereco enderecoEditado)
         {
             Endereco enderecoEditar = BuscarEnderecoPorId(idEndereco);
 

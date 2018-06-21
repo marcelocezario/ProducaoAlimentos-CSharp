@@ -49,19 +49,17 @@ namespace Controller
         }
         public UnidadeDeMedida BuscarUnidadeDeMedidaPorNome(string nomeUnidadeDeMedida)
         {
-            var i = from x in ContextoSingleton.Instancia.UnidadesDeMedida
+            var um = from x in ContextoSingleton.Instancia.UnidadesDeMedida
                     where x.Nome.ToLower().Contains(nomeUnidadeDeMedida.Trim().ToLower())
                     select x;
 
-            if (i != null)
-                return i.FirstOrDefault();
+            if (um != null)
+                return um.FirstOrDefault();
             else
                 return null;
         }
 
         // Métodos para listagem de dados
         public List<UnidadeDeMedida> ListarUnidadesDeMedida() => ContextoSingleton.Instancia.UnidadesDeMedida.ToList();
-
-
     }
 }

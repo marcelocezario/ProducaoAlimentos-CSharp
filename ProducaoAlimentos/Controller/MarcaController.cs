@@ -58,7 +58,5 @@ namespace Controller
 
         // Métodos para listagem de dados
         public List<Marca> ListarMarcas() => ContextoSingleton.Instancia.Marcas.ToList();
-
-
     }
 }
