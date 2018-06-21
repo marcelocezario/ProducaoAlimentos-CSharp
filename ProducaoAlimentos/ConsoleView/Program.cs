@@ -503,7 +503,7 @@ namespace ConsoleView
             Produto produto;
             Double custoTotal = 0;
             LoteProduto loteProduto = new LoteProduto();
-            List<ItemInsumoProducao> itens = new List<ItemInsumoProducao>();
+            List<LoteInsumoProducao> itens = new List<LoteInsumoProducao>();
 
             string opcao = "n";
 
@@ -537,7 +537,7 @@ namespace ConsoleView
                 {
                     ExibirLoteInsumo(li);
                 }
-                ItemInsumoProducao itemInsumoProducao = new ItemInsumoProducao();
+                LoteInsumoProducao itemInsumoProducao = new LoteInsumoProducao();
 
                 Console.WriteLine("");
                 Console.Write("Digite a Id do lote que deseja selecionar de " + insumo._Insumo.Nome + ": ");

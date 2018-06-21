@@ -16,7 +16,7 @@ namespace Model.DAL
         public DbSet<Fornecedor> Fornecedores { get; set; }
         public DbSet<Insumo> Insumos { get; set; }
         public DbSet<InsumoComposicaoProduto> ItensComposicaoProduto { get; set; }
-        public DbSet<ItemInsumoProducao> ItemInsumoProducao { get; set; }
+        public DbSet<LoteInsumoProducao> ItemInsumoProducao { get; set; }
         public DbSet<LoteInsumo> LotesInsumo { get; set; }
         public DbSet<LoteProduto> LotesProduto { get; set; }
         public DbSet<Marca> Marcas { get; set; }

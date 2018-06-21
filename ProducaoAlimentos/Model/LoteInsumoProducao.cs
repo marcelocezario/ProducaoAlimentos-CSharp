@@ -2,9 +2,9 @@
 
 namespace Model
 {
-    public class ItemInsumoProducao
+    public class LoteInsumoProducao
     {
-        public int ItemInsumoProducaoID { get; set; }
+        public int LoteInsumoProducaoID { get; set; }
 
         public double QtdeInsumo { get; set; }
         public double CustoInsumo { get; set; }

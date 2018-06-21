@@ -18,7 +18,8 @@ namespace Model
         public double QtdeInicial { get; set; }
         public double QtdeDisponivel { get; set; }
         public double CustoMedio { get; set; }
-        public DateTime Validade { get; set; }
+        public double CustoTotalInicial { get; set; }
         public DateTime DataCompra { get; set; }
+        public DateTime Validade { get; set; }
     }
 }

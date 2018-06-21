@@ -1,4 +1,6 @@
-﻿namespace Model
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Model
 {
     public class Endereco
     {
@@ -8,10 +10,9 @@
         public string Complemento { get; set; }
         public string Bairro { get; set; }
         public string Cep { get; set; }
-        public string Cidade { get; set; }
-        
-        public int EstadoID { get; set; }
-        public virtual Estado _Estado { get; set; }
 
+        [ForeignKey("_Cidade")]
+        public int CidadeID { get; set; }
+        public virtual Cidade _Cidade { get; set; }
     }
 }

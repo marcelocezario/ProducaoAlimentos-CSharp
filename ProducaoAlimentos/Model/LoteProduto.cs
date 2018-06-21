@@ -12,12 +12,13 @@ namespace Model
         public int ProdutoID { get; set; }
         public virtual Produto _Produto { get; set; }
 
-        public virtual List<ItemInsumoProducao> _ItemInsumoProducao { get; set; }
+        public virtual List<LoteInsumoProducao> _ItemInsumoProducao { get; set; }
 
         public double QtdeInicial { get; set; }
         public double QtdeDisponivel { get; set; }
         public double CustoMedio { get; set; }
-        public double ValorVendaMedio { get; set; }
+        public double CustoTotalInicial { get; set; }
+        public double ValorVendaUnitario { get; set; }
         public DateTime Validade { get; set; }
         public DateTime DataProducao { get; set; }
     }
