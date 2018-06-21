@@ -82,7 +82,7 @@ namespace Controller
         // Métodos para Criação, Edição e Exclusão de LotesProdutos
         public bool SalvarLoteProduto(LoteProduto loteProduto)
         {
-            ContextoSingleton.Instancia.LotesProduto.Add(loteProduto);
+            ContextoSingleton.Instancia.LotesProdutos.Add(loteProduto);
             ContextoSingleton.Instancia.SaveChanges();
 
             return true;
@@ -155,7 +155,7 @@ namespace Controller
         }
         public LoteProduto BuscarLoteProdutoPorId(int idLoteProduto)
         {
-            return ContextoSingleton.Instancia.LotesProduto.Find(idLoteProduto);
+            return ContextoSingleton.Instancia.LotesProdutos.Find(idLoteProduto);
         }
         public List<LoteProduto> BuscarLotesProdutosPorNome(string nomeProduto)
         {
@@ -179,7 +179,7 @@ namespace Controller
             return p.ToList();
         }
         public List<EstoqueProduto> ListarEstoqueProdutos() => ContextoSingleton.Instancia.EstoqueProduto.ToList();
-        public List<LoteProduto> ListarLotesProdutos() => ContextoSingleton.Instancia.LotesProduto.ToList();
+        public List<LoteProduto> ListarLotesProdutos() => ContextoSingleton.Instancia.LotesProdutos.ToList();
 
         // Métodos para controle de entrada e saída de estoque (EstoqueProduto e LoteProduto)
         public void RegistrarEntradaEstoqueProduto(LoteProduto loteProduto)

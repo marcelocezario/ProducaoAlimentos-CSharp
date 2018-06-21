@@ -1,15 +1,12 @@
 ﻿using Model;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Controller
 {
     public class EnderecoController
     {
-        // Métodos para Criação, Edição e Exclusão de Marcas 
+        // Métodos para Criação, Edição e Exclusão de Endereço 
         public bool SalvarEndereco(Endereco endereco)
         {
             ContextoSingleton.Instancia.Enderecos.Add(endereco);

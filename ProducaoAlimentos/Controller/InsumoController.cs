@@ -78,7 +78,7 @@ namespace Controller
         //Métodos para Criação, Edição e Exclusão de LotesInsumo
         public bool SalvarLoteInsumo(LoteInsumo loteInsumo)
         {
-            ContextoSingleton.Instancia.LotesInsumo.Add(loteInsumo);
+            ContextoSingleton.Instancia.LotesInsumos.Add(loteInsumo);
             ContextoSingleton.Instancia.SaveChanges();
 
             return true;
@@ -151,7 +151,7 @@ namespace Controller
         }
         public LoteInsumo BuscarLoteInsumoPorId(int idLoteInsumo)
         {
-            return ContextoSingleton.Instancia.LotesInsumo.Find(idLoteInsumo);
+            return ContextoSingleton.Instancia.LotesInsumos.Find(idLoteInsumo);
         }
         public List<LoteInsumo> BuscarLotesInsumosPorNome(string nomeInsumo)
         {
@@ -175,7 +175,7 @@ namespace Controller
             return i.ToList();
         }
         public List<EstoqueInsumo> ListarEstoqueInsumo() => ContextoSingleton.Instancia.EstoqueInsumos.ToList();
-        public List<LoteInsumo> ListarLotesInsumos() => ContextoSingleton.Instancia.LotesInsumo.ToList();
+        public List<LoteInsumo> ListarLotesInsumos() => ContextoSingleton.Instancia.LotesInsumos.ToList();
 
         // Métodos para controle de entrada e saída de estoque (EstoqueInsumo e LoteInsumo)
         public void RegistrarEntradaEstoqueInsumo(LoteInsumo loteInsumo)
