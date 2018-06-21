@@ -20,7 +20,7 @@ namespace Controller
 
             if (fornecedorEditar != null)
             {
-                fornecedorEditado.FornecedorID = fornecedorEditar.FornecedorID;
+                fornecedorEditado.ID = fornecedorEditar.ID;
                 fornecedorEditar = fornecedorEditado;
 
                 ContextoSingleton.Instancia.Entry(fornecedorEditar).State = System.Data.Entity.EntityState.Modified;
