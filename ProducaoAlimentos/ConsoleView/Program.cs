@@ -204,7 +204,7 @@ namespace ConsoleView
             ProdutoController pc = new ProdutoController();
             UnidadeDeMedidaController umc = new UnidadeDeMedidaController();
             Produto produto = new Produto();
-            List<ItemComposicaoProduto> itens = new List<ItemComposicaoProduto>();
+            List<InsumoComposicaoProduto> itens = new List<InsumoComposicaoProduto>();
             InsumoController ic = new InsumoController();
 
             Console.Write("Digite o nome do Produto: ");
@@ -238,7 +238,7 @@ namespace ConsoleView
             do
             {
                 opcao = "n";
-                ItemComposicaoProduto item = new ItemComposicaoProduto();
+                InsumoComposicaoProduto item = new InsumoComposicaoProduto();
                 Console.Write("Digite o nome do insumo que deseja utilizar na receita: ");
                 item._Insumo = ic.BuscarInsumoPorNome(Console.ReadLine());
 
@@ -531,19 +531,19 @@ namespace ConsoleView
             loteProduto.QtdeInicial = double.Parse(Console.ReadLine());
             loteProduto.QtdeDisponivel = loteProduto.QtdeInicial;
 
-            foreach (ItemComposicaoProduto item in loteProduto._Produto._ComposicaoProduto)
+            foreach (InsumoComposicaoProduto insumo in loteProduto._Produto._ComposicaoProduto)
             {
-                foreach (LoteInsumo li in ic.BuscarLotesInsumosPorNome(item._Insumo.Nome))
+                foreach (LoteInsumo li in ic.BuscarLotesInsumosPorNome(insumo._Insumo.Nome))
                 {
                     ExibirLoteInsumo(li);
                 }
                 ItemInsumoProducao itemInsumoProducao = new ItemInsumoProducao();
 
                 Console.WriteLine("");
-                Console.Write("Digite a Id do lote que deseja selecionar de " + item._Insumo.Nome + ": ");
+                Console.Write("Digite a Id do lote que deseja selecionar de " + insumo._Insumo.Nome + ": ");
                 itemInsumoProducao._LoteInsumo = ic.BuscarLoteInsumoPorId(int.Parse(Console.ReadLine()));
 
-                itemInsumoProducao.QtdeInsumo = loteProduto.QtdeInicial * item.QtdeInsumo;
+                itemInsumoProducao.QtdeInsumo = loteProduto.QtdeInicial * insumo.QtdeInsumo;
                 itemInsumoProducao.CustoInsumo = itemInsumoProducao._LoteInsumo.CustoMedio * itemInsumoProducao.QtdeInsumo;
 
                 custoTotal += itemInsumoProducao.CustoInsumo;
@@ -788,7 +788,7 @@ namespace ConsoleView
             Console.WriteLine("Nome................: " + p.Nome);
             Console.WriteLine("Unidade de Medida...: " + p._UnidadeDeMedida.Nome);
             Console.WriteLine("....Composição....");
-            foreach (ItemComposicaoProduto i in p._ComposicaoProduto)
+            foreach (InsumoComposicaoProduto i in p._ComposicaoProduto)
             {
                 Console.WriteLine(i.QtdeInsumo + " " + i._Insumo._UnidadeDeMedida.Sigla + " de " + i._Insumo.Nome);
             }

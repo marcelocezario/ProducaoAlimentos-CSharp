@@ -2,9 +2,9 @@
 
 namespace Model
 {
-    public class ItemComposicaoProduto
+    public class InsumoComposicaoProduto
     {
-        public int ItemComposicaoProdutoID { get; set; }
+        public int InsumoComposicaoProdutoID { get; set; }
 
         [ForeignKey("_Insumo")]
         public int InsumoID { get; set; }

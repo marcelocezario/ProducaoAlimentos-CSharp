@@ -42,12 +42,12 @@ namespace Model.DAL
 
             List<Produto> produtos = new List<Produto>()
             {
-                new Produto(){ Nome = "Nhoque", UnidadeDeMedidaID = 3, _ComposicaoProduto = new List<ItemComposicaoProduto>()
+                new Produto(){ Nome = "Nhoque", UnidadeDeMedidaID = 3, _ComposicaoProduto = new List<InsumoComposicaoProduto>()
                 {
-                    new ItemComposicaoProduto(){ InsumoID = 2, QtdeInsumo = 0.6},
-                    new ItemComposicaoProduto(){ InsumoID = 4, QtdeInsumo = 0.3},
-                    new ItemComposicaoProduto(){ InsumoID = 9, QtdeInsumo = 1},
-                    new ItemComposicaoProduto(){ InsumoID = 8, QtdeInsumo = 0.01}
+                    new InsumoComposicaoProduto(){ InsumoID = 2, QtdeInsumo = 0.6},
+                    new InsumoComposicaoProduto(){ InsumoID = 4, QtdeInsumo = 0.3},
+                    new InsumoComposicaoProduto(){ InsumoID = 9, QtdeInsumo = 1},
+                    new InsumoComposicaoProduto(){ InsumoID = 8, QtdeInsumo = 0.01}
                 }
             }
         };
