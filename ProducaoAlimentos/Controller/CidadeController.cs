@@ -46,24 +46,24 @@ namespace Controller
         }
         public Cidade BuscarCidadePorNome(string nomeCidade)
         {
-            var e = from x in ContextoSingleton.Instancia.Cidades
+            var c = from x in ContextoSingleton.Instancia.Cidades
                     where x.Nome.ToLower().Contains(nomeCidade.Trim().ToLower())
                     select x;
 
-            if (e != null)
-                return e.FirstOrDefault();
+            if (c != null)
+                return c.FirstOrDefault();
             else
                 return null;
         }
 
         public List<Cidade> BuscarCidadesPorNome(string nomeCidade)
         {
-            var e = (from x in ContextoSingleton.Instancia.Cidades
+            var c = (from x in ContextoSingleton.Instancia.Cidades
                      where x.Nome.ToLower().Contains(nomeCidade.Trim().ToLower())
                      select x).ToList();
 
-            if (e != null)
-                return e;
+            if (c != null)
+                return c;
             else
                 return null;
         }

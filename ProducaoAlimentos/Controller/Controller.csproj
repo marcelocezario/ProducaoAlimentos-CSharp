@@ -60,6 +60,7 @@
     <Compile Include="ProdutoController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnidadeDeMedidaController.cs" />
+    <Compile Include="VendaController.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Model\Model.csproj">
