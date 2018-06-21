@@ -42,5 +42,18 @@ namespace Controller
         {
             return ContextoSingleton.Instancia.Vendas.Find(idVenda);
         }
+
+        // Método para registrar venda
+        public bool RegistrarVenda (Venda venda)
+        {
+            ProdutoController pc = new ProdutoController();
+
+            foreach (ItemVenda i in venda._ItensVenda)
+                pc.RegistrarSaidaEstoqueProduto(i.LoteProdutoID, i.QtdeProduto, venda.DataVenda);
+
+            SalvarVenda(venda);
+
+            return true;
+        }
     }
 }
