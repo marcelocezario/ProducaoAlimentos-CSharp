@@ -225,23 +225,32 @@ namespace Controller
             SalvarLoteProduto(loteProduto);
             return true;
         }
-        public void RegistrarSaidaEstoqueProduto(int idLoteProduto, double qtdeSaida)
+        public bool RegistrarSaidaEstoqueProduto(int idLoteProduto, double qtdeSaida, DateTime data)
         {
             LoteProduto loteProduto = BuscarLoteProdutoPorId(idLoteProduto);
 
-            if(loteProduto != null)
+            if (loteProduto != null)
             {
                 double custoSaida = loteProduto.CustoMedio * qtdeSaida;
                 loteProduto.QtdeDisponivel -= qtdeSaida;
 
-                EstoqueProduto estoqueProduto = BuscarEstoqueProdutoPorNomeExato(loteProduto._Produto.Nome);
+                EstoqueProduto estoqueProduto = BuscarEstoqueProdutoPorProduto(loteProduto._Produto);
                 estoqueProduto.QtdeTotalEstoque -= qtdeSaida;
                 estoqueProduto.CustoTotalEstoque -= custoSaida;
 
+                MovimentacaoEstoqueProduto movimentacaoEstoque = new MovimentacaoEstoqueProduto();
+                movimentacaoEstoque.DataMovimentacao = data;
+                movimentacaoEstoque.Qtde = -qtdeSaida;
+                movimentacaoEstoque._LoteProduto = loteProduto;
+
+                SalvarMovimentacaoEstoqueProduto(movimentacaoEstoque);
                 EditarEstoqueProduto(estoqueProduto.EstoqueProdutoID, estoqueProduto);
                 EditarLoteProduto(loteProduto.LoteProdutoID, loteProduto);
-            }
 
+                return true;
+            }
+            else
+                return false;
         }
     }
 }
